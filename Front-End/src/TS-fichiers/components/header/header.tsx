@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-import './header.scss'
+import "./header.scss";
 
 export function Header() {
 	return (
@@ -13,22 +13,20 @@ export function Header() {
 					alt="Argent Bank Logo"
 				/>
 			</NavLink>
-			<div>
-      <NavLink className="main-nav-item" to={"/User"}>
-          <i className="fa fa-user-circle"></i>
-          Tony
-        </NavLink>
-
-				<NavLink className="main-nav-item" to={"/Sign-In"}>
+			<nav className="navLinks">
+				<NavLink className="main-nav-item" id="userLink" to={"/User"}>
+					<i className="fa fa-user-circle"></i>
+					Tony
+				</NavLink>
+				<NavLink className="main-nav-item" id="signInLink" to={"/Sign-In"}>
 					<i className="fa fa-user-circle"></i>
 					Sign In
 				</NavLink>
-        <NavLink className="main-nav-item" to={"/"}>
-          <i className="fa fa-sign-out"></i>
-          Sign Out
-        </NavLink>
-
-			</div>
+				<NavLink className="main-nav-item" id="signOutLink" to={"/"}>
+					<i className="fa fa-sign-out"></i>
+					Sign Out
+				</NavLink>
+			</nav>
 		</div>
 	);
 }
