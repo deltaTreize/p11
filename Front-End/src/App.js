@@ -3,7 +3,7 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { Header } from "./TS-fichiers/components/header/header.tsx";
 import { Footer } from "./TS-fichiers/components/footer/footer.tsx";
 import { HomePage } from "./TS-fichiers/pages/homePage/homePage.tsx";
-import { SignIn } from "./TS-fichiers/pages/sign-in/sign-In.tsx";
+import { SignIn } from "./TS-fichiers/pages/sign-in/sign-In.jsx";
 import { User } from "./TS-fichiers/pages/user/user.tsx";
 
 import "./App.scss";
