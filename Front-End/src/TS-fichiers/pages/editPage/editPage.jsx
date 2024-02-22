@@ -1,23 +1,25 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Login } from "../../redux/actions/action.js";
+import { Button } from "../../components/button/button.jsx";
 
 import "./editPage.scss";
 
 
 export function EditPage() {
+	const id = useSelector((state) => state.allReducer.user.id);
 	const userName = useSelector((state) => state.allReducer.user.userName);
 	const firstName = useSelector((state) => state.allReducer.user.firstName);
 	const lastName = useSelector((state) => state.allReducer.user.lastName);
 	const token = useSelector((state) => state.allReducer.user.token);
   const dispatch = useDispatch()
 
-	const [inputValue, setInputValue] = useState(`${userName}`);
+	const [inputValue, setInputValue] = useState(``);
 
 	async function handleChange() {
 		let headersList = {
 			Accept: "*/*",
-			"User-Agent": "Thunder Client (https://www.thunderclient.com)",
 			Authorization: "Bearer " + token,
 			"Content-Type": "application/json",
 		};
@@ -29,16 +31,23 @@ export function EditPage() {
 			"http://localhost:3001/api/v1/user/profile",
 			{
 				method: "PUT",
-				body: bodyContent,
 				headers: headersList,
+				body: bodyContent,
 			}
 		);
 		const userDataJson = await userDataFetched.json();
-
+      console.log(userDataJson);
+      console.log(inputValue);
     const userData = {
-      userName: userDataJson.body.userName,
+      id: id,
+      firstName: firstName,
+      lastName: lastName,
+      userName: inputValue,
+      token: token,
+
     };
     dispatch(Login(userData));
+    setInputValue('')
 	}
 
 	return (
@@ -49,7 +58,7 @@ export function EditPage() {
 					User name:
 					<input
 						type="text"
-						value={inputValue}
+						placeholder={userName}
 						id="userName"
 						onChange={(e) => setInputValue(e.target.value)}
 					/>
@@ -73,10 +82,8 @@ export function EditPage() {
 					/>
 				</label>
 				<div className="edit-buttons">
-					<button className="edit-button" onClick={handleChange}>
-						Save
-					</button>
-					<button className="edit-button">Cancel</button>
+					<Button onClick={handleChange} text="Save"/>
+					<Button to={"/User"} text="Cancel"/>
 				</div>
 			</div>
 			<section className="account-edit">

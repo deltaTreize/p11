@@ -1,6 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Button } from "../../components/button/button.jsx";
+
 
 import './user.scss'
 
@@ -13,7 +14,7 @@ export function User() {
     <main className="main bg-dark">
       <div className="header">
         <h1>Welcome back<br />{firstName} {lastName}</h1>
-        <Link className="edit-button-user" to={"/Edit"}>Edit Name</Link>
+        <Button to={"/Edit"} text="Edit Name"/>
       </div>
       <section className="account">
         <div className="account-content-wrapper">
@@ -22,7 +23,7 @@ export function User() {
           <p className="account-amount-description">Available Balance</p>
         </div>
         <div className="account-content-wrapper cta">
-          <button className="transaction-button">View transactions</button>
+          <Button text="View transactions"/>
         </div>
       </section>
       <section className="account">
@@ -32,7 +33,7 @@ export function User() {
           <p className="account-amount-description">Available Balance</p>
         </div>
         <div className="account-content-wrapper cta">
-          <button className="transaction-button">View transactions</button>
+        <Button text="View transactions"/>
         </div>
       </section>
       <section className="account">
@@ -42,7 +43,7 @@ export function User() {
           <p className="account-amount-description">Current Balance</p>
         </div>
         <div className="account-content-wrapper cta">
-          <button className="transaction-button">View transactions</button>
+        <Button text="View transactions"/>
         </div>
       </section>
     </main>

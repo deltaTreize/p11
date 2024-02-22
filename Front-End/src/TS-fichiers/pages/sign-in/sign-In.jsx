@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { Login, isLogin } from "../../redux/actions/action.js";
+import { Button } from "../../components/button/button.jsx";
 
 import "./sign-in.scss";
 
@@ -87,14 +88,17 @@ export function SignIn() {
 							<input type="checkbox" id="remember-me" />
 						</label>
 					</div>
-					<Link
+					<Button
 						type="button"
-						className="sign-in-button"
 						onClick={HandleSubmit}
 						to={'/User'}
-					>
-						Sign In
-					</Link>
+						text = 'Sign In'
+					/>
+					<Button
+						type="button"
+						to={'/Sign-Up'}
+						text = 'Sign Up'
+					/>
 				</form>
 			</section>
 		</main>

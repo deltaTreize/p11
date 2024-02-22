@@ -27,18 +27,12 @@
 		display: flex;
 		justify-content: space-between;
 		margin-top: 10px;
-    height: 45px;	
-    
-    .edit-button {
-			border-color: #00bc77;
-			background-color: #00bc77;
-			color: #fff;
+    height: 40px;	
+    a {
 			font-weight: bold;
-			padding: 10px;
-			width: 47%;
+			width: 42%;
 			border-radius: 5px;
-      border: none;
-			cursor: pointer;
+      text-decoration: none;
 		}
 	}
 	.account-edit {
