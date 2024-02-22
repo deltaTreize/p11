@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Login, isLogin } from "../../redux/actions/action.js";
 
 import "./sign-in.scss";
@@ -8,7 +8,6 @@ import "./sign-in.scss";
 export function SignIn() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const logged = useSelector(state => state.allReducer.isLogged);
 	const dispatch = useDispatch();
 
 	
@@ -25,7 +24,7 @@ export function SignIn() {
 			}
 		);
 		const loginDataJson = await loginData.json();
-console.log(loginDataJson);
+		
 			if (loginDataJson.status === 200) {
 				const userDataFetched = await fetch(
 					"http://localhost:3001/api/v1/user/profile",
@@ -88,25 +87,14 @@ console.log(loginDataJson);
 							<input type="checkbox" id="remember-me" />
 						</label>
 					</div>
-
-					{logged && <Link
+					<Link
 						type="button"
 						className="sign-in-button"
 						onClick={HandleSubmit}
 						to={'/User'}
 					>
 						Sign In
-					</Link>}
-					{!logged && <Link
-						type="button"
-						className="sign-in-button"
-						onClick={HandleSubmit}
-						to={'/Sign-In'}
-					>
-						Sign In
 					</Link>
-
-					}
 				</form>
 			</section>
 		</main>

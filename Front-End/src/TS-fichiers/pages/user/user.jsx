@@ -1,13 +1,19 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import './user.scss'
 
 export function User() {
+
+  const firstName = useSelector(state => state.allReducer.user.firstName)
+  const lastName = useSelector(state => state.allReducer.user.lastName)
+
 	return (
     <main className="main bg-dark">
       <div className="header">
-        <h1>Welcome back<br />Tony Jarvis!</h1>
-        <button className="edit-button">Edit Name</button>
+        <h1>Welcome back<br />{firstName} {lastName}</h1>
+        <Link className="edit-button-user" to={"/Edit"}>Edit Name</Link>
       </div>
       <section className="account">
         <div className="account-content-wrapper">

@@ -30,24 +30,12 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 5px;
-}
-
-#signOutLink, #userLink, #signInLink{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-#signOutLink,#userLink{
-  display: none;
-}
-
-#userLink.active{
-  ~ #signOutLink,
-  &#userLink{
+  gap: 8px;
+  a{
     display: flex;
-  }
-  ~ #signInLink{
-    display: none;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
   }
 }
