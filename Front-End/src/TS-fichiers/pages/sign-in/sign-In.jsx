@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { Login, isLogin } from "../../redux/actions/action.js";
 import { Button } from "../../components/button/button.jsx";
@@ -91,12 +90,12 @@ export function SignIn() {
 					<Button
 						type="button"
 						onClick={HandleSubmit}
-						to={'/User'}
+						to={'/user'}
 						text = 'Sign In'
 					/>
 					<Button
 						type="button"
-						to={'/Sign-Up'}
+						to={'/sign-Up'}
 						text = 'Sign Up'
 					/>
 				</form>

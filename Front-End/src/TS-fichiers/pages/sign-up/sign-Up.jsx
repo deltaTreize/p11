@@ -42,7 +42,7 @@ export function SignUp() {
 			}
 			if (response.status === 200) {
 				setDisplay("none");
-				window.location.replace("./Sign-In");
+				window.location.replace("./sign-In");
 			}
 		});
 

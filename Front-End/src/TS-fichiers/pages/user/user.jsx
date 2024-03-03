@@ -14,7 +14,7 @@ export function User() {
     <main className="main bg-dark">
       <div className="header">
         <h1>Welcome back<br />{firstName} {lastName}</h1>
-        <Button to={"/Edit"} text="Edit Name"/>
+        <Button to={"/edit"} text="Edit Name"/>
       </div>
       <section className="account">
         <div className="account-content-wrapper">

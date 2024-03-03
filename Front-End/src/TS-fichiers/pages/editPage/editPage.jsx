@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Login } from "../../redux/actions/action.js";
 import { Button } from "../../components/button/button.jsx";
@@ -83,7 +82,7 @@ export function EditPage() {
 				</label>
 				<div className="edit-buttons">
 					<Button onClick={handleChange} text="Save"/>
-					<Button to={"/User"} text="Cancel"/>
+					<Button to={"/user"} text="Cancel"/>
 				</div>
 			</div>
 			<section className="account-edit">

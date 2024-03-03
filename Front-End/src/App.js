@@ -14,21 +14,19 @@ import { useSelector } from "react-redux";
 function App() {
 	const logged = useSelector(state => state.allReducer.isLogged)
 	return (
-		<>
 			<StrictMode>
 				<BrowserRouter>
 					<Header />
 					<Routes>
 						<Route path="/" element={<HomePage />} />
-						<Route path="/Sign-In" element={<SignIn />} />
-						<Route path="/Sign-Up" element={<SignUp />} />
-						{logged && <Route path="/User" element={<User />} />}
-						{logged && <Route path="/Edit" element={<EditPage />} />}
+						<Route path="/sign-In" element={<SignIn />} /> 
+						<Route path="/sign-Up" element={<SignUp />} />
+						{logged && <Route path="/user" element={<User />} />}
+						{logged && <Route path="/edit" element={<EditPage />} />}
 					</Routes>
 					<Footer />
 				</BrowserRouter>
 			</StrictMode>
-		</>
 	);
 }
 
