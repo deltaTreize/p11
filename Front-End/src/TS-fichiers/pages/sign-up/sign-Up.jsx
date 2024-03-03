@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Button } from "../../components/button/button.jsx";
 
 import "./sign-up.scss";
 

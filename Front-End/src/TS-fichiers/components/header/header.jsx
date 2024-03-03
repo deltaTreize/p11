@@ -1,18 +1,20 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Logout, isLogout } from "../../redux/actions/action.js";
+import { TokenOff, Logout, IsLogout } from "../../redux/actions/action.js";
 
 import "./header.scss";
 
 export function Header() {
 	const userName = useSelector((state) => state.allReducer.user.userName);
 	const logged = useSelector((state) => state.allReducer.isLogged);
-
 	const dispatch = useDispatch();
+	
 	const handleLogout = () => {
+		localStorage.token = '';
+		dispatch(TokenOff());
 		dispatch(Logout());
-		dispatch(isLogout());
+		dispatch(IsLogout());
 	};
 
 	return (
@@ -35,7 +37,6 @@ export function Header() {
 						{userName}
 					</NavLink>
 				)}
-				;
 				{!logged && (
 					<NavLink
 						className="main-nav-item"
@@ -46,7 +47,6 @@ export function Header() {
 						Sign In
 					</NavLink>
 				)}
-				;
 				{logged && (
 					<NavLink
 						className="main-nav-item"
@@ -58,7 +58,6 @@ export function Header() {
 						Sign Out
 					</NavLink>
 				)}
-				;
 			</nav>
 		</div>
 	);

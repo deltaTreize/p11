@@ -1,4 +1,3 @@
-
 export function Login(userData) {
 	return {
 		type: "SIGN_IN",
@@ -12,13 +11,26 @@ export function Logout() {
 	};
 }
 
-export function isLogin() {
+export function IsLoggin() {
 	return {
-		type: 'ISLOGIN',
+		type: "ISLOGIN",
 	};
 }
-export function isLogout (){
+
+export function IsLogout() {
 	return {
-		type: 'ISLOGOUT',
+		type: "ISLOGOUT",
+	};
+}
+
+export function TokenOn() {
+	return {
+		type: 'TOKEN_ON',
+	};
+}
+
+export function TokenOff (){
+	return {
+		type: 'TOKEN_OFF',
 	};
 }

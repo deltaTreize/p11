@@ -1,12 +1,33 @@
-let initialState= {
+
+let initialState = {
 	id: "",
 	firstName: "",
 	lastName: "",
 	userName: "",
-	token: "",
 };
 
-const userReduceur = (state = initialState, action) => {
+if (localStorage.token){
+	const userDataFetched = await fetch(
+		"http://localhost:3001/api/v1/user/profile",
+		{
+			method: "POST",
+			headers: {
+				Authorization: "Bearer " + localStorage.token,
+			},
+		}
+		);
+		
+		const userDataJson = await userDataFetched.json();
+		
+		initialState = {
+			id: userDataJson.body.id,
+			firstName: userDataJson.body.firstName,
+			lastName: userDataJson.body.lastName,
+			userName: userDataJson.body.userName,
+		};
+}
+
+const userReduceur = ( state = initialState, action) => {
 	switch (action.type) {
 		case "SIGN_IN":
 			return {
@@ -14,15 +35,18 @@ const userReduceur = (state = initialState, action) => {
 				firstName: action.payload.firstName,
 				lastName: action.payload.lastName,
 				userName: action.payload.userName,
-				token: action.payload.token,
 			};
 
 		case "LOGOUT":
-			return initialState;
+			return state = initialState = {
+				id: "",
+				firstName: "",
+				lastName: "",
+				userName: "",
+			};
 
 		default:
 			return state;
 	}
 };
-
 export default userReduceur;

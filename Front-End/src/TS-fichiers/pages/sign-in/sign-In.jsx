@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Login, isLogin } from "../../redux/actions/action.js";
+import { TokenOn, Login, IsLoggin } from "../../redux/actions/action.js";
 import { Button } from "../../components/button/button.jsx";
 
 import "./sign-in.scss";
@@ -10,7 +10,6 @@ export function SignIn() {
 	const [password, setPassword] = useState("");
 	const dispatch = useDispatch();
 
-	
 	const HandleSubmit = async () => {
 		const loginData = await fetch(
 			"http://localhost:3001/api/v1/user/login",
@@ -24,32 +23,34 @@ export function SignIn() {
 			}
 		);
 		const loginDataJson = await loginData.json();
-		
-			if (loginDataJson.status === 200) {
+
+		if (loginDataJson.status === 200) {
+			localStorage.setItem("token", loginDataJson.body.token);
+			if (localStorage.token) {
 				const userDataFetched = await fetch(
 					"http://localhost:3001/api/v1/user/profile",
 					{
 						method: "POST",
 						headers: {
-							Authorization: "Bearer " + loginDataJson.body.token,
+							Authorization: "Bearer " + localStorage.token,
 						},
 					}
 				);
-		
+
 				const userDataJson = await userDataFetched.json();
-		
+
 				const userData = {
 					id: userDataJson.body.id,
 					firstName: userDataJson.body.firstName,
 					lastName: userDataJson.body.lastName,
 					userName: userDataJson.body.userName,
-					token: `${loginDataJson.body.token}`,
 				};
 				dispatch(Login(userData));
-				dispatch(isLogin());
 			}
+			dispatch(TokenOn());
+			dispatch(IsLoggin());
+		}
 	};
-
 
 	return (
 		<main className="main bg-dark">
@@ -90,14 +91,10 @@ export function SignIn() {
 					<Button
 						type="button"
 						onClick={HandleSubmit}
-						to={'/user'}
-						text = 'Sign In'
+						to={"/user"}
+						text="Sign In"
 					/>
-					<Button
-						type="button"
-						to={'/sign-Up'}
-						text = 'Sign Up'
-					/>
+					<Button type="button" to={"/sign-Up"} text="Sign Up" />
 				</form>
 			</section>
 		</main>
