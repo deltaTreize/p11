@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { TokenOn, Login, IsLoggin } from "../../redux/actions/action.js";
+import {
+	TokenOn,
+	Login,
+	IsLoggin,
+	Admin,
+	NotAdmin,
+} from "../../redux/actions/action.js";
 import { Button } from "../../components/button/button.jsx";
 
 import "./sign-in.scss";
@@ -24,6 +30,7 @@ export function SignIn() {
 		);
 		const loginDataJson = await loginData.json();
 
+
 		if (loginDataJson.status === 200) {
 			localStorage.setItem("token", loginDataJson.body.token);
 			if (localStorage.token) {
@@ -38,12 +45,20 @@ export function SignIn() {
 				);
 
 				const userDataJson = await userDataFetched.json();
+		console.log(userDataJson);
+
+				localStorage.setItem("id", userDataJson.body.id);
+				userDataJson.body.id === "65e580d07d663d473c1b5047"
+					? dispatch(Admin())
+					: dispatch(NotAdmin());
 
 				const userData = {
 					id: userDataJson.body.id,
 					firstName: userDataJson.body.firstName,
 					lastName: userDataJson.body.lastName,
 					userName: userDataJson.body.userName,
+					email: userDataJson.body.email,
+					createdAt: userDataJson.body.createdAt,
 				};
 				dispatch(Login(userData));
 			}

@@ -5,16 +5,24 @@ import "./sign-up.scss";
 export function SignUp() {
 	const [checked, setChecked] = useState(false);
 	const [inputType, setInputType] = useState("password");
+	const [checked2, setChecked2] = useState(false);
+	const [inputType2, setInputType2] = useState("password");
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [userName, setUserName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [confPassword, setConfPassword] = useState("");
 	const [display, setDisplay] = useState("none");
+	const [errorMessage, setErrorMessage] = useState("kjhnmkljqdenbm");
 
 	function handleChecked() {
 		setChecked(!checked);
 		!checked ? setInputType("text") : setInputType("password");
+	}
+	function handleChecked2() {
+		setChecked2(!checked2);
+		!checked2 ? setInputType2("text") : setInputType2("password");
 	}
 	let headersList = {
 		Accept: "*/*",
@@ -31,21 +39,26 @@ export function SignUp() {
 
 	function createUser(event) {
 		event.preventDefault();
-		fetch("http://localhost:3001/api/v1/user/signup", {
-			method: "POST",
-			headers: headersList,
-			body: bodyContent,
-		}).then((response) => {
-			if (response.status === 400) {
-				setDisplay("flex");
-			}
-			if (response.status === 200) {
-				setDisplay("none");
-				window.location.replace("./sign-In");
-			}
-		});
-
-		// dataFetched.status === 400 ? setDisplay("flex") : setDisplay("none");
+		if (password !== confPassword) {
+			setErrorMessage("Le mot de passe n'est pas correct! ");
+			setDisplay("flex");
+		}
+		if (password === confPassword) {
+			fetch("http://localhost:3001/api/v1/user/signup", {
+				method: "POST",
+				headers: headersList,
+				body: bodyContent,
+			}).then((response) => {
+				if (response.status === 400) {
+					setDisplay("flex");
+					setErrorMessage("L'adresse email est déjà utilisée");
+				}
+				if (response.status === 200) {
+					setDisplay("none");
+					window.location.replace("./sign-In");
+				}
+			});
+		}
 	}
 
 	return (
@@ -88,11 +101,14 @@ export function SignUp() {
 				<div>
 					<span className="inputTitle">Email</span>
 					<input
-						type="text"
+						type="email"
 						id="email"
 						minLength="4"
 						required
-						onChange={(e) => setEmail(e.target.value)}
+						onChange={(e) => {
+							setEmail(e.target.value);
+							setDisplay("none");
+						}}
 					/>
 				</div>
 				<div>
@@ -102,11 +118,31 @@ export function SignUp() {
 						id="password"
 						minLength="4"
 						required
-						onChange={(e) => setPassword(e.target.value)}
+						onChange={(e) => {
+							setPassword(e.target.value);
+							setDisplay("none");
+						}}
 					/>
-					<span id="show" onClick={handleChecked}>
+					<span className="show" onClick={handleChecked}>
 						{checked && <i className="fa-solid fa-eye"></i>}
 						{!checked && <i className="fa-solid fa-eye-slash"></i>}
+					</span>
+				</div>
+				<div>
+					<span className="inputTitle">Confirmation Password</span>
+					<input
+						type={inputType2}
+						id="confirmPassword"
+						minLength="4"
+						required
+						onChange={(e) => {
+							setConfPassword(e.target.value);
+							setDisplay("none");
+						}}
+					/>
+					<span className="show" onClick={handleChecked2}>
+						{checked2 && <i className="fa-solid fa-eye"></i>}
+						{!checked2 && <i className="fa-solid fa-eye-slash"></i>}
 					</span>
 				</div>
 				<input
@@ -115,9 +151,7 @@ export function SignUp() {
 					value="SIGN-UP"
 				/>
 			</form>
-			<p style={{ display: `${display}` }}>
-				L'adresse email est déjà utilisée!
-			</p>
+			<p style={{ display: `${display}` }}>{errorMessage}</p>
 		</main>
 	);
 }

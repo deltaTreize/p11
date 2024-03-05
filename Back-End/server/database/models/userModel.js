@@ -6,7 +6,20 @@ const userSchema = new mongoose.Schema(
     password: String,
     firstName: String,
     lastName: String,
-    userName: String
+    userName: String,
+    account: [{
+      name: String,
+      nbAccount : String,
+      solde: Number,
+      operations: [
+        {
+            date: String,
+            title: String,
+            description: String,
+            montant: Number,
+          }
+        ]
+    }]
   },
   {
     timestamps: true,

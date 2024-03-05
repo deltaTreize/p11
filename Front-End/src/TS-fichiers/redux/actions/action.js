@@ -34,3 +34,13 @@ export function TokenOff (){
 		type: 'TOKEN_OFF',
 	};
 }
+export function Admin (){
+	return {
+		type: 'ADMIN',
+	};
+}
+export function NotAdmin (){
+	return {
+		type: 'NOTADMIN',
+	};
+}

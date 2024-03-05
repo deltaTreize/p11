@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { TokenOff, Logout, IsLogout } from "../../redux/actions/action.js";
+import { TokenOff, Logout, IsLogout, NotAdmin } from "../../redux/actions/action.js";
 
 import "./header.scss";
 
@@ -12,7 +12,9 @@ export function Header() {
 	
 	const handleLogout = () => {
 		localStorage.token = '';
+		localStorage.id = '';
 		dispatch(TokenOff());
+		dispatch(NotAdmin())
 		dispatch(Logout());
 		dispatch(IsLogout());
 	};

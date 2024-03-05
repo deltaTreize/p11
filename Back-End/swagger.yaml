@@ -101,6 +101,15 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
+  /user/profile/{id}:
+          delete: 
+          summary: Delete user with his id
+            security:
+              - Bearer: []
+            responses:
+              '200':
+                description: User profile deleted successully
+
 securityDefinitions:
   Bearer:
     type: apiKey

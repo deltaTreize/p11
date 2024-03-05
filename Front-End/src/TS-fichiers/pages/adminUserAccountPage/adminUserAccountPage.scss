@@ -1,0 +1,11 @@
+.colum{
+  display: flex;
+  flex-direction: column;
+}
+.accountTitle{
+  font: 700 20px sans-serif;
+  span{
+    font: 300 15px sans-serif;
+    margin-top: 5px;
+  }
+}

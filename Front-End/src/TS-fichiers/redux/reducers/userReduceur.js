@@ -4,6 +4,9 @@ let initialState = {
 	firstName: "",
 	lastName: "",
 	userName: "",
+	email: "",
+	createdAt: "",
+
 };
 
 if (localStorage.token){
@@ -24,6 +27,8 @@ if (localStorage.token){
 			firstName: userDataJson.body.firstName,
 			lastName: userDataJson.body.lastName,
 			userName: userDataJson.body.userName,
+			email: userDataJson.body.email,
+			createdAt: userDataJson.body.createdAt,
 		};
 }
 
@@ -35,6 +40,9 @@ const userReduceur = ( state = initialState, action) => {
 				firstName: action.payload.firstName,
 				lastName: action.payload.lastName,
 				userName: action.payload.userName,
+				email: action.payload.email,
+				createdAt: action.payload.createdAt,
+
 			};
 
 		case "LOGOUT":
@@ -43,6 +51,9 @@ const userReduceur = ( state = initialState, action) => {
 				firstName: "",
 				lastName: "",
 				userName: "",
+				email: "",
+				createdAt: "",
+
 			};
 
 		default:

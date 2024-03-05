@@ -80,7 +80,8 @@ module.exports.updateUserProfile = async serviceData => {
     const user = await User.findOneAndUpdate(
       { _id: decodedJwtToken.id },
       {
-        userName: serviceData.body.userName
+        userName: serviceData.body.userName,
+        email: serviceData.body.email
       },
       { new: true }
     )
@@ -95,3 +96,61 @@ module.exports.updateUserProfile = async serviceData => {
     throw new Error(error)
   }
 }
+module.exports.addAccount = async serviceData => {
+  try {
+    const jwtToken = serviceData.headers.authorization.split('Bearer')[1].trim()
+    const decodedJwtToken = jwt.decode(jwtToken)
+    const user = await User.findOneAndUpdate(
+      { _id: decodedJwtToken.id },
+      {
+        account: serviceData.body.account
+      },
+      { new: true }
+    )
+
+    if (!user) {
+      throw new Error('User not found!')
+    }
+
+    return user.toObject()
+  } catch (error) {
+    console.error('Error in userService.js', error)
+    throw new Error(error)
+  }
+}
+
+module.exports.getAllProfile = async serviceData => {
+  try {
+    const idAdmin = serviceData.headers.id
+    if (idAdmin === "65e580d07d663d473c1b5047" ) {
+      const users = await User.find()
+      return users.map(user => user.toObject());
+    }
+
+    if (!users || users.length === 0) {
+      throw new Error('Aucun utilisateur trouvé!');
+    }
+
+  } catch (error) {
+    console.error('Error in userService.js', error)
+    throw new Error(error)
+  }
+}
+
+module.exports.deleteUserProfile = async serviceData => {
+  try {
+    const jwtToken = serviceData.headers.authorization.split('Bearer')[1].trim()
+    const decodedJwtToken = jwt.decode(jwtToken)
+    const user = await User.findOneAndRemove()
+
+    if (!user) {
+      throw new Error('User not found!')
+    }
+
+    return user.toObject()
+  } catch (error) {
+    console.error('Error in userService.js', error)
+    throw new Error(error)
+  }
+}
+
