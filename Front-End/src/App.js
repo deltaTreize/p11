@@ -1,19 +1,19 @@
 import { StrictMode } from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import { Header } from "./TS-fichiers/components/header/header.jsx";
-import { Footer } from "./TS-fichiers/components/footer/footer.jsx";
-import { HomePage } from "./TS-fichiers/pages/homePage/homePage.jsx";
-import { SignIn } from "./TS-fichiers/pages/sign-in/sign-In.jsx";
-import { SignUp } from "./TS-fichiers/pages/sign-up/sign-Up.jsx";
-import { User } from "./TS-fichiers/pages/user/user.jsx";
-import { EditPage } from "./TS-fichiers/pages/editPage/editPage.jsx";
-import { AdminPage } from "./TS-fichiers/pages/adminPage/adminPage.jsx";
-import { AdminUserPage } from "./TS-fichiers/pages/adminUserPage/AdminUserPage.jsx";
-import { AdminUserAccountPage } from "./TS-fichiers/pages/adminUserAccountPage/adminUserAccountPage.jsx";
-import { UserAccontPage } from "./TS-fichiers/pages/userAccontPage/userAccontPage.jsx";
+import { Header } from "./JS-fichiers/components/header/header.jsx";
+import { Footer } from "./JS-fichiers/components/footer/footer.jsx";
+import { HomePage } from "./JS-fichiers/pages/pagePublic/homePage/homePage.jsx";
+import { SignIn } from "./JS-fichiers/pages/pagePublic/signInPage/signInPage.jsx";
+import { SignUp } from "./JS-fichiers/pages/pagePublic/signUpPage/signUpPage.jsx";
+import { User } from "./JS-fichiers/pages/pagesUsers/userPage/userPage.jsx";
+import { EditPage } from "./JS-fichiers/pages/pagesUsers/editPage/editPage.jsx";
+import { AdminPage } from "./JS-fichiers/pages/pagesAdmin/adminPage/adminPage.jsx";
+import { AdminUserPage } from "./JS-fichiers/pages/pagesAdmin/adminUserPage/AdminUserPage.jsx";
+import { AdminUserAccountPage } from "./JS-fichiers/pages/pagesAdmin/adminUserAccountPage/adminUserAccountPage.jsx";
+import { UserAccontPage } from "./JS-fichiers/pages/pagesUsers/userAccontPage/userAccontPage.jsx";
+import { useSelector } from "react-redux";
 
 import "./App.scss";
-import { useSelector } from "react-redux";
 
 function App() {
 	const logged = useSelector((state) => state.allReducer.isLogged);

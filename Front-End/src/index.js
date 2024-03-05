@@ -5,7 +5,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { configureStore } from "@reduxjs/toolkit";
-import  allReducer  from "./TS-fichiers/redux/reducers/allReduceur";
+import  allReducer  from "./JS-fichiers/redux/reduceurs/allReduceur";
 
 
  const store = configureStore ({
