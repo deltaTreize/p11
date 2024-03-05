@@ -30,30 +30,30 @@ export function AdminPage() {
 				</h1>
 			</div>
 			{allUsers.map((user) => (
-				<section className="account" key={user.id}>
-					<div className="account-content-wrapper">
-						<h3 className="account-title">
-							{user.lastName} {user.firstName}
-						</h3>
-						<p className="account-amount">{user.email}</p>
-						{user.account.map((data) => (
-							<Link to={`${user.lastName}`}>
-							<div className="account">
-								<p className="account-amount-description">
-									{data.name}
-								</p>
-								<p className="account-amount-description">
-									{data.nbAccount}
-								</p>
-								<p className="account-amount-description">
-									{data.solde} €
-								</p>
-							</div>
-							</Link>
-						))}
-					</div>
-					<div className="account-content-wrapper cta"></div>
-				</section>
+				<Link to={`${user.lastName}`} key={user.id}>
+					<section className="account">
+						<div className="account-content-wrapper">
+							<h3 className="account-title">
+								{user.lastName} {user.firstName}
+							</h3>
+							<p className="account-amount">{user.email}</p>
+							{user.account.map((data) => (
+								<div className="account">
+									<p className="account-amount-description">
+										{data.name}
+									</p>
+									<p className="account-amount-description">
+										{data.nbAccount}
+									</p>
+									<p className="account-amount-description">
+										{data.solde} €
+									</p>
+								</div>
+							))}
+						</div>
+						<div className="account-content-wrapper cta"></div>
+					</section>
+				</Link>
 			))}
 		</main>
 	);
