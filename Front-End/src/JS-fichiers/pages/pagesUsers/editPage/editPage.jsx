@@ -17,7 +17,6 @@ export function EditPage() {
 	const dispatch = useDispatch();
 
 	const [userNameValue, setUserNameValue] = useState(userName);
-	const [emailValue, setEmailValue] = useState(email);
 
 	async function handleChange() {
 		let headersList = {
@@ -28,7 +27,6 @@ export function EditPage() {
 
 		let bodyContent = JSON.stringify({
 			userName: `${userNameValue}`,
-			email: `${emailValue}`,
 		});
 		const userDataFetched = await fetch(
 			"http://localhost:3001/api/v1/user/profile",
@@ -43,11 +41,10 @@ export function EditPage() {
 			firstName: firstName,
 			lastName: lastName,
 			userName: userNameValue,
-			email: emailValue,
+			email: email,
 		};
 		dispatch(Login(userData));
 		setUserNameValue("");
-		setEmailValue("");
 	}
 
 	return (
@@ -76,7 +73,7 @@ export function EditPage() {
 								type="text"
 								placeholder={email}
 								id="lastName"
-								onChange={(e) => setEmailValue(e.target.value)}
+								disabled
 							/>
 						</label>
 

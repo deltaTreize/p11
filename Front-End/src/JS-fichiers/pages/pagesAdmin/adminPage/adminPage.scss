@@ -1,6 +1,9 @@
 .linkToAdminUserAccountPage{
   text-decoration: none;
   color: #12002b;
+  .account{
+    background-color: #fff;
+  }
   .account-content-wrapper{
     display: flex;
     flex-direction: column;

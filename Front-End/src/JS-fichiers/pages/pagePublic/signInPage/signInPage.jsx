@@ -45,7 +45,6 @@ export function SignIn() {
 				);
 
 				const userDataJson = await userDataFetched.json();
-		console.log(userDataJson);
 
 				localStorage.setItem("id", userDataJson.body.id);
 				userDataJson.body.role === "admin"

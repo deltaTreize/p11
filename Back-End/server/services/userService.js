@@ -90,7 +90,6 @@ module.exports.updateUserProfile = async (serviceData) => {
 			{ _id: decodedJwtToken.id },
 			{
 				userName: serviceData.body.userName,
-				email: serviceData.body.email,
 			},
 			{ new: true }
 		);

@@ -35,16 +35,16 @@ export function User() {
 					{firstName} {lastName}
 				</h1>
 				{admin && <Button to={"/admin"} text="View All Users" />}
-				{!admin && <Button to={"/edit"} text="Edit Name" />}
+				{!admin && <Button to={"/edit"} text="Edit Profil" />}
 			</div>
 			{dataUsers.map((data) => (
-				<section className="account" key={firstName + data.nbAccount}>
-					<div className="account-content-wrapper">
-						<h3 className="account-title">{data.name}</h3>
-						<p className="account-amount">{data.solde}€</p>
-						<p className="account-amount-description">
+				<section className="account-userPage" key={firstName + data.nbAccount}>
+					<div className="account-userPage-wrapper">
+						<p className="account-amount-nbAccount">
 							{data.nbAccount}
 						</p>
+						<h3 className="account-title">{data.name}</h3>
+						<p className="account-amount">{data.solde}€</p>
 					</div>
 					<div className="account-content-wrapper cta">
 						<Button to={`${data.nbAccount}`} text="View transactions" />
