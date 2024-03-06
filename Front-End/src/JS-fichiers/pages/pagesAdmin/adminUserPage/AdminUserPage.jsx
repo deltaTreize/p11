@@ -8,7 +8,7 @@ import "./AdminUserPage.scss";
 export function AdminUserPage() {
 	const id = useSelector((state) => state.allReducer.user.id);
 	const [allUsers, setAllUsers] = useState([]);
-	const { userLastName } = useParams();
+	const { userId } = useParams();
 
 	useEffect(() => {
 		fetch("http://localhost:3001/api/v1/user", {
@@ -21,7 +21,7 @@ export function AdminUserPage() {
 			.then((dataJson) => setAllUsers(dataJson.body));
 	}, []);
 
-	const target = allUsers.length ? allUsers.find((location) => location.lastName === userLastName) : null;
+	const target = allUsers.length ? allUsers.find((location) => location.id === userId) : null;
   if (target) {
     return (
       <main className="main bg-dark">

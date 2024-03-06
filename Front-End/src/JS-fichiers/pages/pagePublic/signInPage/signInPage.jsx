@@ -48,7 +48,7 @@ export function SignIn() {
 		console.log(userDataJson);
 
 				localStorage.setItem("id", userDataJson.body.id);
-				userDataJson.body.id === "65e580d07d663d473c1b5047"
+				userDataJson.body.role === "admin"
 					? dispatch(Admin())
 					: dispatch(NotAdmin());
 

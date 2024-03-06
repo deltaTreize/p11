@@ -17,19 +17,24 @@ router.put(
 	"/profile",
 	tokenValidation.validateToken,
 	userController.updateUserProfile,
-	userController.addAccount
-);
-router.put(
-	"/profile",
-	tokenValidation.validateToken,
-	userController.addAccount
 );
 
-router.delete(
-	"/profile/:id",
+router.put(
+	"/account",
 	tokenValidation.validateToken,
-	userController.deleteUserProfile
+	userController.addAccount,
 );
+router.put(
+	"/account/operations",
+	tokenValidation.validateToken,
+	userController.addOperation,
+);
+
+// router.delete(
+// 	"/profile/:id",
+// 	tokenValidation.validateToken,
+// 	userController.deleteUserProfile
+// );
 
 router.get(
 	"/",

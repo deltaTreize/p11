@@ -8,7 +8,7 @@ import "./adminUserAccountPage.scss";
 export function AdminUserAccountPage() {
 	const id = useSelector((state) => state.allReducer.user.id);
 	const [allUsers, setAllUsers] = useState([]);
-	const { nbAccount, userLastName } = useParams();
+	const { nbAccount, userId } = useParams();
 
 	useEffect(() => {
 		fetch("http://localhost:3001/api/v1/user", {
@@ -22,7 +22,7 @@ export function AdminUserAccountPage() {
 	}, []);
 
 	const target = allUsers.length
-		? allUsers.find((location) => location.lastName === userLastName)
+		? allUsers.find((location) => location.id === userId)
 		: null;
 	const targetAccount = target
 		? target.account.find((nb) => nb.nbAccount === nbAccount)
@@ -31,7 +31,7 @@ export function AdminUserAccountPage() {
 		return (
 			<main className="main bg-dark">
 				<div className="header">
-				<BackArrow chemin={`/admin/${userLastName}`}/>
+				<BackArrow chemin={`/admin/${userId}`}/>
 					<h1>
 						{target.lastName} {target.firstName}
 					</h1>

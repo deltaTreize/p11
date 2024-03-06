@@ -28,8 +28,8 @@ function App() {
 					<Route path="/sign-In" element={<SignIn />} />
 					<Route path="/sign-Up" element={<SignUp />} />
 					{admin && <Route path="/admin" element={<AdminPage />} />}
-					{admin && <Route path="/admin/:userLastName" element={<AdminUserPage />} />}
-					{admin && <Route path="/admin/:userLastName/:nbAccount" element={<AdminUserAccountPage />} />}
+					{admin && <Route path="/admin/:userId" element={<AdminUserPage />} />}
+					{admin && <Route path="/admin/:userId/:nbAccount" element={<AdminUserAccountPage />} />}
 					{logged && <Route path="/user" element={<User />} />}
 					{logged && <Route path="/user/:userNbAccount" element={<UserAccontPage />} />}
 					{logged && <Route path="/edit" element={<EditPage />} />}

@@ -19,43 +19,46 @@ export function AdminPage() {
 			},
 		})
 			.then((data) => data.json())
-			.then((dataJson) =>
-				setAllUsers(dataJson.body.filter((user) => user.id !== id))
+			.then((dataJson) =>{
+				setAllUsers(dataJson.body.filter((user) => user.role === "user"));
+			}
 			);
-	}, []);
-	return (
-		<main className="main bg-dark">
-			<div className="header">
-			<BackArrow chemin={"/user"}/>
-				<h1>
-					{lastName} {firstName}
-				</h1>
-			</div>
-			{allUsers.map((user) => (
-				<Link to={`${user.lastName}`} key={user.id} className="linkToAdminUserAccountPage">
-					<section className="account">
-						<div className="account-content-wrapper">
-							<h3 className="account-title">
-								{user.lastName} {user.firstName}
-							</h3>
-							<p className="account-amount">{user.email}</p>
-							{user.account.map((data) => (
-								<div className="account" key={data.nbAccount}>
-									<p className="account-amount-description">
-										{data.name}
-									</p>
-									<p className="account-amount-description">
-										{data.nbAccount}
-									</p>
-									<p className="account-amount-description">
-										{data.solde} €
-									</p>
+		}, []);
+
+			return (
+				<main className="main bg-dark">
+					<div className="header">
+					<BackArrow chemin={"/user"}/>
+						<h1>
+							{lastName} {firstName}
+						</h1>
+					</div>
+					{allUsers.map((user) => (
+						<Link to={`${user.id}`} key={user.id} className="linkToAdminUserAccountPage">
+							<section className="account">
+								<div className="account-content-wrapper">
+									<h3 className="account-title">
+										{user.lastName} {user.firstName}
+									</h3>
+									<p className="account-amount">{user.email}</p>
+									{user.account.map((data) => (
+										<div className="account" key={data._id}>
+											<p className="account-amount-description">
+												{data.name}
+											</p>
+											<p className="account-amount-description">
+												{data.nbAccount}
+											</p>
+											<p className="account-amount-description">
+												{data.solde} €
+											</p>
+										</div>
+									))}
 								</div>
-							))}
-						</div>
-					</section>
-				</Link>
-			))}
-		</main>
-	);
-}
+							</section>
+						</Link>
+					))}
+				</main>
+			);
+		}
+
