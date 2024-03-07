@@ -7,7 +7,8 @@ import "./AdminUserPage.scss";
 
 export function AdminUserPage() {
 	const id = useSelector((state) => state.allReducer.user.id);
-	const [allUsers, setAllUsers] = useState([]);
+	const [target, setTarget] = useState();
+	const [portefeuilleClient, setPortefeuilleClient] = useState(0);
 	const { userId } = useParams();
 
 	useEffect(() => {
@@ -18,56 +19,46 @@ export function AdminUserPage() {
 			},
 		})
 			.then((data) => data.json())
-			.then((dataJson) => setAllUsers(dataJson.body));
-	}, []);
+			.then((dataJson) => {
+				let target = dataJson.body.find((user) => user.id === userId);
+				let totalSolde = 0;
+				target.account.forEach((data) => {
+					totalSolde += parseFloat(data.solde); // Convertir solde en nombre
+				});
+				setPortefeuilleClient(totalSolde);
+				setTarget(target);
+			});
+	}, [id, userId]);
 
-	const target = allUsers.length ? allUsers.find((location) => location.id === userId) : null;
-  if (target) {
-    return (
-      <main className="main bg-dark">
-        <div className="header">
-        <BackArrow chemin={"/admin"}/>
-          <h1>{target.lastName} {target.firstName}</h1>
-        </div>
-        {target.account.map((data) => (
-          <Link to={`${data.nbAccount}`} key={data.firstName + data.nbAccount}>
-							<div className="account" >
-								<p className="account-amount-description">
-									{data.name}
-								</p>
-								<p className="account-amount-description">
-									{data.nbAccount}
-								</p>
-								<p className="account-amount-description">
-									{data.solde} €
-								</p>
-							</div>
-              </Link>
-						))}
-
-        {/* <section className="account" key={user.id}>
-            <div className="account-content-wrapper">
-              <h3 className="account-title">
-                {user.lastName} {user.firstName}
-              </h3>
-              <p className="account-amount">{user.email}</p>
-            
-                <div className="account">
-                  <p className="account-amount-description">
-                    {data.name}
-                  </p>
-                  <p className="account-amount-description">
-                    {data.nbAccount}
-                  </p>
-                  <p className="account-amount-description">
-                    {data.solde} €
-                  </p>
-                </div>
-            </div>
-            <div className="account-content-wrapper cta"></div>
-          </section> */}
-      </main>
-    );
-    
-  }
+	if (target) {
+		return (
+			<main className="main bg-dark">
+				<div className="header">
+					<BackArrow chemin={"/admin"} />
+					<h1>
+						{target.lastName} {target.firstName}
+					</h1>
+					<p className="portefeuilleClient">La valeur bancaire du client est de: {portefeuilleClient} €</p>
+				</div>
+				{target.account.map((data) => (
+					<Link
+						to={`${data.nbAccount}`}
+						key={data.firstName + data.nbAccount}
+					>
+						<div className="account">
+							<p className="account-amount-description">
+								{data.name}
+							</p>
+							<p className="account-amount-description">
+								{data.nbAccount}
+							</p>
+							<p className="account-amount-description">
+								{data.solde} €
+							</p>
+						</div>
+					</Link>
+				))}
+			</main>
+		);
+	}
 }

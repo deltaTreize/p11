@@ -8,6 +8,7 @@ import "./adminUserAccountPage.scss";
 export function AdminUserAccountPage() {
 	const id = useSelector((state) => state.allReducer.user.id);
 	const [allUsers, setAllUsers] = useState([]);
+
 	const { nbAccount, userId } = useParams();
 
 	useEffect(() => {
@@ -20,6 +21,8 @@ export function AdminUserAccountPage() {
 			.then((data) => data.json())
 			.then((dataJson) => setAllUsers(dataJson.body));
 	}, []);
+
+
 
 	const target = allUsers.length
 		? allUsers.find((location) => location.id === userId)

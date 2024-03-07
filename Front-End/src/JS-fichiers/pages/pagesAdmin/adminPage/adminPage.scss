@@ -1,12 +1,60 @@
-.linkToAdminUserAccountPage{
-  text-decoration: none;
-  color: #12002b;
-  .account{
-    background-color: #fff;
-  }
-  .account-content-wrapper{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+.AdminAllUser-container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 80%;
+	margin: auto;
+	.linkToAdminUserAccountPage {
+		text-decoration: none;
+		color: #12002b;
+		display: flex;
+		width: 30%;
+		margin: auto;
+		.AdminAllUser {
+			background-color: #fff;
+			display: flex;
+			width: 100%;
+			border-radius: 10px;
+      overflow-y: hidden;
+			&-wrapper {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				width: 100%;
+			}
+			&-title {
+			}
+			&-portefeuilClient {
+			}
+			.AdminUserAccount {
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				&-name {
+				}
+				&-nbAccount {
+				}
+				&-solde {
+					border: none;
+					display: flex;
+					justify-content: center;
+					width: 70%;
+					&::after {
+						content: "€";
+						display: flex;
+						flex-direction: row;
+					}
+				}
+			}
+		}
+	}
+}
+
+.AdminUserAccount-invisible {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+  background: rgb(153, 153, 153);
 }
