@@ -1,11 +1,58 @@
-.colum{
-  display: flex;
-  flex-direction: column;
-}
-.accountTitle{
-  font: 700 20px sans-serif;
-  span{
-    font: 300 15px sans-serif;
-    margin-top: 5px;
+.account-adminUserAccountPage {
+	background: #fff;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 60%;
+  height: 60vh;
+	position: fixed;
+	left: 50%;
+	transform: translateX(-50%);
+	border-radius: 10px;
+  &-invisible{
+    background-color: #999999;
+    .accountAdminUserPage-closed{
+      position: relative;
+      left: 0;
+    }
   }
+  .entete-account {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 2px solid black;
+  }
+  .AllOperation-account {
+    width: 100%;
+    height: 55vh;
+    overflow-y: scroll;
+    scrollbar-width: none;
+	}
+}
+
+.trash[data-descr]{
+  position: relative;
+  text-decoration: underline;
+  color: #00f;
+  cursor: help;
+}
+
+.trash[data-descr]:hover::after,
+.trash[data-descr]:focus::after {
+  content: attr(data-descr);
+  position: absolute;
+  left: 0%;
+  top: 50%;
+  transform: translate(15%, -100%);
+  min-width: 130px;
+  border: 1px #5a0000 solid;
+  border-radius: 10px;
+  background-color: #ff0000;
+  padding: 12px;
+  color: #fff;
+  font-size: 14px;
+  z-index: 1;
 }

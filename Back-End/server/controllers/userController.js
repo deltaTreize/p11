@@ -117,19 +117,19 @@ module.exports.addOperation = async (req, res) => {
   return res.status(response.status).send(response)
 }
 
-// module.exports.deleteUserProfile = async (req, res) => {
-//   let response = {}
+module.exports.closeAccount = async (req, res) => {
+  let response = {}
 
-//   try {
-//     const responseFromService = await userService.deleteUserProfile(req)
-//     response.status = 200
-//     response.message = 'Successfully delete user profile data'
-//     response.body = responseFromService
-//   } catch (error) {
-//     console.log('Error in deleteUserProfile - userController.js')
-//     response.status = 400
-//     response.message = error.message
-//   }
+  try {
+    const responseFromService = await userService.closeAccount(req)
+    response.status = 200
+    response.message = 'Successfully delete user profile data'
+    response.body = responseFromService
+  } catch (error) {
+    console.log('Error in closeAccount - userController.js')
+    response.status = 400
+    response.message = error.message
+  }
 
-//   return res.status(response.status).send(response)
-// }
+  return res.status(response.status).send(response)
+}

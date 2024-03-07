@@ -25,7 +25,7 @@ export function AdminPage() {
 					dataJson.body.filter((user) => user.role === "user")
 				);
 			});
-	}, []);
+	}, [id]);
 
 	useEffect(() => {
 		let totalSolde = 0;
@@ -44,7 +44,7 @@ export function AdminPage() {
 				<h1>
 					{lastName} {firstName}
 				</h1>
-				<p className="AdminAllUser-portefeuilClient">
+				<p className="portefeuilleClient">
 					Votre portefeuille client global est de : {portefeuilleAllClient} €
 				</p>
 			</div>
@@ -57,10 +57,10 @@ export function AdminPage() {
 					>
 						<section className="AdminAllUser">
 							<div className="AdminAllUser-wrapper">
-								<h3 className="AdminAllUser-title">
+								<h3 className="AdminAllUser-wrapper-title">
 									{user.lastName} {user.firstName}
 								</h3>
-								<p>{user.id}</p>
+								<p className="AdminAllUser-wrapper-id"> Id: {user.id}</p>
 								{user.account.map(
 									(data) => (
 										data.visible === true ? (
@@ -81,7 +81,7 @@ export function AdminPage() {
 										)
 										: (
 											<div
-												className="AdminUserAccount-invisible"
+												className="AdminUserAccount-invisible AdminUserAccount"
 												key={data._id}
 											>
 												<p className="AdminUserAccount-name">

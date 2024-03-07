@@ -1,0 +1,93 @@
+.header {
+	h3 {
+		padding: 0;
+		margin-top: 0;
+	}
+	.infosClient {
+		color: #ffffff;
+		display: flex;
+		justify-content: center;
+		gap: 15px;
+		width: 100%;
+		.infosClient-id {
+		}
+		.infosClient-email {
+		}
+		.infosClient-create {
+		}
+		.infosClient-update {
+		}
+	}
+}
+.portefeuilleClient {
+	color: #ffffff;
+	margin-bottom: 70px;
+}
+
+.linkAccountAdminUserPage {
+	text-decoration: none;
+}
+.accountAdminUserPage {
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #ffffff;
+	width: 80%;
+	margin: 10px auto;
+	box-sizing: border-box;
+	text-align: left;
+	border-radius: 6px;
+	color: #12002b;
+	height: 10vh;
+	&-invisible {
+		background-color: #999999;
+	}
+	&-name {
+		position: absolute;
+		left: 20px;
+	}
+	&-closed {
+		position: absolute;
+		left: 20%;
+		color: rgb(219, 0, 0);
+	}
+	&-nbAccount {
+		position: absolute;
+		right: 40%;
+	}
+	&-solde {
+		position: absolute;
+		right: 20px;
+	}
+}
+
+.Modal {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border: 1px solid #ccc;
+	background: #fff;
+	overflow: auto;
+	width: 50%;
+	height: 70%;
+	border-radius: 20px;
+	outline: none;
+	padding: 20px;
+}
+
+.Overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(255, 255, 255, 0.75);
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

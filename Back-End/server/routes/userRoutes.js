@@ -30,11 +30,11 @@ router.put(
 	userController.addOperation,
 );
 
-// router.delete(
-// 	"/profile/:id",
-// 	tokenValidation.validateToken,
-// 	userController.deleteUserProfile
-// );
+router.put(
+	"/account/close",
+	tokenValidation.validateToken,
+	userController.closeAccount
+);
 
 router.get(
 	"/",

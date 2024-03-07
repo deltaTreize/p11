@@ -179,19 +179,26 @@ module.exports.getAllProfile = async (serviceData) => {
 	}
 };
 
-// module.exports.deleteUserProfile = async serviceData => {
-//   try {
-//     const jwtToken = serviceData.headers.authorization.split('Bearer')[1].trim()
-//     const decodedJwtToken = jwt.decode(jwtToken)
-//     const user = await User.findOneAndRemove()
+module.exports.closeAccount = async (serviceData) => {
+	try {
+		const jwtToken = serviceData.headers.authorization
+			.split("Bearer")[1]
+			.trim();
+		const decodedJwtToken = jwt.decode(jwtToken);
+		const userId = serviceData.headers.id;
+		const idAccount = serviceData.headers.idaccount;
+		const user = await User.findById(userId);
+		const accountIndex = user.account.findIndex(
+			(data) =>	data.id === idAccount
+		);
+		console.log(user.account[accountIndex]);
+		user.account[accountIndex].visible = false;
 
-//     if (!user) {
-//       throw new Error('User not found!')
-//     }
+		await user.save();
 
-//     return user.toObject()
-//   } catch (error) {
-//     console.error('Error in userService.js', error)
-//     throw new Error(error)
-//   }
-// }
+		return user.toObject();
+	} catch (error) {
+		console.error("Error in userService.js", error);
+		throw new Error(error);
+	}
+};
