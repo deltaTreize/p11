@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema(
 		firstName: String,
 		lastName: String,
 		userName: String,
-		admin:Boolean,
+		role: String,
 		account: [Account.schema],
 	},
 	{

@@ -13,7 +13,7 @@ export function AdminUserPage() {
 	const [target, setTarget] = useState();
 	const [name, setName] = useState();
 	const [nbAccount, setNbAccount] = useState();
-	const [solde, setSolde] = useState();
+	const solde = 0.00;
 	const [visible, setVisible] = useState(false);
 	const [isModaleOpen, setIsModaleOpen] = useState(false);
 	const [portefeuilleClient, setPortefeuilleClient] = useState(0);
@@ -160,10 +160,8 @@ export function AdminUserPage() {
 							<input
 								type="number"
 								id="solde"
-								step={0.01}
-								value={0.00}
+								value={solde}
 								disabled
-								onChange={(e) => setSolde(e.target.value)}
 							/>
 						</label>
 						<label htmlFor="visible">

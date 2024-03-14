@@ -65,39 +65,41 @@ export function AdminPage() {
 									{" "}
 									Id: {user.id}
 								</p>
-								{user.account.map((data) =>
-									data.visible === true ? (
-										<div
-											className="AdminUserAccount"
-											key={data._id}
-										>
-											<p className="AdminUserAccount-name">
-												{data.name}
-											</p>
-											<p className="AdminUserAccount-nbAccount">
-												{data.nbAccount}
-											</p>
-											<span className="AdminUserAccount-solde">
-												{data.solde}
-											</span>
-										</div>
-									) : (
-										<div
-											className="AdminUserAccount-invisible AdminUserAccount"
-											key={data._id}
-										>
-											<p className="AdminUserAccount-name">
-												{data.name}
-											</p>
-											<p className="AdminUserAccount-nbAccount">
-												{data.nbAccount}
-											</p>
-											<span className="AdminUserAccount-solde">
-												{data.solde}
-											</span>
-										</div>
-									)
-								)}
+								<div className="allAccountUser">
+									{user.account.map((data) =>
+										data.visible === true ? (
+											<div
+												className="AdminUserAccount"
+												key={data._id}
+											>
+												<p className="AdminUserAccount-name">
+													{data.name}
+												</p>
+												<p className="AdminUserAccount-nbAccount">
+													{data.nbAccount}
+												</p>
+												<span className="AdminUserAccount-solde">
+													{data.solde}
+												</span>
+											</div>
+										) : (
+											<div
+												className="AdminUserAccount-invisible AdminUserAccount"
+												key={data._id}
+											>
+												<p className="AdminUserAccount-name">
+													{data.name}
+												</p>
+												<p className="AdminUserAccount-nbAccount">
+													{data.nbAccount}
+												</p>
+												<span className="AdminUserAccount-solde">
+													{data.solde}
+												</span>
+											</div>
+										)
+									)}
+								</div>
 							</div>
 						</section>
 					</Link>

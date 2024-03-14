@@ -19,6 +19,7 @@ module.exports.createUser = async (serviceData) => {
 			firstName: serviceData.firstName,
 			lastName: serviceData.lastName,
 			userName: serviceData.userName,
+			role: serviceData.role,
 		});
 		let result = await newUser.save();
 
