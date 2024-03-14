@@ -70,12 +70,8 @@ export function AdminUserPage() {
 				headers: headersList,
 			}
 		);
-
-		let data = await response.text();
-		console.log(data);
 	}
 	const today = new Date();
-	console.log(target);
 
 	async function makeVirement() {
 		/////////// add operation négative sur compte débiteur/////////////////

@@ -45,7 +45,8 @@ export function AdminPage() {
 					{lastName} {firstName}
 				</h1>
 				<p className="portefeuilleClient">
-					Votre portefeuille client global est de : {portefeuilleAllClient} €
+					Votre portefeuille client global est de :{" "}
+					{portefeuilleAllClient} €
 				</p>
 			</div>
 			<div className="AdminAllUser-container">
@@ -60,41 +61,41 @@ export function AdminPage() {
 								<h3 className="AdminAllUser-wrapper-title">
 									{user.lastName} {user.firstName}
 								</h3>
-								<p className="AdminAllUser-wrapper-id"> Id: {user.id}</p>
-								{user.account.map(
-									(data) => (
-										data.visible === true ? (
-											<div
-												className="AdminUserAccount"
-												key={data._id}
-											>
-												<p className="AdminUserAccount-name">
-													{data.name}
-												</p>
-												<p className="AdminUserAccount-nbAccount">
-													{data.nbAccount}
-												</p>
-												<span className="AdminUserAccount-solde">
-													{data.solde}
-												</span>
-											</div>
-										)
-										: (
-											<div
-												className="AdminUserAccount-invisible AdminUserAccount"
-												key={data._id}
-											>
-												<p className="AdminUserAccount-name">
-													{data.name}
-												</p>
-												<p className="AdminUserAccount-nbAccount">
-													{data.nbAccount}
-												</p>
-												<span className="AdminUserAccount-solde">
-													{data.solde}
-												</span>
-											</div>
-										)
+								<p className="AdminAllUser-wrapper-id">
+									{" "}
+									Id: {user.id}
+								</p>
+								{user.account.map((data) =>
+									data.visible === true ? (
+										<div
+											className="AdminUserAccount"
+											key={data._id}
+										>
+											<p className="AdminUserAccount-name">
+												{data.name}
+											</p>
+											<p className="AdminUserAccount-nbAccount">
+												{data.nbAccount}
+											</p>
+											<span className="AdminUserAccount-solde">
+												{data.solde}
+											</span>
+										</div>
+									) : (
+										<div
+											className="AdminUserAccount-invisible AdminUserAccount"
+											key={data._id}
+										>
+											<p className="AdminUserAccount-name">
+												{data.name}
+											</p>
+											<p className="AdminUserAccount-nbAccount">
+												{data.nbAccount}
+											</p>
+											<span className="AdminUserAccount-solde">
+												{data.solde}
+											</span>
+										</div>
 									)
 								)}
 							</div>

@@ -5,7 +5,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 module.exports.createUser = async (serviceData) => {
-	console.log(serviceData);
 	try {
 		const user = await User.findOne({ email: serviceData.email });
 		if (user) {
@@ -21,7 +20,6 @@ module.exports.createUser = async (serviceData) => {
 			lastName: serviceData.lastName,
 			userName: serviceData.userName,
 		});
-		console.log(newUser);
 		let result = await newUser.save();
 
 		return result;
@@ -151,9 +149,6 @@ module.exports.addOperation = async (serviceData) => {
 		const accountIndex = user.account.findIndex(
 			(data) => data.id === idAccount
 		);
-		console.log("userId", userId);
-		console.log("idAccount", idAccount);
-		console.log("accountIndex", accountIndex);
 
 		const solde = Number(user.account[accountIndex].solde);
 		const montant = Number(serviceData.body.montant);
@@ -215,7 +210,8 @@ module.exports.updateDescription = async (serviceData) => {
 module.exports.getAllProfile = async (serviceData) => {
 	try {
 		const idAdmin = serviceData.headers.id;
-		if (idAdmin === "65e580d07d663d473c1b5047") {
+		const Admin = await User.findOne({ _id: idAdmin, role: "admin" });
+		if (Admin) {
 			const users = await User.find();
 			return users.map((user) => user.toObject());
 		}
@@ -241,7 +237,7 @@ module.exports.closeAccount = async (serviceData) => {
 		const accountIndex = user.account.findIndex(
 			(data) => data.id === idAccount
 		);
-		console.log(user.account[accountIndex]);
+		
 		user.account[accountIndex].visible = false;
 
 		await user.save();

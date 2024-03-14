@@ -50,13 +50,14 @@ module.exports.getUserProfile = async (req, res) => {
 
   return res.status(response.status).send(response)
 }
+
 module.exports.getAllProfile = async (req, res) => {
   let response = {}
 
   try {
     const responseFromService = await userService.getAllProfile(req)
     response.status = 200
-    response.message = 'Successfully got All user profile data'
+    response.message = 'Successfully got All users profile data'
     response.body = responseFromService
   } catch (error) {
     console.log('Error in userController.js')
@@ -83,13 +84,14 @@ module.exports.updateUserProfile = async (req, res) => {
 
   return res.status(response.status).send(response)
 }
+
 module.exports.updateDescription = async (req, res) => {
   let response = {}
 
   try {
     const responseFromService = await userService.updateDescription(req)
     response.status = 200
-    response.message = 'Successfully updated user profile data'
+    response.message = 'Successfully updated description of operation'
     response.body = responseFromService
   } catch (error) {
     console.log('Error in updateUserProfile - userController.js')
@@ -106,7 +108,7 @@ module.exports.addAccount = async (req, res) => {
   try {
     const responseFromService = await userService.addAccount(req)
     response.status = 200
-    response.message = 'Successfully updated user profile data'
+    response.message = 'Successfully create a new account'
     response.body = responseFromService
   } catch (error) {
     console.log('Error in updateUserProfile - userController.js')
@@ -116,13 +118,14 @@ module.exports.addAccount = async (req, res) => {
 
   return res.status(response.status).send(response)
 }
+
 module.exports.addOperation = async (req, res) => {
   let response = {}
 
   try {
     const responseFromService = await userService.addOperation(req)
     response.status = 200
-    response.message = 'Successfully updated user profile data'
+    response.message = 'Successfully create a new operation'
     response.body = responseFromService
   } catch (error) {
     console.log('Error in updateUserProfile - userController.js')
@@ -139,7 +142,7 @@ module.exports.closeAccount = async (req, res) => {
   try {
     const responseFromService = await userService.closeAccount(req)
     response.status = 200
-    response.message = 'Successfully delete user profile data'
+    response.message = 'Successfully close this account'
     response.body = responseFromService
   } catch (error) {
     console.log('Error in closeAccount - userController.js')
