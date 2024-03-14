@@ -125,7 +125,7 @@ module.exports.addAccount = async (serviceData) => {
 			{ new: true }
 		);
 
-		return user.account;
+		return user.toObject();
 	} catch (error) {
 		console.error("Error in userService.js", error);
 		throw new Error(error);
@@ -139,7 +139,7 @@ module.exports.addOperation = async (serviceData) => {
 			.trim();
 		const decodedJwtToken = jwt.decode(jwtToken);
 		const userId = serviceData.headers.id;
-		const idAccount = serviceData.headers.idAccount;
+		const idAccount = serviceData.headers.idaccount;
 		const user = await User.findById(userId);
 		const newOperation = new Operation({
 			date: serviceData.body.date,
@@ -149,13 +149,63 @@ module.exports.addOperation = async (serviceData) => {
 		});
 
 		const accountIndex = user.account.findIndex(
-			(data) => data.account === idAccount
+			(data) => data.id === idAccount
 		);
+		console.log("userId", userId);
+		console.log("idAccount", idAccount);
+		console.log("accountIndex", accountIndex);
+
+		const solde = Number(user.account[accountIndex].solde);
+		const montant = Number(serviceData.body.montant);
 
 		user.account[accountIndex].operations.push(newOperation);
+		user.account[accountIndex].solde = solde + montant;
 
 		await user.save();
-		return user.account[accountIndex];
+		return user.toObject();
+	} catch (error) {
+		console.error("Error in userService.js", error);
+		throw new Error(error);
+	}
+};
+
+module.exports.updateDescription = async (serviceData) => {
+	try {
+		const jwtToken = serviceData.headers.authorization
+			.split("Bearer")[1]
+			.trim();
+		const decodedJwtToken = jwt.decode(jwtToken);
+		const userId = serviceData.headers.id;
+		const accountId = serviceData.headers.idaccount;
+		const operationId = serviceData.headers.operationid;
+		const user = await User.findById(userId);
+
+		if (!user) {
+			throw new Error("User not found");
+		}
+
+		const accountIndex = user.account.findIndex(
+			(data) => data.id === accountId
+		);
+
+		if (accountIndex === -1) {
+			throw new Error("Account not found");
+		}
+
+		const operationIndex = user.account[accountIndex].operations.findIndex(
+			(data) => data.id === operationId
+		);
+
+		if (operationIndex === -1) {
+			throw new Error("Operation not found");
+		}
+
+		user.account[accountIndex].operations[operationIndex].description =
+			serviceData.body.description;
+
+		await user.save();
+
+		return user.toObject();
 	} catch (error) {
 		console.error("Error in userService.js", error);
 		throw new Error(error);
@@ -189,7 +239,7 @@ module.exports.closeAccount = async (serviceData) => {
 		const idAccount = serviceData.headers.idaccount;
 		const user = await User.findById(userId);
 		const accountIndex = user.account.findIndex(
-			(data) =>	data.id === idAccount
+			(data) => data.id === idAccount
 		);
 		console.log(user.account[accountIndex]);
 		user.account[accountIndex].visible = false;

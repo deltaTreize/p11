@@ -9,6 +9,7 @@ import "./userAccountPage.scss";
 export function UserAccontPage() {
 	const firstName = useSelector((state) => state.allReducer.user.firstName);
 	const lastName = useSelector((state) => state.allReducer.user.lastName);
+	const userId = useSelector((state) => state.allReducer.user.id);
 	const [dataUsers, setDataUsers] = useState([]);
 	const { userNbAccount } = useParams();
 
@@ -28,11 +29,16 @@ export function UserAccontPage() {
 		? dataUsers.find((nb) => nb.nbAccount === userNbAccount)
 		: null;
 
+		const operations = targetAccount
+		? targetAccount.operations.toReversed()
+		: null;
+
+
 	if (targetAccount) {
 		return (
 			<main className="main bg-dark">
 				<div className="header">
-					<BackArrow chemin={`/user`} />
+					<BackArrow chemin={`/user/${userId}`} />
 					<h1>
 						{lastName} {firstName}
 					</h1>
@@ -50,8 +56,16 @@ export function UserAccontPage() {
 						</p>
 					</section>
 					<section className="AllOperation-account">
-						{targetAccount.operations.map((data) => (
-							<Collapse title={data.title} date={data.date} montant={data.montant} description={data.description} key={data.title}/>
+						{operations.map((data) => (
+							<Collapse
+								title={data.title}
+								date={data.date}
+								montant={data.montant}
+								description={data.description}
+								key={data.title}
+								operationId={data._id}
+								idAccount={targetAccount._id}
+							/>
 						))}
 					</section>
 				</div>

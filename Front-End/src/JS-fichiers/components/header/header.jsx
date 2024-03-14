@@ -8,6 +8,7 @@ import "./header.scss";
 export function Header() {
 	const userName = useSelector((state) => state.allReducer.user.userName);
 	const logged = useSelector((state) => state.allReducer.isLogged);
+	const userId = useSelector((state) => state.allReducer.user.id);
 	const dispatch = useDispatch();
 	
 	const handleLogout = () => {
@@ -24,7 +25,7 @@ export function Header() {
 			<NavLink className="main-nav-logo" to={"/"}>
 				<img
 					className="main-nav-logo-image"
-					src="../assets/argentBankLogo.png"
+					src="../../assets/argentBankLogo.png"
 					alt="Argent Bank Logo"
 				/>
 			</NavLink>
@@ -33,7 +34,7 @@ export function Header() {
 					<NavLink
 						className="main-nav-item"
 						id="userLink"
-						to={"/user"}
+						to={`/user/${userId}`}
 					>
 						<i className="fa fa-user-circle"></i>
 						{userName}

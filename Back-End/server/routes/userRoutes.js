@@ -29,6 +29,11 @@ router.put(
 	tokenValidation.validateToken,
 	userController.addOperation,
 );
+router.put(
+	"/account/operations/description",
+	tokenValidation.validateToken,
+	userController.updateDescription,
+);
 
 router.put(
 	"/account/close",

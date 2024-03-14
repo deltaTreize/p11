@@ -50,7 +50,7 @@ export function EditPage() {
 	return (
 		<main className="main bg-dark mainEdit">
 			<div className="header">
-				<BackArrow chemin={"/user"} />
+				<BackArrow chemin={`/user/${id}`} />
 				<h1>Edit your info</h1>
 			</div>
 			<div className="header-edit">
@@ -67,52 +67,36 @@ export function EditPage() {
 								}
 							/>
 						</label>
-						<label htmlFor="lastName">
+						<p>
 							email:
-							<input
-								type="text"
-								placeholder={email}
-								id="lastName"
-								disabled
-							/>
-						</label>
-
-						<label htmlFor="firstName">
-							First name:
-							<input
-								type="text"
-								value={firstName}
-								id="firstName"
-								disabled
-							/>
-						</label>
-						<label htmlFor="lastName">
-							Last name:
-							<input
-								type="text"
-								value={lastName}
-								id="lastName"
-								disabled
-							/>
-						</label>
-						<label htmlFor="lastName">
-							votre conseillé:
-							<input
-								type="text"
-								value="DUPOND Jean"
-								id="lastName"
-								disabled
-							/>
-						</label>
-						<label htmlFor="lastName">
-							date de création:
-							<input
-								type="text"
-								value={createdAt.slice(0, 10)}
-								id="lastName"
-								disabled
-							/>
-						</label>
+						</p>
+						<p>
+							{email}
+						</p>
+						<p>
+						First name:
+						</p>
+						<p>
+							{firstName}
+						</p>
+						<p>
+						Last name:
+						</p>
+						<p>
+							{lastName}
+						</p>
+						<p>
+						votre conseillé:
+						</p>
+						<p>
+							{"DUPOND Jean"}
+						</p>
+						<p>
+						date de création:
+						</p>
+						<p>
+						{createdAt.slice(0, 10)}
+						</p>
 					</div>
 					<div className="edit-buttons">
 						<input
@@ -120,7 +104,7 @@ export function EditPage() {
 							type={"submit"}
 							text="Save"
 						/>
-						<Button to={"/user"} text="Cancel" />
+						<Button to={`/user/${id}`} text="Cancel" />
 					</div>
 				</form>
 			</div>

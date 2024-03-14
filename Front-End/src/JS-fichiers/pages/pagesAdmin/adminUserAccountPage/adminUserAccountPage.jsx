@@ -64,7 +64,6 @@ export function AdminUserAccountPage() {
 			Authorization: "Bearer " + token,
 			"Content-Type": "application/json",
 		};
-
 		let bodyContent = JSON.stringify({
 			date: `${today
 				.toLocaleString("fr-FR", { timeZone: "UTC" })
@@ -81,10 +80,11 @@ export function AdminUserAccountPage() {
 				body: bodyContent,
 				headers: headersList,
 			}
-		);
-
-		let data = await response.text();
-		console.log(data);
+			);
+			console.log(headersList.id);
+			console.log(headersList.idaccount);
+			console.log(headersList.Authorization);
+		
 	}
 
 	if (targetAccount && target && targetAccount.visible === true) {
@@ -188,6 +188,8 @@ export function AdminUserAccountPage() {
 									montant={data.montant}
 									description={data.description}
 									key={data.title}
+									operationId={data._id}
+									idAccount={targetAccount._id}
 								/>
 							) : (
 								<Collapse
@@ -195,6 +197,8 @@ export function AdminUserAccountPage() {
 									date={data.date}
 									montant={data.montant}
 									key={data.title}
+									operationId={data._id}
+									idAccount={targetAccount._id}
 								/>
 							)
 						)}

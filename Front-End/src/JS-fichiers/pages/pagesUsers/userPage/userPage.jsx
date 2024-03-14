@@ -8,6 +8,7 @@ import "./userPage.scss";
 export function User() {
 	const firstName = useSelector((state) => state.allReducer.user.firstName);
 	const lastName = useSelector((state) => state.allReducer.user.lastName);
+	const userId = useSelector((state) => state.allReducer.user.id);
 	const admin = useSelector((state) => state.allReducer.admin);
 	const [dataUsers, setDataUsers] = useState([]);
 
@@ -34,7 +35,7 @@ export function User() {
 					{firstName} {lastName}
 				</h1>
 				{admin && <Button to={"/admin"} text="View All Users" />}
-				{!admin && <Button to={"/edit"} text="Edit Profil" />}
+				{!admin && <Button to={`/edit/${userId}`} text="Edit Profil" />}
 			</div>
 			{dataUsers.map((data) =>
 				data.visible === true ? (
@@ -51,7 +52,7 @@ export function User() {
 						</div>
 						<div className="account-content-wrapper cta">
 							<Button
-								to={`${data.nbAccount}`}
+								to={`/user/${userId}/${data.nbAccount}`}
 								text="View transactions"
 							/>
 						</div>

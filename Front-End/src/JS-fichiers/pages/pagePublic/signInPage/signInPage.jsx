@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
 	TokenOn,
 	Login,
@@ -14,6 +14,8 @@ import "./signInPage.scss";
 export function SignIn() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const userId = useSelector((state) => state.allReducer.user.id);
+
 	const dispatch = useDispatch();
 
 	const HandleSubmit = async () => {
@@ -29,7 +31,6 @@ export function SignIn() {
 			}
 		);
 		const loginDataJson = await loginData.json();
-
 
 		if (loginDataJson.status === 200) {
 			localStorage.setItem("token", loginDataJson.body.token);
@@ -47,6 +48,7 @@ export function SignIn() {
 				const userDataJson = await userDataFetched.json();
 
 				localStorage.setItem("id", userDataJson.body.id);
+
 				userDataJson.body.role === "admin"
 					? dispatch(Admin())
 					: dispatch(NotAdmin());
@@ -65,7 +67,6 @@ export function SignIn() {
 			dispatch(IsLoggin());
 		}
 	};
-
 	return (
 		<main className="main bg-dark">
 			<section className="sign-in-content">
@@ -105,7 +106,7 @@ export function SignIn() {
 					<Button
 						type="button"
 						onClick={HandleSubmit}
-						to={"/user"}
+						to={`/user`}
 						text="Sign In"
 					/>
 					<Button type="button" to={"/sign-Up"} text="Sign Up" />

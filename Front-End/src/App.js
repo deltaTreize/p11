@@ -31,8 +31,9 @@ function App() {
 					{admin && <Route path="/admin/:userId" element={<AdminUserPage />} />}
 					{admin && <Route path="/admin/:userId/:nbAccount" element={<AdminUserAccountPage />} />}
 					{logged && <Route path="/user" element={<User />} />}
-					{logged && <Route path="/user/:userNbAccount" element={<UserAccontPage />} />}
-					{logged && <Route path="/edit" element={<EditPage />} />}
+					{logged && <Route path="/user/:userId" element={<User />} />}
+					{logged && <Route path="/user/:userId/:userNbAccount" element={<UserAccontPage />} />}
+					{logged && <Route path="/edit/:userId" element={<EditPage />} />}
 				</Routes>
 				<Footer />
 			</BrowserRouter>

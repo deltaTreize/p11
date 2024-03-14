@@ -25,12 +25,16 @@
 			margin: 0;
 			align-items: center;
 		}
+    .fa-pencil, .fa-check{
+      margin-left: 10px;
+      cursor: pointer;
+    }
 	}
   &-montant{
     position: absolute;
     right: 15%;
   }
-  .fa-solid{
+  .fa-chevron-down, .fa-chevron-up{
     position: absolute;
     right: 40px;
     width: 50px;
