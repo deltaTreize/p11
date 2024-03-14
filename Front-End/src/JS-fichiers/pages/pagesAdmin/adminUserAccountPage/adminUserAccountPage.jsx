@@ -81,10 +81,6 @@ export function AdminUserAccountPage() {
 				headers: headersList,
 			}
 			);
-			console.log(headersList.id);
-			console.log(headersList.idaccount);
-			console.log(headersList.Authorization);
-		
 	}
 
 	if (targetAccount && target && targetAccount.visible === true) {
@@ -94,9 +90,13 @@ export function AdminUserAccountPage() {
 					isOpen={isModaleOpen}
 					className="Modal"
 					overlayClassName="Overlay"
+					ariaHideApp={!isModaleOpen}
+					onRequestClose={()=> setIsModaleOpen(false)}
+					shouldCloseOnOverlayClick= {true}
 				>
-					<h2>Ajouter un compte</h2>
-					<form action="" onSubmit={addOperation}>
+
+					<h2 className="titleModal">Ajouter une Opération</h2>
+					<form action="" className="formModal" onSubmit={addOperation}>
 						<label htmlFor="title">
 							Titre :
 							<input
@@ -125,7 +125,7 @@ export function AdminUserAccountPage() {
 								onChange={(e) => setMontant(e.target.value)}
 							/>
 						</label>
-						<input type="submit" value="" />
+						<input type="submit" className="buttonArgentBank modalButton" value="AJOUTER" />
 					</form>
 				</ReactModal>
 
@@ -149,7 +149,6 @@ export function AdminUserAccountPage() {
 						</p>
 					</div>
 					<Button
-						className="addAccount"
 						text={"+ add operation"}
 						onClick={handlechange}
 					/>

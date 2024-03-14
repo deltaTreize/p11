@@ -76,11 +76,14 @@ export function AdminUserPage() {
 					isOpen={isModaleOpen}
 					className="Modal"
 					overlayClassName="Overlay"
+					ariaHideApp={!isModaleOpen}
+					onRequestClose={()=> setIsModaleOpen(false)}
+					shouldCloseOnOverlayClick= {true}
 				>
-					<h2>Ajouter un compte</h2>
-					<form action="" onSubmit={addAccount}>
+					<h2 className="titleModal">Ajouter un compte</h2>
+					<form action="" className="formModal" onSubmit={addAccount}>
 						<label htmlFor="name">
-							nom du compte :
+							Nom du compte :
 							<input
 								type="text"
 								id="name"
@@ -89,7 +92,7 @@ export function AdminUserPage() {
 							/>
 						</label>
 						<label htmlFor="nbAccount">
-							numero du compte :
+							Numero du compte :
 							<input
 								type="text"
 								id="nbAccount"
@@ -98,17 +101,18 @@ export function AdminUserPage() {
 							/>
 						</label>
 						<label htmlFor="solde">
-							solde du compte :
+							Solde du compte :
 							<input
 								type="number"
-								step="0.01"
 								id="solde"
-								required
+								step={0.01}
+								value={0.00}
+								disabled
 								onChange={(e) => setSolde(e.target.value)}
 							/>
 						</label>
 						<label htmlFor="visible">
-							compte invisible:
+							Compte invisible:
 							<input
 								type="checkbox"
 								id="visible"
@@ -117,7 +121,7 @@ export function AdminUserPage() {
 								}
 							/>
 						</label>
-						<input type="submit" value="" />
+						<input type="submit" className="buttonArgentBank modalButton" value="AJOUTER" />
 					</form>
 				</ReactModal>
 				<div className="header">
