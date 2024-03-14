@@ -1,7 +1,13 @@
 .header {
+	position: relative;
 	h3 {
 		padding: 0;
 		margin-top: 0;
+	}
+	.virementButtonAdmin{
+	position: absolute;
+	bottom: 0;
+	right: 10.5%;
 	}
 	.infosClient {
 		color: #ffffff;
@@ -9,14 +15,6 @@
 		justify-content: center;
 		gap: 15px;
 		width: 100%;
-		.infosClient-id {
-		}
-		.infosClient-email {
-		}
-		.infosClient-create {
-		}
-		.infosClient-update {
-		}
 	}
 }
 .portefeuilleClient {

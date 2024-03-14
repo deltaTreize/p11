@@ -128,6 +128,7 @@ export function AdminUserAccountPage() {
 						<input type="submit" className="buttonArgentBank modalButton" value="AJOUTER" />
 					</form>
 				</ReactModal>
+				
 
 				<div className="header">
 					<BackArrow chemin={`/admin/${userId}`} />
