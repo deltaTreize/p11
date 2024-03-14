@@ -14,9 +14,15 @@ import "./signInPage.scss";
 export function SignIn() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const userId = useSelector((state) => state.allReducer.user.id);
-
+	const [inputType, setInputType] = useState("password");
+	const [checked, setChecked] = useState(false);
 	const dispatch = useDispatch();
+
+	function handleChecked() {
+		setChecked(!checked);
+		!checked ? setInputType("text") : setInputType("password");
+	}
+
 
 	const HandleSubmit = async () => {
 		const loginData = await fetch(
@@ -71,7 +77,7 @@ export function SignIn() {
 		<main className="main bg-dark">
 			<section className="sign-in-content">
 				<i className="fa fa-user-circle sign-in-icon"></i>
-				<h1>Sign In</h1>
+				<h1>Se connecter</h1>
 				<form>
 					<div className="input-wrapper">
 						<label>
@@ -87,19 +93,27 @@ export function SignIn() {
 					</div>
 					<div className="input-wrapper">
 						<label>
-							Password
+							Mot de passe
 							<input
-								type="password"
+								type={inputType}
 								id="password"
 								onChange={(e) => {
 									setPassword(e.target.value);
 								}}
 							/>
+							<span className="show" onClick={handleChecked}>
+								{checked && (
+									<i className="fa-solid fa-eye"></i>
+								)}
+								{!checked && (
+									<i className="fa-solid fa-eye-slash"></i>
+								)}
+							</span>
 						</label>
 					</div>
 					<div className="input-remember">
 						<label>
-							Remember me
+							Se souvenir de moi
 							<input type="checkbox" id="remember-me" />
 						</label>
 					</div>
@@ -107,9 +121,13 @@ export function SignIn() {
 						type="button"
 						onClick={HandleSubmit}
 						to={`/user`}
-						text="Sign In"
+						text="Se connecter"
 					/>
-					<Button type="button" to={"/sign-Up"} text="Sign Up" />
+					<Button
+						type="button"
+						to={"/sign-Up"}
+						text="Creer un compte"
+					/>
 				</form>
 			</section>
 		</main>

@@ -30,12 +30,12 @@ export function User() {
 			<div className="header">
 				<BackArrow chemin={"/"} />
 				<h1>
-					Welcome back
+					Bienvenue
 					<br />
 					{firstName} {lastName}
 				</h1>
 				{admin && <Button to={"/admin"} text="View All Users" />}
-				{!admin && <Button to={`/edit/${userId}`} text="Edit Profil" />}
+				{!admin && <Button to={`/edit/${userId}`} text="Modifier Profil" />}
 			</div>
 			{dataUsers.map((data) =>
 				data.visible === true ? (

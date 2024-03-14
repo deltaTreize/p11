@@ -7,20 +7,20 @@ export function HomePage() {
 		<div className="HomePage">
       <div className="hero">
         <section className="hero-content">
-          <h2 className="sr-only">Promoted Content</h2>
-          <p className="subtitle">No fees.</p>
-          <p className="subtitle">No minimum deposit.</p>
-          <p className="subtitle">High interest rates.</p>
-          <p className="text">Open a savings account with Argent Bank today!</p>
+          <h2 className="sr-only">Contenu sponsorisé</h2>
+          <p className="subtitle">Pas de frais.</p>
+          <p className="subtitle">Pas de dépôt minimum.</p>
+          <p className="subtitle">Taux d'intérêt élevés.</p>
+          <p className="text">Ouvrez un compte d'épargne avec Argent Bank dès aujourd'hui !</p>
         </section>
       </div>
       <section className="features">
         <div className="feature-item">
           <img src="../assets/icon-chat.png" alt="Chat Icon" className="feature-icon" />
-          <h3 className="feature-item-title">You are our #1 priority</h3>
+          <h3 className="feature-item-title">Vous êtes notre priorité n°1</h3>
           <p>
-            Need to talk to a representative? You can get in touch through our
-            24/7 chat or through a phone call in less than 5 minutes.
+          Besoin de parler à un représentant? Vous pouvez nous contacter via notre
+          Chat 24h/24 et 7j/7 ou via un appel téléphonique en moins de 5 minutes.
           </p>
         </div>
         <div className="feature-item">
@@ -29,9 +29,9 @@ export function HomePage() {
             alt="Chat Icon"
             className="feature-icon"
           />
-          <h3 className="feature-item-title">More savings means higher rates</h3>
+          <h3 className="feature-item-title">Plus d’économies signifie des taux plus élevés</h3>
           <p>
-            The more you save with us, the higher your interest rate will be!
+          Plus vous épargnez chez nous, plus votre taux d’intérêt sera élevé !
           </p>
         </div>
         <div className="feature-item">
@@ -40,10 +40,10 @@ export function HomePage() {
             alt="Chat Icon"
             className="feature-icon"
           />
-          <h3 className="feature-item-title">Security you can trust</h3>
+          <h3 className="feature-item-title">Une sécurité à laquelle vous pouvez faire confiance</h3>
           <p>
-            We use top of the line encryption to make sure your data and money
-            is always safe.
+          Nous utilisons un cryptage haut de gamme pour garantir que vos données et votre argent
+          soit toujours en sécurité.
           </p>
         </div>
       </section>

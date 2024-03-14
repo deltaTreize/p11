@@ -51,13 +51,13 @@ export function EditPage() {
 		<main className="main bg-dark mainEdit">
 			<div className="header">
 				<BackArrow chemin={`/user/${id}`} />
-				<h1>Edit your info</h1>
+				<h1>Vos Informations</h1>
 			</div>
 			<div className="header-edit">
 				<form action="" onSubmit={handleChange}>
 					<div className="allLabel">
 						<label htmlFor="userName">
-							User name:
+							Nom d'utilisateur:
 							<input
 								type="text"
 								placeholder={userName}
@@ -67,36 +67,26 @@ export function EditPage() {
 								}
 							/>
 						</label>
-						<p>
-							email:
-						</p>
-						<p>
-							{email}
-						</p>
-						<p>
-						First name:
-						</p>
-						<p>
-							{firstName}
-						</p>
-						<p>
-						Last name:
-						</p>
-						<p>
-							{lastName}
-						</p>
-						<p>
-						votre conseillé:
-						</p>
-						<p>
-							{"DUPOND Jean"}
-						</p>
-						<p>
-						date de création:
-						</p>
-						<p>
-						{createdAt.slice(0, 10)}
-						</p>
+						<div className="infos">
+							<p className="infos-title">email:</p>
+							<p className="infos-content">{email}</p>
+						</div>
+						<div className="infos">
+							<p className="infos-title">Nom:</p>
+							<p className="infos-content">{lastName}</p>
+						</div>
+						<div className="infos">
+							<p className="infos-title">Prénom:</p>
+							<p className="infos-content">{firstName}</p>
+						</div>
+						<div className="infos">
+							<p className="infos-title">votre conseillé:</p>
+							<p className="infos-content">{"DUPOND Jean"}</p>
+						</div>
+						<div className="infos">
+							<p className="infos-title">date de création:</p>
+							<p className="infos-content">{createdAt.slice(0, 10)}</p>
+						</div>
 					</div>
 					<div className="edit-buttons">
 						<input

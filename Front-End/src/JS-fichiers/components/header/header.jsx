@@ -47,7 +47,7 @@ export function Header() {
 						to={"/sign-In"}
 					>
 						<i className="fa fa-user-circle"></i>
-						Sign In
+						Se connecter
 					</NavLink>
 				)}
 				{logged && (
@@ -58,7 +58,7 @@ export function Header() {
 						onClick={handleLogout}
 					>
 						<i className="fa fa-sign-out"></i>
-						Sign Out
+						Se deconnecter
 					</NavLink>
 				)}
 			</nav>

@@ -66,24 +66,14 @@ export function SignUp() {
 		<main className="main bg-dark-signUp">
 			<div className="header">
 				<BackArrow chemin={"/sign-In"} />
-				<h1>SIGN-UP</h1>
+				<h1>CREER UN COMPTE</h1>
 			</div>
 			<div className="background">
 				<span></span>
 			</div>
 			<form className="form-signup" onSubmit={createUser}>
 				<div>
-					<span className="inputTitle">First Name</span>
-					<input
-						type="text"
-						id="firstName"
-						minLength="4"
-						required
-						onChange={(e) => setFirstName(e.target.value)}
-					/>
-				</div>
-				<div>
-					<span className="inputTitle">Last Name</span>
+					<span className="inputTitle">Nom</span>
 					<input
 						type="text"
 						id="lastName"
@@ -93,7 +83,17 @@ export function SignUp() {
 					/>
 				</div>
 				<div>
-					<span className="inputTitle">User Name</span>
+					<span className="inputTitle">Prénom</span>
+					<input
+						type="text"
+						id="firstName"
+						minLength="4"
+						required
+						onChange={(e) => setFirstName(e.target.value)}
+					/>
+				</div>
+				<div>
+					<span className="inputTitle">Nom d'utilisateur</span>
 					<input
 						type="text"
 						id="userName"
@@ -116,7 +116,7 @@ export function SignUp() {
 					/>
 				</div>
 				<div>
-					<span className="inputTitle">Password</span>
+					<span className="inputTitle">Mot de passe</span>
 					<input
 						type={inputType}
 						id="password"
@@ -133,7 +133,7 @@ export function SignUp() {
 					</span>
 				</div>
 				<div>
-					<span className="inputTitle">Confirmation Password</span>
+					<span className="inputTitle">Confirmation Mot de passe</span>
 					<input
 						type={inputType2}
 						id="confirmPassword"
@@ -151,8 +151,8 @@ export function SignUp() {
 				</div>
 				<input
 					type="submit"
-					className="buttonArgentBank"
-					value="SIGN-UP"
+					className="buttonArgentBank SIGNUP"
+					value="CREER UN COMPTE"
 				/>
 			</form>
 			<p style={{ display: `${display}` }}>{errorMessage}</p>

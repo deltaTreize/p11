@@ -1,34 +1,53 @@
-
 .bg-dark {
-  .sign-in-content {
-    box-sizing: border-box;
-    background-color: white;
-    width: 300px;
-    margin: 0 auto;
-    margin-top: 3rem;
-    padding: 2rem;
-    .input-remember {
-      display: flex;
-      label {
-        margin-left: 0.25rem;
-      }
-    }
-    .input-wrapper {
-      display: flex;
-      flex-direction: column;
-      text-align: left;
-      margin-bottom: 1rem;
-      label {
-        font-weight: bold;
-      }
-      input {
-        padding: 5px;
-        font-size: 1.2rem;
-      }
-    }
-    a{
-      margin-top: 15px;
-    }
-  }
+	.sign-in-content {
+		box-sizing: border-box;
+		background-color: white;
+		width: 300px;
+		margin: 0 auto;
+		margin-top: 80px;
+		padding: 30px;
+		.sign-in-icon {
+			font-size: 30px;
+		}
+		.input-remember {
+			display: flex;
+			#remember-me {
+				cursor: pointer;
+			}
+			label {
+				margin-left: 0.25rem;
+			}
+		}
+		.input-wrapper {
+			display: flex;
+			flex-direction: column;
+			text-align: left;
+			margin-bottom: 1rem;
+			label {
+				font-weight: bold;
+        position: relative;
+        .show{
+          position: absolute;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 4%;
+          height: 50%;
+          right: 8%;
+          top: 48%;
+          margin: 0;
+          cursor: pointer;
+        }
+			}
+			input {
+				padding: 5px;
+				font-size: 16px;
+				margin-top: 5px;
+				width: 93%;
+			}
+		}
+		a {
+			margin-top: 15px;
+		}
+	}
 }
-

@@ -14,7 +14,7 @@ export function AdminUserPage() {
 	const [name, setName] = useState();
 	const [nbAccount, setNbAccount] = useState();
 	const [solde, setSolde] = useState();
-	const [visible, setVisible] = useState();
+	const [visible, setVisible] = useState(false);
 	const [isModaleOpen, setIsModaleOpen] = useState(false);
 	const [portefeuilleClient, setPortefeuilleClient] = useState(0);
 	const { userId } = useParams();
@@ -53,7 +53,7 @@ export function AdminUserPage() {
 			name: `${name}`,
 			nbAccount: `${nbAccount}`,
 			solde: solde,
-			visible: visible,
+			visible: !visible,
 		});
 
 		let response = await fetch(
@@ -108,12 +108,10 @@ export function AdminUserPage() {
 							/>
 						</label>
 						<label htmlFor="visible">
-							compte visible:
+							compte invisible:
 							<input
 								type="checkbox"
 								id="visible"
-								required
-								checked
 								onChange={(e) =>
 									setVisible(`${e.target.checked}`)
 								}
@@ -129,7 +127,9 @@ export function AdminUserPage() {
 					</h1>
 					<h3> " {target.userName} "</h3>
 					<div className="infosClient">
-						<p className="infosClient-id">Id User : {target.id}</p>
+						<p className="infosClient-id">
+							Id Utilisateur : {target.id}
+						</p>
 						<p className="infosClient-email">
 							Email : {target.email}
 						</p>
@@ -183,7 +183,7 @@ export function AdminUserPage() {
 									{data.name}
 								</p>
 								<p className="accountAdminUserPage-closed">
-									This account was closed !
+									Ce compte est cloturé !
 								</p>
 								<p className="accountAdminUserPage-nbAccount">
 									N° de compte: {data.nbAccount}

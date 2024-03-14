@@ -98,7 +98,7 @@ export function AdminUserAccountPage() {
 					<h2>Ajouter un compte</h2>
 					<form action="" onSubmit={addOperation}>
 						<label htmlFor="title">
-							Title :
+							Titre :
 							<input
 								type="text"
 								id="title"
@@ -237,7 +237,7 @@ export function AdminUserAccountPage() {
 							{targetAccount.name}
 						</p>
 						<p className="accountAdminUserPage-closed">
-							This account was closed !
+							Ce compte est cloturé !
 						</p>
 						<p className="entete-account-description">
 							{targetAccount.nbAccount} <br />

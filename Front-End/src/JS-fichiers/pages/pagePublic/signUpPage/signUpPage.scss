@@ -11,7 +11,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    top: 74vh;
+    top: 76vh;
     left: 50%;
     transform: translateX(-50%);
     width: 40%;
@@ -26,7 +26,7 @@
   width: calc(40% + 10px);
   height: calc(60vh + 10px);
   left: 50%;
-  top: 50%;
+  top: 53%;
   transform: translate(-50%, -50% );
   border-radius: 30px;
   overflow: hidden;
@@ -62,7 +62,7 @@
   width: 40%;
   height: 60vh;
   left: 50%;
-  top: 50%;
+  top: 53%;
   transform: translate(-50%, -50% );
   padding: 50px 50px;
   border-radius: 30px;
@@ -80,7 +80,7 @@
       position: absolute;
       left: 5%;
       top: 50%;
-      transform: translateY(-170%);
+      transform: translateY(-160%);
       background: #fff;
       padding: 0 15px;
     }
@@ -106,4 +106,7 @@
       cursor: pointer;
     }
   }
+}
+.SIGNUP{
+  border: none;
 }
