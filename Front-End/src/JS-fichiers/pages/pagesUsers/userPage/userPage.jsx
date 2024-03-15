@@ -107,7 +107,7 @@ export function User() {
 						{dataUsers.map((data) =>
 							data.visible === true ? (
 								<option value={data._id} key={"account1" + data._id}>
-									{data.nbAccount} - {data.name} - {data.solde}
+									{data.nbAccount} - {data.name} - {data.solde.toFixed(2)}
 								</option>
 							) : null
 						)}
@@ -123,7 +123,7 @@ export function User() {
 							data.visible === true &&
 							data._id !== valueOption1 ? (
 								<option value={data._id} key={"account2" + data._id}>
-									{data.nbAccount} - {data.name} - {data.solde}
+									{data.nbAccount} - {data.name} - {data.solde.toFixed(2)}
 								</option>
 							) : null
 						)}
@@ -192,7 +192,7 @@ export function User() {
 								{data.nbAccount}
 							</p>
 							<h3 className="account-title">{data.name}</h3>
-							<p className="account-amount">{data.solde}€</p>
+							<p className="account-amount">{data.solde.toFixed(2)}€</p>
 						</div>
 						<div className="account-content-wrapper cta">
 							<Button

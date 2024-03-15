@@ -52,7 +52,7 @@ export function UserAccontPage() {
 							{targetAccount.nbAccount}
 						</p>
 						<p className="entete-account-description">
-							{targetAccount.solde} €
+							{targetAccount.solde.toFixed(2)} €
 						</p>
 					</section>
 					<section className="AllOperation-account">
@@ -60,9 +60,9 @@ export function UserAccontPage() {
 							<Collapse
 								title={data.title}
 								date={data.date}
-								montant={data.montant}
+								montant={data.montant.toFixed(2)}
 								description={data.description}
-								key={data.title}
+								key={data._id}
 								operationId={data._id}
 								idAccount={targetAccount._id}
 							/>

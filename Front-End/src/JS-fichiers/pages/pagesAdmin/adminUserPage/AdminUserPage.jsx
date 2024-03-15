@@ -73,7 +73,7 @@ export function AdminUserPage() {
 	}
 	const today = new Date();
 
-	async function makeVirement() {
+	function makeVirement() {
 		/////////// add operation négative sur compte débiteur/////////////////
 		let headersList1 = {
 			id: `${userId}`,
@@ -89,7 +89,7 @@ export function AdminUserPage() {
 			description: `${description}`,
 			montant: - montant,
 		});
-		let response1 = await fetch(
+		fetch(
 			"http://localhost:3001/api/v1/user/account/operations",
 			{
 				method: "PUT",
@@ -113,7 +113,7 @@ export function AdminUserPage() {
 			description: `${description}`,
 			montant:  montant,
 		});
-		let response2 = await fetch(
+		fetch(
 			"http://localhost:3001/api/v1/user/account/operations",
 			{
 				method: "PUT",
@@ -197,7 +197,7 @@ export function AdminUserPage() {
 						{target.account.map((data) =>
 							data.visible === true ? (
 								<option value={data._id} key={"account1" + data._id}>
-									{data.nbAccount} - {data.name} - {data.solde}
+									{data.nbAccount} - {data.name} - {data.solde.toFixed(2)}
 								</option>
 							) : null
 						)}
@@ -213,7 +213,7 @@ export function AdminUserPage() {
 							data.visible === true &&
 							data._id !== valueOption1 ? (
 								<option value={data._id} key={"account2" + data._id}>
-									{data.nbAccount} - {data.name} - {data.solde}
+									{data.nbAccount} - {data.name} - {data.solde.toFixed(2)}
 								</option>
 							) : null
 						)}
@@ -275,7 +275,7 @@ export function AdminUserPage() {
 					</div>
 					<p className="portefeuilleClient">
 						La valeur bancaire du client est de :{" "}
-						{portefeuilleClient} €
+						{portefeuilleClient.toFixed(2)} €
 					</p>
 					<Button
 						className="addAccount"
@@ -305,7 +305,7 @@ export function AdminUserPage() {
 									Id: {data._id}
 								</p>
 								<p className="accountAdminUserPage-solde">
-									{data.solde} €
+									{data.solde.toFixed(2)} €
 								</p>
 							</div>
 						</Link>
@@ -328,7 +328,7 @@ export function AdminUserPage() {
 									Id: {data._id}
 								</p>
 								<p className="accountAdminUserPage-solde">
-									{data.solde} €
+									{data.solde.toFixed(2)} €
 								</p>
 							</div>
 						</Link>

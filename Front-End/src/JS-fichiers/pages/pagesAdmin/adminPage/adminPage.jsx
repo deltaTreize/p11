@@ -31,7 +31,7 @@ export function AdminPage() {
 		let totalSolde = 0;
 		allUsers.forEach((user) => {
 			user.account.forEach((data) => {
-				totalSolde += parseFloat(data.solde); // Convertir solde en nombre
+				totalSolde += parseFloat(data.solde); 
 			});
 		});
 		setPortefeuilleAllClient(totalSolde.toFixed(2));
@@ -79,7 +79,7 @@ export function AdminPage() {
 													{data.nbAccount}
 												</p>
 												<span className="AdminUserAccount-solde">
-													{data.solde}
+													{data.solde.toFixed(2)}
 												</span>
 											</div>
 										) : (
@@ -94,7 +94,7 @@ export function AdminPage() {
 													{data.nbAccount}
 												</p>
 												<span className="AdminUserAccount-solde">
-													{data.solde}
+													{data.solde.toFixed(2)}
 												</span>
 											</div>
 										)

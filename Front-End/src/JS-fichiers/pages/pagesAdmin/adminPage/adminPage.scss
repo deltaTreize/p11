@@ -13,7 +13,7 @@
 		text-decoration: none;
 		color: #12002b;
 		display: flex;
-		width: 30%;
+		width: 32%;
 		height: 30vh;
 		margin: auto;
 		.AdminAllUser {
@@ -52,6 +52,8 @@
 					}
 					&-name {
 						font-weight: 700;
+						font-size: 14px;
+						width: 25%;
 					}
 					&-solde {
 						border: none;

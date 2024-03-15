@@ -164,7 +164,7 @@ export function AdminUserAccountPage() {
 							Id: {targetAccount._id}
 						</p>
 						<p className="entete-account-description">
-							{targetAccount.solde} €
+							{targetAccount.solde.toFixed(2)} €
 						</p>
 						<span
 							className="trash"
@@ -183,9 +183,9 @@ export function AdminUserAccountPage() {
 								<Collapse
 									title={data.title}
 									date={data.date}
-									montant={data.montant}
+									montant={data.montant.toFixed(2)}
 									description={data.description}
-									key={data.title}
+									key={data._id}
 									operationId={data._id}
 									idAccount={targetAccount._id}
 								/>
@@ -193,7 +193,7 @@ export function AdminUserAccountPage() {
 								<Collapse
 									title={data.title}
 									date={data.date}
-									montant={data.montant}
+									montant={data.montant.toFixed(2)}
 									key={data.title}
 									operationId={data._id}
 									idAccount={targetAccount._id}
@@ -242,7 +242,7 @@ export function AdminUserAccountPage() {
 							Id: {targetAccount._id}
 						</p>
 						<p className="entete-account-description">
-							{targetAccount.solde} €
+							{targetAccount.solde.toFixed(2)} €
 						</p>
 					</section>
 					<section className="AllOperation-account">
@@ -251,7 +251,7 @@ export function AdminUserAccountPage() {
 								<Collapse
 									title={data.title}
 									date={data.date}
-									montant={data.montant}
+									montant={data.montant.toFixed(2)}
 									description={data.description}
 									key={data.title}
 								/>
@@ -259,7 +259,7 @@ export function AdminUserAccountPage() {
 								<Collapse
 									title={data.title}
 									date={data.date}
-									montant={data.montant}
+									montant={data.montant.toFixed(2)}
 									key={data.title}
 								/>
 							)
