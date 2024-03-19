@@ -7,7 +7,7 @@ const tokenReduceur = (state = localStorage.token, action) => {
 			return (state = "");
 
 		default:
-			return state;
+			return state = "";
 	}
 };
 export default tokenReduceur;

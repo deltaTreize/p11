@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { Button } from "../../../components/button/button";
 import {
-	TokenOn,
-	Login,
-	IsLoggin,
 	Admin,
+	IsLoggin,
+	Login,
 	NotAdmin,
-} from "../../../redux/actions/action.js";
-import { Button } from "../../../components/button/button.jsx";
+	TokenOn,
+} from "../../../redux/actions/action";
 
 import "./signInPage.scss";
 
@@ -23,19 +23,15 @@ export function SignIn() {
 		!checked ? setInputType("text") : setInputType("password");
 	}
 
-
 	const HandleSubmit = async () => {
-		const loginData = await fetch(
-			"http://localhost:3001/api/v1/user/login",
-			{
-				method: "POST",
-				headers: { "content-type": "application/json" },
-				body: JSON.stringify({
-					email: `${email}`,
-					password: `${password}`,
-				}),
-			}
-		);
+		const loginData = await fetch("http://localhost:3001/api/v1/user/login", {
+			method: "POST",
+			headers: { "content-type": "application/json" },
+			body: JSON.stringify({
+				email: `${email}`,
+				password: `${password}`,
+			}),
+		});
 		const loginDataJson = await loginData.json();
 
 		if (loginDataJson.status === 200) {
@@ -102,12 +98,8 @@ export function SignIn() {
 								}}
 							/>
 							<span className="show" onClick={handleChecked}>
-								{checked && (
-									<i className="fa-solid fa-eye"></i>
-								)}
-								{!checked && (
-									<i className="fa-solid fa-eye-slash"></i>
-								)}
+								{checked && <i className="fa-solid fa-eye"></i>}
+								{!checked && <i className="fa-solid fa-eye-slash"></i>}
 							</span>
 						</label>
 					</div>
@@ -123,11 +115,7 @@ export function SignIn() {
 						to={`/user`}
 						text="Se connecter"
 					/>
-					<Button
-						type="button"
-						to={"/sign-Up"}
-						text="Creer un compte"
-					/>
+					<Button type="button" to={"/sign-Up"} text="Creer un compte" />
 				</form>
 			</section>
 		</main>
