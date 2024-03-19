@@ -27,8 +27,8 @@ export function User() {
 	const firstName = useSelector((state: RootState) => state.user.firstName);
 	const lastName = useSelector((state: RootState) => state.user.lastName);
 	const userId = useSelector((state: RootState) => state.user.id);
-	const admin = useSelector((state: RootState) => state.admin);
-	const token = useSelector((state: RootState) => state.token);
+	const admin = useSelector((state: RootState) => state.admin.isAdmin);
+	const token = useSelector((state: RootState) => state.token.token);
 	const [dataUsers, setDataUsers] = useState<AccountData[]>([]);
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 	const [valueOption1, setValueOption1] = useState<number>(0);
@@ -37,18 +37,18 @@ export function User() {
 	const [description, setDescription] = useState<string>("");
 	const [montant, setMontant] = useState<number>(0);
 
-	useEffect(() => {
-		fetch("http://localhost:3001/api/v1/user/profile", {
-			method: "POST",
-			headers: {
-				Authorization: "Bearer " + localStorage.token,
-			},
-		})
-			.then((alldata) => alldata.json())
-			.then((data) => {
-				setDataUsers(data.body.account);
-			});
-	}, []);
+	if (token) {
+			fetch("http://localhost:3001/api/v1/user/profile", {
+				method: "POST",
+				headers: {
+					Authorization: "Bearer " + localStorage.token,
+				},
+			})
+				.then((alldata) => alldata.json())
+				.then((data) => {
+					setDataUsers(data.body.account);
+				});
+	}
 
 	const today = new Date();
 

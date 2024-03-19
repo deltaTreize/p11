@@ -16,6 +16,8 @@ interface UserData {
 	createdAt: string;
 }
 
+
+
 export interface SignInAction {
 	type: typeof SIGN_IN;
 	payload: UserData;

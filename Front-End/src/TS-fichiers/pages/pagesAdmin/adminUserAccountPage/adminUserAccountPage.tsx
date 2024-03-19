@@ -36,7 +36,7 @@ interface Operation {
 }
 
 export function AdminUserAccountPage() {
-	const token = useSelector((state: RootState) => state.token);
+	const token = useSelector((state: RootState) => state.token.token);
 	const id = useSelector((state: RootState) => state.user.id);
 	const [allUsers, setAllUsers] = useState<User[]>([]);
 	const [title, setTitle] = useState<string>("");

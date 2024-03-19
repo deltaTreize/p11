@@ -9,7 +9,7 @@ import "./AdminUserPage.scss";
 
 export function AdminUserPage() {
 	const id = useSelector((state: RootState) => state.user.id);
-	const token = useSelector((state: RootState) => state.token);
+	const token = useSelector((state: RootState) => state.token.token);
 	const [target, setTarget] = useState<User>();
 	const [name, setName] = useState<string>("");
 	const [nbAccount, setNbAccount] = useState<string>("");
@@ -142,7 +142,7 @@ export function AdminUserPage() {
 		});
 	}
 
-	if (!target) {
+	if (!target || target === undefined) {
     return <div>Loading...</div>; // Afficher un message de chargement
   }		
 	return (

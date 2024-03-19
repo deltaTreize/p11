@@ -25,7 +25,7 @@ export function EditPage() {
 	const lastName = useSelector((state: RootState) => state.user.lastName);
 	const email = useSelector((state: RootState) => state.user.email);
 	const createdAt = useSelector((state: RootState) => state.user.createdAt);
-	const token = useSelector((state: RootState) => state.token);
+	const token = useSelector((state: RootState) => state.token.token);
 	const dispatch:Dispatch<AuthActionTypes>= useDispatch();
 
 	const [userNameValue, setUserNameValue] = useState(userName);

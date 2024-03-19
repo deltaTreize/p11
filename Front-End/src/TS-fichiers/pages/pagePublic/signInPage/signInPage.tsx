@@ -2,16 +2,23 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Dispatch } from "redux";
 import { Button } from "../../../components/button/button";
-import { Admin, IsLoggin, Login, NotAdmin, TokenOn } from "../../../redux/actions/action";
+import {
+	Admin,
+	IsLoggin,
+	Login,
+	NotAdmin,
+	TokenOn,
+} from "../../../redux/actions/action";
 import { AuthActionTypes } from "../../../redux/actions/typeAction";
 import "./signInPage.scss";
 
 export function SignIn() {
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	const [inputType, setInputType] = useState("password");
-	const [checked, setChecked] = useState(false);
-	const dispatch: Dispatch<AuthActionTypes>= useDispatch();
+	const [email, setEmail] = useState<string>("");
+	const [password, setPassword] = useState<string>("");
+	const [inputType, setInputType] = useState<string>("password");
+	const [checked, setChecked] = useState<boolean>(false);
+	const [token, setToken] = useState<string>('');
+	const dispatch: Dispatch<AuthActionTypes> = useDispatch();
 	function handleChecked() {
 		setChecked(!checked);
 		!checked ? setInputType("text") : setInputType("password");
@@ -30,6 +37,7 @@ export function SignIn() {
 
 		if (loginDataJson.status === 200) {
 			localStorage.setItem("token", loginDataJson.body.token);
+			setToken(loginDataJson.body.token)
 			if (localStorage.token) {
 				const userDataFetched = await fetch(
 					"http://localhost:3001/api/v1/user/profile",
@@ -107,24 +115,22 @@ export function SignIn() {
 						type="button"
 						onClick={HandleSubmit}
 						to={`/user`}
-						text="Se connecter" className={""}					/>
-					<Button type="button" to={"/sign-Up"} text="Creer un compte" className={""} onClick={function (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>): void {
-						throw new Error("Function not implemented.");
-					} } />
+						text="Se connecter"
+						className={""}
+					/>
+					<Button
+						type="button"
+						to={"/sign-Up"}
+						text="Creer un compte"
+						className={""}
+						onClick={function (
+							event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+						): void {
+							throw new Error("Function not implemented.");
+						}}
+					/>
 				</form>
 			</section>
 		</main>
 	);
 }
-function SignInAction(userData: { id: any; firstName: any; lastName: any; userName: any; email: any; createdAt: any; }): any {
-	throw new Error("Function not implemented.");
-}
-
-function TokenOnAction(): any {
-	throw new Error("Function not implemented.");
-}
-
-function AdminAction(): any {
-	throw new Error("Function not implemented.");
-}
-
