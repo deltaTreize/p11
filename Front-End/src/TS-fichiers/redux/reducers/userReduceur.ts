@@ -5,7 +5,7 @@ import {
 	UserState,
 } from "../actions/typeAction";
 
-const initialState: UserState = {
+let initialState: UserState = {
 	id: "",
 	firstName: "",
 	lastName: "",
@@ -16,14 +16,10 @@ const initialState: UserState = {
 	account: [],
 };
 
-const userReducer = (
-	state = initialState,
-	action: AuthActionTypes
-): UserState => {
+const userReducer = (	state = initialState,	action: AuthActionTypes ): UserState => {
 	switch (action.type) {
 		case SIGN_IN:
 			return {
-				...state,
 				id: action.payload.id,
 				firstName: action.payload.firstName,
 				lastName: action.payload.lastName,
@@ -38,7 +34,7 @@ const userReducer = (
 			return initialState;
 
 		default:
-			return {...state};
+			return state;
 	}
 };
 
