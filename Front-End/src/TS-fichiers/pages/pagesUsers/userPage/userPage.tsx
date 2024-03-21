@@ -27,7 +27,8 @@ export function User() {
 	const firstName = useSelector((state: RootState) => state.user.firstName);
 	const lastName = useSelector((state: RootState) => state.user.lastName);
 	const userId = useSelector((state: RootState) => state.user.id);
-	const admin = useSelector((state: RootState) => state.admin.isAdmin);
+	const role = useSelector((state: RootState) => state.user.role);
+	const admin = role === "admin" ? true : false;
 	const token = useSelector((state: RootState) => state.token.token);
 	const [dataUsers, setDataUsers] = useState<AccountData[]>([]);
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -37,7 +38,8 @@ export function User() {
 	const [description, setDescription] = useState<string>("");
 	const [montant, setMontant] = useState<number>(0);
 
-	if (token) {
+	useEffect(() => {
+		if (localStorage.token) {
 			fetch("http://localhost:3001/api/v1/user/profile", {
 				method: "POST",
 				headers: {
@@ -48,7 +50,8 @@ export function User() {
 				.then((data) => {
 					setDataUsers(data.body.account);
 				});
-	}
+		}
+	}, []);
 
 	const today = new Date();
 
@@ -68,14 +71,11 @@ export function User() {
 			description: `${description}`,
 			montant: -montant,
 		});
-		fetch(
-			"http://localhost:3001/api/v1/user/account/operations",
-			{
-				method: "PUT",
-				body: bodyContent1,
-				headers: headersList1,
-			}
-		);
+		fetch("http://localhost:3001/api/v1/user/account/operations", {
+			method: "PUT",
+			body: bodyContent1,
+			headers: headersList1,
+		});
 
 		///////////add operation positive sur compte créditeur/////////////////////
 		let headersList2 = {

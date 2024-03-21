@@ -1,25 +1,16 @@
-import { AuthActionTypes, TOKEN_ON, TOKEN_OFF, TokenState } from "../actions/typeAction";
+import { AuthActionTypes, TOKEN_ON, TokenState } from "../actions/typeAction";
 
 const initialState: TokenState = {
-	token: localStorage.token || "",
+	token: localStorage.token ? localStorage.token : "",
 };
 
 const tokenReducer = (state = initialState, action: AuthActionTypes): TokenState => {
   switch (action.type) {
     case TOKEN_ON:
-      return {
-        ...state,
-        token: state.token,
-      };
-    case TOKEN_OFF:
-      return {
-        ...state,
-        token: "",
-      };
+      return {...state, token: action.payload.token,}
     default:
       return {
-        ...state,
-        token: "",
+        ...state
       };
   }
 };

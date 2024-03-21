@@ -6,7 +6,7 @@ import "./header.scss";
 
 export function Header() {
 	const userName = useSelector((state: RootState) => state.user.userName);
-	const logged = useSelector((state: RootState) => state.isLogged.isLoggedIn);
+	const logged =  localStorage.token ? true :  false;
 	const userId = useSelector((state: RootState) => state.user.id);
 	const dispatch = useDispatch();
 	

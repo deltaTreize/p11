@@ -1,29 +1,27 @@
 
 import {
-  ADMIN,
   AuthActionTypes,
-  IS_LOGIN,
-  IS_LOGOUT,
   LOGOUT,
-  NOT_ADMIN,
   SIGN_IN,
   TOKEN_OFF,
   TOKEN_ON,
+  UserState,
 } from "./typeAction";
 
-interface UserData{
-  id: string;
-  lastName: string;
-  firstName: string;
-  email: string;
-  userName: string;
-  createdAt: string;
-}
 
-export function Login(userData: UserData): AuthActionTypes {
+export function Login(data:UserState): AuthActionTypes {
   return {
     type: SIGN_IN,
-    payload: userData,
+    payload: {
+      id: data.id,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      userName: data.userName,
+      email: data.email,
+      createdAt: data.createdAt,
+      account: data.account,
+      role: data.role,
+    }
   };
 }
 
@@ -33,38 +31,15 @@ export function Logout(): AuthActionTypes {
   };
 }
 
-export function IsLoggin(): AuthActionTypes {
-  return {
-    type: IS_LOGIN,
-  };
-}
-
-export function IsLogout(): AuthActionTypes {
-  return {
-    type: IS_LOGOUT,
-  };
-}
-
-export function TokenOn(): AuthActionTypes {
+export function TokenOn(token:string): AuthActionTypes {
   return {
     type: TOKEN_ON,
+    payload: {token}
   };
 }
 
 export function TokenOff(): AuthActionTypes {
   return {
     type: TOKEN_OFF,
-  };
-}
-
-export function Admin(): AuthActionTypes {
-  return {
-    type: ADMIN,
-  };
-}
-
-export function NotAdmin(): AuthActionTypes {
-  return {
-    type: NOT_ADMIN,
   };
 }

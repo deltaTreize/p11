@@ -7,16 +7,8 @@ import { Login } from "../../../redux/actions/action";
 
 import React from "react";
 import "./editPage.scss";
-import { AuthActionTypes, RootState } from "../../../redux/actions/typeAction.js";
+import { AuthActionTypes, RootState, UserState } from "../../../redux/actions/typeAction.js";
 
-interface UserData{
-  id: string;
-  lastName: string;
-  firstName: string;
-  email: string;
-  userName: string;
-	createdAt: string;
-}
 
 export function EditPage() {
 	const id = useSelector((state: RootState) => state.user.id);
@@ -25,6 +17,7 @@ export function EditPage() {
 	const lastName = useSelector((state: RootState) => state.user.lastName);
 	const email = useSelector((state: RootState) => state.user.email);
 	const createdAt = useSelector((state: RootState) => state.user.createdAt);
+	const role = useSelector((state: RootState) => state.user.role);
 	const token = useSelector((state: RootState) => state.token.token);
 	const dispatch:Dispatch<AuthActionTypes>= useDispatch();
 
@@ -48,13 +41,15 @@ export function EditPage() {
 				body: bodyContent,
 			}
 		);
-		const userData: UserData = {
+		const userData: UserState = {
 			id: id,
 			firstName: firstName,
 			lastName: lastName,
 			userName: userNameValue,
 			email: email,
 			createdAt: createdAt,
+			role: role,
+			account: [],
 		};
 		dispatch(Login(userData));
 		setUserNameValue("");

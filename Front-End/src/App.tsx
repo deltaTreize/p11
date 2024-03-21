@@ -16,9 +16,9 @@ import { User } from "./TS-fichiers/pages/pagesUsers/userPage/userPage";
 import { RootState } from "./TS-fichiers/redux/actions/typeAction";
 
 function App() {
-	const logged = useSelector((state: RootState) => state.isLogged);
-	const admin = useSelector((state: RootState) => state.admin);
-
+	const logged = localStorage.token ? true : false;
+	const adminState = useSelector((state: RootState) => state.user.role);
+	const admin: boolean = adminState === "admin" ? true : false;
 	return (
 		<StrictMode>
 			<BrowserRouter>

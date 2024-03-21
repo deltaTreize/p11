@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { BackArrow } from "../../../components/backArrow/backArrow";
-
 import { RootState, UserState } from "../../../redux/actions/typeAction";
 import "./adminPage.scss";
 
@@ -12,17 +11,25 @@ export function AdminPage() {
 	const id = useSelector((state:RootState) => state.user.id);
 	const [allUsers, setAllUsers] = useState([]);
 	const [portefeuilleAllClient, setPortefeuilleAllClient] = useState(0);
+	const state = useSelector((state:RootState) => state);
+	console.log(state);
+	
 
 interface User{
 	role:string
 }
-
 interface userData{
 	account:AccountData [];
 }
-
 interface AccountData {
 	solde:number;
+}
+interface accountData {
+	visible: boolean;
+	_id: number;
+	name: string;
+	nbAccount: string;
+	solde: number;
 }
 
 	useEffect(() => {
@@ -51,13 +58,6 @@ interface AccountData {
 		setPortefeuilleAllClient(totalSolde);
 	}, [allUsers]);
 
-interface accountData {
-	visible: boolean;
-	_id: number;
-	name: string;
-	nbAccount: string;
-	solde: number;
-}
 
 	return (
 		<main className="main bg-dark">
