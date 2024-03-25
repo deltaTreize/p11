@@ -29,20 +29,22 @@ export function UserAccontPage() {
 	const lastName = useSelector((state: RootState) => state.user.lastName);
 	const userId = useSelector((state: RootState) => state.user.id);
 	const [dataUsers, setDataUsers] = useState<AccountData[]>([]);
+	const token = useSelector((state: RootState) => state.token.token);
+
 	const { userNbAccount } = useParams();
 
 	useEffect(() => {
 		fetch("http://localhost:3001/api/v1/user/profile", {
 			method: "POST",
 			headers: {
-				Authorization: "Bearer " + localStorage.token,
+				Authorization: "Bearer " + token,
 			},
 		})
 			.then((alldata) => alldata.json())
 			.then((data) => {
 				setDataUsers(data.body.account);
 			});
-	}, []);
+	}, [token]);
 	const targetAccount = dataUsers
 		? dataUsers.find((nb) => nb.nbAccount === userNbAccount)
 		: null;
@@ -53,7 +55,7 @@ export function UserAccontPage() {
 
 
 		if (!targetAccount) {
-			return <div>Loading...</div>; // Afficher un message de chargement
+			return <div>Loading...</div>; 
 		}
 		return (
 			<main className="main bg-dark">

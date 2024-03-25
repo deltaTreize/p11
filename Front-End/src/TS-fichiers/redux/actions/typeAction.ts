@@ -1,29 +1,23 @@
-export const SIGN_IN = "SIGN_IN";
-export const LOGOUT = "LOGOUT";
-export const TOKEN_ON = "TOKEN_ON";
-export const TOKEN_OFF = "TOKEN_OFF";
-
-
 export interface SignInAction {
-	type: typeof SIGN_IN;
+	type: "SIGN_IN";
 	payload: UserState;
 }
 
 export interface LogoutAction {
-	type: typeof LOGOUT;
+	type: "LOGOUT";
 }
 
 export interface TokenOnAction {
-	type: typeof TOKEN_ON;
+	type: "TOKEN_ON";
 	payload:{token:string}
 }
 
 export interface TokenOffAction {
-	type: typeof TOKEN_OFF;
+	type: "TOKEN_OFF";
 }
 
 export interface TokenState {
-	token: string;
+	token: string | null;
 }
 
 export interface UserState {

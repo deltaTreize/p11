@@ -11,8 +11,6 @@ export function AdminPage() {
 	const id = useSelector((state:RootState) => state.user.id);
 	const [allUsers, setAllUsers] = useState([]);
 	const [portefeuilleAllClient, setPortefeuilleAllClient] = useState(0);
-	const state = useSelector((state:RootState) => state);
-	console.log(state);
 	
 
 interface User{
@@ -68,7 +66,7 @@ interface accountData {
 				</h1>
 				<p className="portefeuilleClient">
 					Votre portefeuille client global est de :{" "}
-					{portefeuilleAllClient} €
+					{portefeuilleAllClient.toFixed(2)} €
 				</p>
 			</div>
 			<div className="AdminAllUser-container">

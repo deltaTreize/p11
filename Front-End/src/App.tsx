@@ -16,7 +16,8 @@ import { User } from "./TS-fichiers/pages/pagesUsers/userPage/userPage";
 import { RootState } from "./TS-fichiers/redux/actions/typeAction";
 
 function App() {
-	const logged: boolean = localStorage.token ? true : false;
+	const token = useSelector((state: RootState) => state.token);
+	const logged: boolean = token ? true : false;
 	const adminState: string = useSelector((state: RootState) => state.user.role);
 	const admin: boolean = adminState === "admin" ? true : false;
 	return (

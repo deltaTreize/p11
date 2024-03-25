@@ -1,7 +1,5 @@
 import {
 	AuthActionTypes,
-	LOGOUT,
-	SIGN_IN,
 	UserState,
 } from "../actions/typeAction";
 
@@ -18,8 +16,9 @@ let initialState: UserState = {
 
 const userReducer = (	state = initialState,	action: AuthActionTypes ): UserState => {
 	switch (action.type) {
-		case SIGN_IN:
+		case "SIGN_IN":
 			return {
+				...state,
 				id: action.payload.id,
 				firstName: action.payload.firstName,
 				lastName: action.payload.lastName,
@@ -30,7 +29,7 @@ const userReducer = (	state = initialState,	action: AuthActionTypes ): UserState
 				role: action.payload.role,
 			};
 
-		case LOGOUT:
+		case "LOGOUT":
 			return initialState;
 
 		default:

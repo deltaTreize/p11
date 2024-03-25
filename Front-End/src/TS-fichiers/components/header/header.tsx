@@ -1,22 +1,21 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { Logout, TokenOff } from "../../redux/actions/action";
 import { RootState } from "../../redux/actions/typeAction";
 import "./header.scss";
 
 export function Header() {
+	const token = useSelector((state: RootState) => state.token.token);
 	const userName = useSelector((state: RootState) => state.user.userName);
-	const logged =  localStorage.token ? true :  false;
+	const logged =  token !== null ? true :  false;
 	const userId = useSelector((state: RootState) => state.user.id);
 	const dispatch = useDispatch();
 	
 	const handleLogout = () => {
-		localStorage.token = '';
 		localStorage.id = '';
-		dispatch(TokenOffAction());
-		dispatch(NotAdminAction())
-		dispatch(LogoutAction());
-		dispatch(LogoutAction());
+		dispatch<any>(TokenOff());
+		dispatch<any>(Logout());
 	};
 
 	return (
@@ -64,15 +63,3 @@ export function Header() {
 		</div>
 	);
 }
-function TokenOffAction(): any {
-	throw new Error("Function not implemented.");
-}
-
-function NotAdminAction(): any {
-	throw new Error("Function not implemented.");
-}
-
-function LogoutAction(): any {
-	throw new Error("Function not implemented.");
-}
-

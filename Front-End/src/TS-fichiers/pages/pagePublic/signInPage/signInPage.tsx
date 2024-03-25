@@ -1,20 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "redux";
 import { Button } from "../../../components/button/button";
+import { Login, TokenOn } from "../../../redux/actions/action";
 import {
-	Login, TokenOn
-} from "../../../redux/actions/action";
-import { AuthActionTypes, RootState, UserState } from "../../../redux/actions/typeAction";
+	AuthActionTypes,
+	RootState,
+	UserState,
+} from "../../../redux/actions/typeAction";
 import "./signInPage.scss";
-
 
 export function SignIn() {
 	const [email, setEmail] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
 	const [inputType, setInputType] = useState<string>("password");
 	const [checked, setChecked] = useState<boolean>(false);
-	const token = useSelector((state: RootState) => state.token);
 
 	const dispatch: Dispatch<AuthActionTypes> = useDispatch();
 
@@ -33,40 +33,34 @@ export function SignIn() {
 			}),
 		});
 		const loginDataJson = await loginData.json();
-console.log(loginDataJson);
 
 		if (loginDataJson.status === 200) {
-			localStorage.setItem("token", loginDataJson.body.token);
 			dispatch(TokenOn(loginDataJson.body.token));
-			if (token) {
-				console.log("token", token);
-				
-				const userDataFetched = await fetch(
-					"http://localhost:3001/api/v1/user/profile",
-					{
-						method: "POST",
-						headers: {
-							Authorization: "Bearer " + localStorage.token,
-						},
-					}
-					);
-					const userDataJson = await userDataFetched.json();
-					localStorage.setItem("id", loginDataJson.body.id);
+			localStorage.setItem("id", loginDataJson.body.id);
 
-				const userData: UserState = {
-					id: userDataJson.body.id,
-					firstName: userDataJson.body.firstName,
-					lastName: userDataJson.body.lastName,
-					userName: userDataJson.body.userName,
-					email: userDataJson.body.email,
-					createdAt: userDataJson.body.createdAt,
-					account: userDataJson.body.account,
-					role: userDataJson.body.role,
-				};
-				dispatch(Login(userData));
-			// }
-			// dispatch(TokenOn());
-		}}
+			const userDataFetched = await fetch(
+				"http://localhost:3001/api/v1/user/profile",
+				{
+					method: "POST",
+					headers: {
+						Authorization: "Bearer " + loginDataJson.body.token,
+					},
+				}
+			);
+			const userDataJson = await userDataFetched.json();
+
+			const userData: UserState = {
+				id: userDataJson.body.id,
+				firstName: userDataJson.body.firstName,
+				lastName: userDataJson.body.lastName,
+				userName: userDataJson.body.userName,
+				email: userDataJson.body.email,
+				createdAt: userDataJson.body.createdAt,
+				account: userDataJson.body.account,
+				role: userDataJson.body.role,
+			};
+			dispatch(Login(userData));
+		}
 	};
 	return (
 		<main className="main bg-dark">

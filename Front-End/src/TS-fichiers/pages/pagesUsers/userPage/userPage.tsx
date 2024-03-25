@@ -38,12 +38,13 @@ export function User() {
 	const [description, setDescription] = useState<string>("");
 	const [montant, setMontant] = useState<number>(0);
 
+
 	useEffect(() => {
-		if (localStorage.token) {
+		if (token) {
 			fetch("http://localhost:3001/api/v1/user/profile", {
 				method: "POST",
 				headers: {
-					Authorization: "Bearer " + localStorage.token,
+					Authorization: "Bearer " + token,
 				},
 			})
 				.then((alldata) => alldata.json())
@@ -51,7 +52,7 @@ export function User() {
 					setDataUsers(data.body.account);
 				});
 		}
-	}, []);
+	}, [token]);
 
 	const today = new Date();
 

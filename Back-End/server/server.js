@@ -29,7 +29,7 @@ if (process.env.NODE_ENV !== "production") {
 	app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 }
 
-app.get("/", (req: Request, res: any) => {
+app.get("/", (req, res) => {
 	res.send("Hello on the ArgentBank DataBase!");
 });
 
