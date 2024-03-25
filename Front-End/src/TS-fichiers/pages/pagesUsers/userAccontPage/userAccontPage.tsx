@@ -45,12 +45,13 @@ export function UserAccontPage() {
 				setDataUsers(data.body.account);
 			});
 	}, [token]);
+
 	const targetAccount = dataUsers
 		? dataUsers.find((nb) => nb.nbAccount === userNbAccount)
 		: null;
 
 		const operations = targetAccount
-		? targetAccount.operations.reverse()
+		? targetAccount.operations.slice().reverse()
 		: null;
 
 

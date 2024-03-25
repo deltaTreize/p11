@@ -11,7 +11,7 @@ interface AccountData {
 	name: string;
 	nbAccount: string;
 	solde: number;
-	_id: number;
+	_id: string;
 	visible: boolean;
 	operations: Operation[];
 }
@@ -32,8 +32,8 @@ export function User() {
 	const token = useSelector((state: RootState) => state.token.token);
 	const [dataUsers, setDataUsers] = useState<AccountData[]>([]);
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-	const [valueOption1, setValueOption1] = useState<number>(0);
-	const [valueOption2, setValueOption2] = useState<number>(0);
+	const [valueOption1, setValueOption1] = useState<string>("");
+	const [valueOption2, setValueOption2] = useState<string>("");
 	const [title, setTitle] = useState<string>("");
 	const [description, setDescription] = useState<string>("");
 	const [montant, setMontant] = useState<number>(0);
@@ -72,6 +72,9 @@ export function User() {
 			description: `${description}`,
 			montant: -montant,
 		});
+		console.log(headersList1);
+		console.log(bodyContent1);
+		
 		fetch("http://localhost:3001/api/v1/user/account/operations", {
 			method: "PUT",
 			body: bodyContent1,
@@ -93,6 +96,8 @@ export function User() {
 			description: `${description}`,
 			montant: montant,
 		});
+		console.log(headersList2);
+		console.log(bodyContent2);
 		fetch("http://localhost:3001/api/v1/user/account/operations", {
 			method: "PUT",
 			body: bodyContent2,
@@ -116,7 +121,7 @@ export function User() {
 					<select
 						name="account1"
 						id="account1"
-						onChange={(e) => setValueOption1(parseFloat(e.target.value))}
+						onChange={(e) => setValueOption1(e.target.value)}
 					>
 						<option value="">choisir le compte à débiter!</option>
 						{dataUsers.map((data) =>
@@ -131,7 +136,7 @@ export function User() {
 					<select
 						name="account2"
 						id="account2"
-						onChange={(e) => setValueOption2(parseFloat(e.target.value))}
+						onChange={(e) => setValueOption2(e.target.value)}
 					>
 						<option value="">choisir le compte à créditer!</option>
 						{dataUsers.map((data) =>

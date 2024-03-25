@@ -18,8 +18,8 @@ export function AdminUserPage() {
 	const [isModaleOpen, setIsModaleOpen] = useState<boolean>(false);
 	const [portefeuilleClient, setPortefeuilleClient] = useState<number>(0);
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-	const [valueOption1, setValueOption1] = useState<number>(0);
-	const [valueOption2, setValueOption2] = useState<number>(0);
+	const [valueOption1, setValueOption1] = useState<string>("");
+	const [valueOption2, setValueOption2] = useState<string>("");
 	const [title, setTitle] = useState<string>("");
 	const [description, setDescription] = useState<string>("");
 	const [montant, setMontant] = useState<number>(0);
@@ -41,7 +41,7 @@ export function AdminUserPage() {
 		name: string;
 		nbAccount: string;
 		solde: number;
-		_id: number;
+		_id: string;
 		visible: boolean;
 		operations: Operation[];
 	}
@@ -208,7 +208,7 @@ export function AdminUserPage() {
 						<select
 							name="account1"
 							id="account1"
-							onChange={(e) => setValueOption1(parseFloat(e.target.value))}
+							onChange={(e) => setValueOption1(e.target.value)}
 						>
 							<option value="">choisir le compte à débiter!</option>
 							{target.account.map((data) =>
@@ -223,7 +223,7 @@ export function AdminUserPage() {
 						<select
 							name="account2"
 							id="account2"
-							onChange={(e) => setValueOption2(parseFloat(e.target.value))}
+							onChange={(e) => setValueOption2(e.target.value)}
 						>
 							<option value="">choisir le compte à créditer!</option>
 							{target.account.map((data) =>

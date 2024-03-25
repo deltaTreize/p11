@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Dispatch } from "redux";
 import { Button } from "../../../components/button/button";
 import { Login, TokenOn } from "../../../redux/actions/action";
 import {
 	AuthActionTypes,
-	RootState,
-	UserState,
+	UserState
 } from "../../../redux/actions/typeAction";
 import "./signInPage.scss";
 

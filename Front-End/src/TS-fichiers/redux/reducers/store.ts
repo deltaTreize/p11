@@ -18,6 +18,7 @@ const rootReducer: Reducer<RootState & PersistPartial, AuthActionTypes> = persis
   token: tokenReducer,
 });
 
+
 // Configurez votre store
 const store: Store<RootState & PersistPartial> = configureStore({
   reducer: rootReducer as Reducer<RootState & PersistPartial>,
@@ -27,3 +28,4 @@ const store: Store<RootState & PersistPartial> = configureStore({
 export const persistor = persistStore(store);
 
 export default store;
+
