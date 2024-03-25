@@ -8,6 +8,7 @@ import reportWebVitals from "./reportWebVitals";
 import persistor from "./TS-fichiers/redux/reducers/store";
 import {persistStore} from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
+import Spinner from "./TS-fichiers/components/spinner/spinner";
 
 
 
@@ -16,7 +17,7 @@ import { PersistGate } from "redux-persist/integration/react";
 ReactDOM.render(
 	<Provider store={persistor}>
 		<React.StrictMode>
-			<PersistGate loading={null} persistor={persistStore(persistor)}>
+			<PersistGate loading={<Spinner/>} persistor={persistStore(persistor)}>
 			<App />
 			</PersistGate>
 		</React.StrictMode>
