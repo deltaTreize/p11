@@ -3,22 +3,18 @@ const router = express.Router();
 const userController = require("../controllers/userController");
 const tokenValidation = require("../middleware/tokenValidation");
 
-router.post("/signup", userController.createUser);
-
 router.post("/login", userController.loginUser);
-
+router.post("/signup", userController.createUser);
 router.post(
 	"/profile",
 	tokenValidation.validateToken,
 	userController.getUserProfile
 );
-
 router.put(
 	"/profile",
 	tokenValidation.validateToken,
 	userController.updateUserProfile
 );
-
 router.put(
 	"/account",
 	tokenValidation.validateToken,
@@ -34,7 +30,6 @@ router.put(
 	tokenValidation.validateToken,
 	userController.updateDescription
 );
-
 router.put(
 	"/account/close",
 	tokenValidation.validateToken,
