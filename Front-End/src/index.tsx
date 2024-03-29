@@ -1,14 +1,13 @@
-import { configureStore } from "@reduxjs/toolkit";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
+import { persistStore } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
 import App from "./App";
+import Spinner from "./TS-fichiers/components/spinner/spinner";
+import persistor from "./TS-fichiers/redux/reducers/store";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import persistor from "./TS-fichiers/redux/reducers/store";
-import {persistStore} from "redux-persist";
-import { PersistGate } from "redux-persist/integration/react";
-import Spinner from "./TS-fichiers/components/spinner/spinner";
 
 
 

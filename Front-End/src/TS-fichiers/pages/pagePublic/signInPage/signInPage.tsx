@@ -14,7 +14,7 @@ export function SignIn() {
 	const [password, setPassword] = useState<string>("");
 	const [inputType, setInputType] = useState<string>("password");
 	const [checked, setChecked] = useState<boolean>(false);
-
+	const [seSouvenir, setSeSouvenir] = useState<boolean>(false);
 	const dispatch: Dispatch<AuthActionTypes> = useDispatch();
 
 	function handleChecked() {
@@ -22,7 +22,15 @@ export function SignIn() {
 		!checked ? setInputType("text") : setInputType("password");
 	}
 
+	function gestionCookies() {
+		if (seSouvenir) {
+      document.cookie = "ArgentBank=true; expires=Thu, 1 Jan 2026 12:00:00 UTC; path=/";
+    } else {
+      document.cookie = "ArgentBank=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    }	}
+
 	const HandleSubmit = async () => {
+		gestionCookies();
 		const loginData = await fetch("http://localhost:3001/api/v1/user/login", {
 			method: "POST",
 			headers: { "content-type": "application/json" },
@@ -98,7 +106,7 @@ export function SignIn() {
 					<div className="input-remember">
 						<label>
 							Se souvenir de moi
-							<input type="checkbox" id="remember-me" />
+							<input type="checkbox" id="remember-me" checked={seSouvenir} onChange={(e) => setSeSouvenir(e.target.checked)} />
 						</label>
 					</div>
 					<Button
