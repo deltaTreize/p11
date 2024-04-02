@@ -9,8 +9,9 @@ export function AdminPage() {
 	const firstName = useSelector((state:RootState) => state.user.firstName);
 	const lastName = useSelector((state:RootState) => state.user.lastName);
 	const id = useSelector((state:RootState) => state.user.id);
-	const [allUsers, setAllUsers] = useState([]);
-	const [portefeuilleAllClient, setPortefeuilleAllClient] = useState(0);
+	const [allUsers, setAllUsers] = useState<UserState[]>([]);
+	const [portefeuilleAllClient, setPortefeuilleAllClient] = useState<number>(0);
+	const [inputSearch, setInputSearch] = useState<string>("");
 	
 
 interface User{
@@ -57,6 +58,7 @@ interface accountData {
 		setPortefeuilleAllClient(totalSolde);
 	}, [allUsers]);
 
+	const found = allUsers.filter((user: UserState) => user.lastName.toLowerCase().includes(inputSearch));
 
 	return (
 		<main className="main bg-dark">
@@ -69,9 +71,10 @@ interface accountData {
 					Votre portefeuille client global est de :{" "}
 					{portefeuilleAllClient.toFixed(2)} €
 				</p>
+				<input type="text" className="input" onChange={(e) => setInputSearch(e.target.value)} placeholder="Rechercher" />
 			</div>
 			<div className="AdminAllUser-container">
-				{allUsers.map((user: UserState) => (
+				{found.map((user: UserState) => (
 					<Link
 						to={`${user.id}`}
 						key={user.id}
