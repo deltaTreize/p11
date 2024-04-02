@@ -24,6 +24,7 @@ export function SignUp() {
 		setChecked2(!checked2);
 		!checked2 ? setInputType2("text") : setInputType2("password");
 	}
+
 	let headersList = {
 		Accept: "*/*",
 		"Content-Type": "application/json",
@@ -48,12 +49,27 @@ export function SignUp() {
 				method: "POST",
 				headers: headersList,
 				body: bodyContent,
-			}).then((response) => {
+			}).then(async (response) => {
 				if (response.status === 400) {
+					console.log("error", response.json());
+					
 					setDisplay("flex");
 					setErrorMessage("L'adresse email est déjà utilisée");
 				}
 				if (response.status === 200) {
+					const data = await response.json();
+					console.log( "data",data);
+
+        // Envoi de l'e-mail de confirmation avec l'ID de l'utilisateur
+        fetch(`http://localhost:3001/send-confirmation-email/${data.userId}`)
+          .then(() => {
+						setDisplay("flex");
+						setErrorMessage("en attente de confirmation...");
+          })
+					.catch((error) => {
+            console.error('Erreur lors de l\'envoi de l\'e-mail de confirmation:', error);
+            // Gérer l'erreur
+          });
 					setDisplay("none");
 					window.location.replace("./sign-In");
 				}

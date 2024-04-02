@@ -3,6 +3,7 @@ const Account = require("../database/models/userAccount");
 const Operation = require("../database/models/userOperation");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const {sendConfirmationEmail} = require ("../services/emailService");
 
 module.exports.createUser = async (serviceData) => {
 	try {
@@ -14,6 +15,7 @@ module.exports.createUser = async (serviceData) => {
 		const hashPassword = await bcrypt.hash(serviceData.password, 12);
 
 		const newUser = new User({
+			confirmed: false,
 			email: serviceData.email,
 			password: hashPassword,
 			firstName: serviceData.firstName,
@@ -21,6 +23,7 @@ module.exports.createUser = async (serviceData) => {
 			userName: serviceData.userName,
 			role: serviceData.role,
 		});
+    await sendConfirmationEmail(newUser.email, newUser._id);
 		let result = await newUser.save();
 
 		return result;
@@ -56,11 +59,16 @@ module.exports.loginUser = async (serviceData) => {
 		if (!user) {
 			throw new Error("User not found!");
 		}
+		
+		if (!user.confirmed) {
+			throw new Error("User not confirmed");
+		}
 
 		const isValid = await bcrypt.compare(
 			serviceData.password,
 			user.password
 		);
+
 
 		if (!isValid) {
 			throw new Error("Password is invalid");

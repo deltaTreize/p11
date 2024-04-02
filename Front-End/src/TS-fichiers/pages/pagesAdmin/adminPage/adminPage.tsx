@@ -14,6 +14,7 @@ export function AdminPage() {
 	
 
 interface User{
+	confirmed: boolean;
 	role:string
 }
 interface userData{
@@ -40,7 +41,7 @@ interface accountData {
 			.then((data) => data.json())
 			.then((dataJson) => {
 				if (dataJson.body) {
-					const filteredUsers = dataJson.body.filter((user: User) => user.role === "user");
+					const filteredUsers = dataJson.body.filter((user: User) => user.role === "user" && user.confirmed === true);
 					setAllUsers(filteredUsers);
 				}
 			});

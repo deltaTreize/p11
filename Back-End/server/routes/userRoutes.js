@@ -2,9 +2,13 @@ const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/userController");
 const tokenValidation = require("../middleware/tokenValidation");
+const { sendConfirmationEmail } = require("../services/emailService");
+
 
 router.post("/login", userController.loginUser);
 router.post("/signup", userController.createUser);
+router.get("/confirm-email/:userId", userController.confirmEmail);
+
 router.post(
 	"/profile",
 	tokenValidation.validateToken,
