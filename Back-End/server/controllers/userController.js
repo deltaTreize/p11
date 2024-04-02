@@ -1,4 +1,6 @@
 const userService = require('../services/userService');
+const User = require("../database/models/userModel");
+
 
 module.exports.createUser = async (req, res) => {
   try {
@@ -12,33 +14,28 @@ module.exports.createUser = async (req, res) => {
 
 module.exports.confirmEmail = async (req, res) => {
   const { userId } = req.params;
-  console.log(`User ID from URL: ${userId}`); // Ajouter ce log
 
   try {
     const user = await User.findById(userId);
 
-    console.log(`User found: ${user}`); // Ajouter ce log
-
     if (!user) {
-      console.log("User not found"); // Ajouter ce log
-      return res.status(404).json({ message: "Utilisateur non trouvé" });
+      return res.status(404).send("<h1>Utilisateur non trouvé</h1>");
     }
 
     if (user.confirmed) {
-      console.log("User already confirmed"); // Ajouter ce log
-      return res.status(400).json({ message: "L'utilisateur est déjà confirmé" });
+      return res.status(400).send("<h1>L'utilisateur est déjà confirmé</h1>");
     }
 
     user.confirmed = true;
     await user.save();
 
-    console.log("User confirmed successfully"); // Ajouter ce log
-    res.status(200).json({ message: "L'utilisateur a été confirmé avec succès" });
+    res.status(200).send("<h1>L'utilisateur a été confirmé avec succès</h1>");
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Erreur lors de la confirmation de l'utilisateur" });
+    res.status(500).send("<h1>Erreur lors de la confirmation de l'utilisateur</h1>");
   }
 };
+
 module.exports.loginUser = async (req, res) => {
   let response = {}
 

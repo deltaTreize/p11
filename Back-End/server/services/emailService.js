@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 async function sendConfirmationEmail(userEmail, userId) {
-  const confirmationLink = `https://localhost:3001/api/v1/user/confirm-email/${userId}`;
+  const confirmationLink = `http://localhost:3001/api/v1/user/confirm-email/${userId}`;
 
   console.log("Confirmation Link:", confirmationLink); 
 

@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/userController");
 const tokenValidation = require("../middleware/tokenValidation");
-const { sendConfirmationEmail } = require("../services/emailService");
 
 
 router.post("/login", userController.loginUser);

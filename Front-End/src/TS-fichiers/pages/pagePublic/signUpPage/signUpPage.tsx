@@ -36,6 +36,7 @@ export function SignUp() {
 		firstName: `${firstName}`,
 		lastName: `${lastName}`,
 		userName: `${userName}`,
+		role: "user",
 	});
 
 	function createUser(event: { preventDefault: () => void; }) {
