@@ -215,6 +215,48 @@ module.exports.updateDescription = async (serviceData) => {
 		throw new Error(error);
 	}
 };
+module.exports.updateCategory = async (serviceData) => {
+	try {
+		const jwtToken = serviceData.headers.authorization
+			.split("Bearer")[1]
+			.trim();
+		const decodedJwtToken = jwt.decode(jwtToken);
+		const userId = serviceData.headers.id;
+		const accountId = serviceData.headers.idaccount;
+		const operationId = serviceData.headers.operationid;
+		const user = await User.findById(userId);
+
+		if (!user) {
+			throw new Error("User not found");
+		}
+
+		const accountIndex = user.account.findIndex(
+			(data) => data.id === accountId
+		);
+
+		if (accountIndex === -1) {
+			throw new Error("Account not found");
+		}
+
+		const operationIndex = user.account[accountIndex].operations.findIndex(
+			(data) => data.id === operationId
+		);
+
+		if (operationIndex === -1) {
+			throw new Error("Operation not found");
+		}
+
+		user.account[accountIndex].operations[operationIndex].category =
+			serviceData.body.category;
+
+		await user.save();
+
+		return user.toObject();
+	} catch (error) {
+		console.error("Error in userService.js", error);
+		throw new Error(error);
+	}
+};
 
 module.exports.getAllProfile = async (serviceData) => {
 	try {

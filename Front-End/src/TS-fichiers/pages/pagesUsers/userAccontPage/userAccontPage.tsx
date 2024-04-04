@@ -21,8 +21,8 @@ interface Operation {
 	montant: number;
 	description: string;
 	_id: string;
+	category: string;
 }
-
 
 export function UserAccontPage() {
 	const firstName = useSelector((state: RootState) => state.user.firstName);
@@ -50,49 +50,46 @@ export function UserAccontPage() {
 		? dataUsers.find((nb) => nb.nbAccount === userNbAccount)
 		: null;
 
-		const operations = targetAccount
+	const operations = targetAccount
 		? targetAccount.operations.slice().reverse()
 		: null;
 
-
-		if (!targetAccount) {
-			return <div>Loading...</div>; 
-		}
-		return (
-			<main className="main bg-dark">
-				<div className="header">
-					<BackArrow chemin={`/user/${userId}`} />
-					<h1>
-						{lastName} {firstName}
-					</h1>
-				</div>
-				<div className="account-userAccountPage">
-					<section className="entete-account">
-						<p className="entete-account-description">
-							{targetAccount.name}
-						</p>
-						<p className="entete-account-description">
-							{targetAccount.nbAccount}
-						</p>
-						<p className="entete-account-description">
-							{targetAccount.solde.toFixed(2)} €
-						</p>
-					</section>
-					<section className="AllOperation-account">
-						{operations?.map((data) => (
-							<Collapse
-								title={data.title}
-								date={data.date}
-								montant={data.montant}
-								description={data.description}
-								key={data._id}
-								operationId={data._id}
-								idAccount={targetAccount._id}
-							/>
-						))}
-					</section>
-				</div>
-			</main>
-		);
+	if (!targetAccount) {
+		return <div>Loading...</div>;
 	}
-
+	return (
+		<main className="main bg-dark">
+			<div className="header">
+				<BackArrow chemin={`/user/${userId}`} />
+				<h1>
+					{lastName} {firstName}
+				</h1>
+			</div>
+			<div className="account-userAccountPage">
+				<section className="entete-account">
+					<p className="entete-account-description">{targetAccount.name}</p>
+					<p className="entete-account-description">
+						{targetAccount.nbAccount}
+					</p>
+					<p className="entete-account-description">
+						{targetAccount.solde.toFixed(2)} €
+					</p>
+				</section>
+				<section className="AllOperation-account">
+					{operations?.map((data) => (
+						<Collapse
+							title={data.title}
+							date={data.date}
+							montant={data.montant}
+							description={data.description}
+							key={data._id}
+							operationId={data._id}
+							idAccount={targetAccount._id}
+							category={data.category}
+						/>
+					))}
+				</section>
+			</div>
+		</main>
+	);
+}

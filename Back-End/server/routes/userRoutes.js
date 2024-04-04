@@ -34,6 +34,11 @@ router.put(
 	userController.updateDescription
 );
 router.put(
+	"/account/operations/category",
+	tokenValidation.validateToken,
+	userController.updateCategory
+);
+router.put(
 	"/account/close",
 	tokenValidation.validateToken,
 	userController.closeAccount

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
+import ReactModal from "react-modal";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { BackArrow } from "../../../components/backArrow/backArrow";
+import { Button } from "../../../components/button/button";
 import { RootState, UserState } from "../../../redux/actions/typeAction";
 import "./adminPage.scss";
-import ReactModal from "react-modal";
-import { Button } from "../../../components/button/button";
 
 export function AdminPage() {
 	const firstName = useSelector((state: RootState) => state.user.firstName);
@@ -13,20 +13,19 @@ export function AdminPage() {
 	const id = useSelector((state: RootState) => state.user.id);
 	const [allUsers, setAllUsers] = useState<UserState[]>([]);
 	const [portefeuilleAllClient, setPortefeuilleAllClient] = useState<number>(0);
-	const [inputSearch, setInputSearch] = useState<string>("");
 	const [isModaleOpen, setIsModaleOpen] = useState<boolean>(false);
-	const [newfirstName, setNewFirstName] = useState("");
-	const [newlastName, setNewLastName] = useState("");
-	const [userName, setUserName] = useState("");
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	const [confPassword, setConfPassword] = useState("");
-	const [display, setDisplay] = useState("none");
-	const [errorMessage, setErrorMessage] = useState("kjhnmkljqdenbm");
-	const [checked, setChecked] = useState(false);
-	const [inputType, setInputType] = useState("password");
-	const [checked2, setChecked2] = useState(false);
-	const [inputType2, setInputType2] = useState("password");
+	const [newfirstName, setNewFirstName] = useState<string>("");
+	const [newlastName, setNewLastName] = useState<string>("");
+	const [userName, setUserName] = useState<string>("");
+	const [email, setEmail] = useState<string>("");
+	const [password, setPassword] = useState<string>("");
+	const [confPassword, setConfPassword] = useState<string>("");
+	const [display, setDisplay] = useState<string>("none");
+	const [errorMessage, setErrorMessage] = useState<string>("kjhnmkljqdenbm");
+	const [checked, setChecked] = useState<boolean>(false);
+	const [inputType, setInputType] = useState<string>("password");
+	const [checked2, setChecked2] = useState<boolean>(false);
+	const [inputType2, setInputType2] = useState<string>("password");
 
 	interface User {
 		confirmed: boolean;
@@ -73,10 +72,6 @@ export function AdminPage() {
 		});
 		setPortefeuilleAllClient(totalSolde);
 	}, [allUsers]);
-
-	const found = allUsers.filter((user: UserState) =>
-		user.lastName.toLowerCase().includes(inputSearch)
-	);
 
 	function handleChecked() {
 		setChecked(!checked);
@@ -232,16 +227,16 @@ export function AdminPage() {
 					Votre portefeuille client global est de :{" "}
 					{portefeuilleAllClient.toFixed(2)} €
 				</p>
-				<Button type={""} to={""} text={"créer un compte administrateur"} className={"addAdminUser"} onClick={() => setIsModaleOpen(true) }/>
-				<input
-					type="text"
-					className="input"
-					onChange={(e) => setInputSearch(e.target.value)}
-					placeholder="Rechercher"
+				<Button
+					type={""}
+					to={""}
+					text={"créer un compte administrateur"}
+					className={"addAdminUser"}
+					onClick={() => setIsModaleOpen(true)}
 				/>
 			</div>
 			<div className="AdminAllUser-container">
-				{found.map((user: UserState) => (
+				{allUsers.map((user: UserState) => (
 					<Link
 						to={`${user.id}`}
 						key={user.id}
