@@ -83,6 +83,7 @@ export function Collapse({ title, date, description, montant, operationId, idAcc
 						display: descripDisplay === true ? "flex" : "none",
 					}}
 				>
+					description:
 					<input
 						placeholder={description}
 						value={descriptionValue}
@@ -116,6 +117,7 @@ export function Collapse({ title, date, description, montant, operationId, idAcc
 						display: categoryDisplay === true ? "flex" : "none",
 					}}
 				>
+					catégories:
 					<input
 						placeholder={category}
 						value={categoryValue}
