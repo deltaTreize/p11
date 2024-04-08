@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { BackArrow } from "../../../components/backArrow/backArrow";
+import { Chart } from "../../../components/charts/chart";
 import { Collapse } from "../../../components/collapse/collapse";
 import { RootState } from "../../../redux/actions/typeAction";
 import "./userAccountPage.scss";
@@ -59,6 +60,7 @@ export function UserAccontPage() {
 	}
 	return (
 		<main className="main bg-dark">
+			<Chart/>
 			<div className="header">
 				<BackArrow chemin={`/user/${userId}`} />
 				<h1>

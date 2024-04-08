@@ -27,8 +27,6 @@ const updateOperationsByName = async () => {
 							op.description === operation.description
 						) {
 							op.category = operation.category;
-						} else {
-							op.category = "null";
 						}
 					}
 				}
