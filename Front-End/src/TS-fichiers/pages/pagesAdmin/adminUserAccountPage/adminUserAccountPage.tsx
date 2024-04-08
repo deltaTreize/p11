@@ -7,6 +7,7 @@ import { Button } from "../../../components/button/button";
 import { Collapse } from "../../../components/collapse/collapse";
 import { RootState } from "../../../redux/actions/typeAction";
 import "./adminUserAccountPage.scss";
+import { Chart } from "../../../components/charts/chart";
 
 interface User {
 	role: string;
@@ -183,6 +184,7 @@ export function AdminUserAccountPage() {
 						to={""}
 						className={""}
 					/>
+					<Chart />
 				</div>
 
 				<div className="account-adminUserAccountPage">

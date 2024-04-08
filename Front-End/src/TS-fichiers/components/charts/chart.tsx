@@ -2,10 +2,22 @@ import { ArcElement, Chart as ChartJS, Legend, Tooltip } from "chart.js";
 import React, { useEffect, useState } from "react";
 import { Doughnut } from "react-chartjs-2";
 import { useSelector } from "react-redux";
-import { RootState } from "../../redux/actions/typeAction";
 import { useParams } from "react-router-dom";
+import { RootState } from "../../redux/actions/typeAction";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
+
+interface User {
+	role: string;
+	id: string;
+	lastName: string;
+	firstName: string;
+	userName: string;
+	email: string;
+	createdAt: string;
+	updatedAt: string;
+	account: AccountData[];
+}
 
 interface AccountData {
 	firstName: string;
@@ -26,29 +38,63 @@ interface Operation {
 }
 
 export function Chart() {
-	const { userNbAccount } = useParams();
+	const { nbAccount, userId } = useParams<{
+		nbAccount: string;
+		userId: string;
+	}>();
 
 	const token = useSelector((state: RootState) => state.token.token);
-	const [dataUsers, setDataUsers] = useState<AccountData[]>([]);
-	useEffect(() => {
-		fetch("http://localhost:3001/api/v1/user/profile", {
-			method: "POST",
-			headers: {
-				Authorization: "Bearer " + token,
-			},
-		})
-			.then((alldata) => alldata.json())
-			.then((data) => {
-				setDataUsers(data.body.account);
-			});
-	}, [token]);
-	const targetAccount = dataUsers
-		? dataUsers.find((nb) => nb.nbAccount === userNbAccount)
-		: null;
+	const role = useSelector((state: RootState) => state.user.role);
+	const [dataUsers, setDataUsers] = useState<User | undefined>();
+	const id = useSelector((state: RootState) => state.user.id);
+	const [allUsers, setAllUsers] = useState<User[]>([]);
 
-	const operations = targetAccount
-		? targetAccount.operations.slice().reverse()
-		: null;
+	useEffect(() => {
+		if (role === "admin") {
+			fetch("http://localhost:3001/api/v1/user", {
+				method: "GET",
+				headers: {
+					id: `${id}`,
+				},
+			})
+				.then((data) => data.json())
+				.then((dataJson) => {
+					setAllUsers(dataJson.body);
+				});
+		}
+		if (role === "user") {
+			fetch("http://localhost:3001/api/v1/user/profile", {
+				method: "POST",
+				headers: {
+					Authorization: "Bearer " + token,
+				},
+			})
+				.then((alldata) => alldata.json())
+				.then((data) => {
+					setDataUsers(data.body);
+				});
+		}
+	}, []);
+
+	let target: User | undefined;
+	if (role === "admin") {
+		target = allUsers?.find(
+			(location) => location.id === userId
+		);
+		}
+	if (role === "user") {
+		target = dataUsers;
+	}	
+
+	const targetAccount = target?.account.find((account) => account.nbAccount === nbAccount)
+
+	const operations = targetAccount?.operations.slice().reverse()
+
+
+	console.log(target);
+	console.log(userId);
+	console.log(nbAccount);
+	console.log(targetAccount);
 
 	const categories = new Set(
 		operations?.map((operation) => operation.category)
@@ -158,9 +204,6 @@ export function Chart() {
 		telephoniePourcentage -
 		fraisBancairesPourcentage -
 		loyersPourcentage;
-	console.log(categorieArray);
-	console.log(transport);
-	console.log(restPourcentage.toFixed(2));
 
 	const data = {
 		labels: categorieArray,

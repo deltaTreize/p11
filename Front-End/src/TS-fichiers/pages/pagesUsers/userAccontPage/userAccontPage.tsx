@@ -32,7 +32,7 @@ export function UserAccontPage() {
 	const [dataUsers, setDataUsers] = useState<AccountData[]>([]);
 	const token = useSelector((state: RootState) => state.token.token);
 
-	const { userNbAccount } = useParams();
+	const { nbAccount } = useParams();
 
 	useEffect(() => {
 		fetch("http://localhost:3001/api/v1/user/profile", {
@@ -48,7 +48,7 @@ export function UserAccontPage() {
 	}, [token]);
 
 	const targetAccount = dataUsers
-		? dataUsers.find((nb) => nb.nbAccount === userNbAccount)
+		? dataUsers.find((nb) => nb.nbAccount === nbAccount)
 		: null;
 
 	const operations = targetAccount
