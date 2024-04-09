@@ -1,21 +1,30 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { Logout, TokenOff } from "../../redux/actions/action";
-import { RootState } from "../../redux/actions/typeAction";
+import { Logout, TokenOff, changeSearch } from "../../redux/actions/action";
+import { RootState, SearchState } from "../../redux/actions/typeAction";
 import "./header.scss";
 
 export function Header() {
 	const token = useSelector((state: RootState) => state.token.token);
 	const userName = useSelector((state: RootState) => state.user.userName);
-	const logged =  token !== null ? true :  false;
+	const logged =  token !== "" ? true :  false;
 	const userId = useSelector((state: RootState) => state.user.id);
 	const dispatch = useDispatch();
+	
+	const data: SearchState = {
+		searchName: "",
+		sortBy: "lastName",
+		sortOrder: "asc",
+		page: 1,
+		limit: 3,
+	};
 	
 	const handleLogout = () => {
 		localStorage.id = '';
 		dispatch<any>(TokenOff());
 		dispatch<any>(Logout());
+		dispatch<any>(changeSearch(data));
 	};
 
 	return (

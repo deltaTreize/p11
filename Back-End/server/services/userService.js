@@ -3,7 +3,7 @@ const Account = require("../database/models/userAccount");
 const Operation = require("../database/models/userOperation");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const {sendConfirmationEmail} = require ("../services/emailService");
+const { sendConfirmationEmail } = require("../services/emailService");
 
 module.exports.createUser = async (serviceData) => {
 	try {
@@ -23,7 +23,7 @@ module.exports.createUser = async (serviceData) => {
 			userName: serviceData.userName,
 			role: serviceData.role,
 		});
-    await sendConfirmationEmail(newUser.email, newUser._id);
+		await sendConfirmationEmail(newUser.email, newUser._id);
 		let result = await newUser.save();
 
 		return result;
@@ -59,16 +59,12 @@ module.exports.loginUser = async (serviceData) => {
 		if (!user) {
 			throw new Error("User not found!");
 		}
-		
+
 		if (!user.confirmed) {
 			throw new Error("User not confirmed");
 		}
 
-		const isValid = await bcrypt.compare(
-			serviceData.password,
-			user.password
-		);
-
+		const isValid = await bcrypt.compare(serviceData.password, user.password);
 
 		if (!isValid) {
 			throw new Error("Password is invalid");
@@ -258,12 +254,53 @@ module.exports.updateCategory = async (serviceData) => {
 	}
 };
 
-module.exports.getAllProfile = async (serviceData) => {
+module.exports.getAllProfile = async (req, res) => {
 	try {
-		const idAdmin = serviceData.headers.id;
+		const idAdmin = req.headers.id;
 		const Admin = await User.findOne({ _id: idAdmin, role: "admin" });
 		if (Admin) {
-			const users = await User.find();
+			const query = { role: "user", confirmed: true };
+			const users = await User.find(query)
+			return users.map((user) => user.toObject());
+		}
+
+		if (!users || users.length === 0) {
+			throw new Error("Aucun utilisateur trouvé!");
+		}
+	} catch (error) {
+		console.error("Error in userService.js", error);
+		throw new Error(error);
+	}
+};
+module.exports.getAllProfilePagined = async (req, res) => {
+	try {
+		const idAdmin = req.headers.id;
+		const Admin = await User.findOne({ _id: idAdmin, role: "admin" });
+		if (Admin) {
+			let page = 1;
+			let limit = 100;
+			let query = { role: "user", confirmed: true };
+
+			if (req.query.page) {
+				page = parseInt(req.query.page);
+			}
+
+			if (req.query.limit) {
+				limit = parseInt(req.query.limit);
+			}
+
+			if (req.query.name) {
+				const name = req.query.name;
+				query = { ...query, lastName: { $regex: name, $options: "i" } };
+			}
+
+			const sortBy = req.query.sortBy || "name"; // Par défaut, tri par nom
+			const sortOrder = req.query.sortOrder || "asc"; // Par défaut, tri ascendant
+
+			const users = await User.find(query)
+				.sort({ [sortBy]: sortOrder === "desc" ? -1 : 1 })
+				.skip((page - 1) * limit)
+				.limit(limit);
 			return users.map((user) => user.toObject());
 		}
 
@@ -288,7 +325,7 @@ module.exports.closeAccount = async (serviceData) => {
 		const accountIndex = user.account.findIndex(
 			(data) => data.id === idAccount
 		);
-		
+
 		user.account[accountIndex].visible = false;
 
 		await user.save();

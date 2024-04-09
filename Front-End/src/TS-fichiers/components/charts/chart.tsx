@@ -74,6 +74,7 @@ export function Chart() {
 					setDataUsers(data.body);
 				});
 		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	let target: User | undefined;

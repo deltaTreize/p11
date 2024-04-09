@@ -143,7 +143,7 @@ export function AdminUserPage() {
 	}
 
 	if (!target || target === undefined) {
-    return <div>Loading...</div>; // Afficher un message de chargement
+    return <div>Loading...</div>;
   }		
 	return (
 			<main className="main bg-dark">

@@ -46,6 +46,9 @@ router.put(
 
 router.get("/", userController.getAllProfile);
 
+router.get("/admin/", (req, res) => {
+  userController.getAllProfilePagined(req, res);
+});
 // const User = require("../database/models/userModel");
 // const Operation = require("../database/models/userOperation");
 // const bcrypt = require("bcrypt");

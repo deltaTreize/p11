@@ -1,16 +1,29 @@
 import React, { useEffect, useState } from "react";
 import ReactModal from "react-modal";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Dispatch } from "redux";
 import { BackArrow } from "../../../components/backArrow/backArrow";
 import { Button } from "../../../components/button/button";
-import { RootState, UserState } from "../../../redux/actions/typeAction";
+import { changeSearch } from "../../../redux/actions/action";
+import {
+	AuthActionTypes,
+	RootState,
+	UserState,
+} from "../../../redux/actions/typeAction";
 import "./adminPage.scss";
 
 export function AdminPage() {
+	const dispatch: Dispatch<AuthActionTypes> = useDispatch();
 	const firstName = useSelector((state: RootState) => state.user.firstName);
 	const lastName = useSelector((state: RootState) => state.user.lastName);
 	const id = useSelector((state: RootState) => state.user.id);
+	const nameSearch = useSelector((state: RootState) => state.search.searchName);
+	const nbPage = useSelector((state: RootState) => state.search.page);
+	const limit = useSelector((state: RootState) => state.search.limit);
+	const sortBy = useSelector((state: RootState) => state.search.sortBy);
+	const sortOrder = useSelector((state: RootState) => state.search.sortOrder);
+	const [allUsersFiltered, setAllUsersFiltered] = useState<UserState[]>([]);
 	const [allUsers, setAllUsers] = useState<UserState[]>([]);
 	const [portefeuilleAllClient, setPortefeuilleAllClient] = useState<number>(0);
 	const [isModaleOpen, setIsModaleOpen] = useState<boolean>(false);
@@ -26,11 +39,12 @@ export function AdminPage() {
 	const [inputType, setInputType] = useState<string>("password");
 	const [checked2, setChecked2] = useState<boolean>(false);
 	const [inputType2, setInputType2] = useState<string>("password");
+	const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
+	const [totalPage, setTotalPage] = useState<number>(0);
+	const [nameValue, setNameValue] = useState<string>(nameSearch);
+	const navigate = useNavigate();
+	const location = useLocation();
 
-	interface User {
-		confirmed: boolean;
-		role: string;
-	}
 	interface userData {
 		account: AccountData[];
 	}
@@ -46,7 +60,22 @@ export function AdminPage() {
 	}
 
 	useEffect(() => {
-		fetch("http://localhost:3001/api/v1/user", {
+		const queryParams = new URLSearchParams(location.search);
+		queryParams.set("name", nameSearch);
+		queryParams.set("sortBy", sortBy);
+		queryParams.set("sortOrder", sortOrder);
+		queryParams.set("page", `${nbPage}`);
+		queryParams.set("limit", `${limit}`);
+
+		navigate({
+			pathname: location.pathname,
+			search: queryParams.toString(),
+		});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [nameSearch, nbPage, limit]);
+
+	useEffect(() => {
+		fetch(`http://localhost:3001/api/v1/user/admin?name=${nameSearch}`, {
 			method: "GET",
 			headers: {
 				id: `${id}`,
@@ -55,13 +84,67 @@ export function AdminPage() {
 			.then((data) => data.json())
 			.then((dataJson) => {
 				if (dataJson.body) {
-					const filteredUsers = dataJson.body.filter(
-						(user: User) => user.role === "user" && user.confirmed === true
-					);
-					setAllUsers(filteredUsers);
+					setTotalPage(dataJson.body.length / limit);
+				}
+			});
+	}, [id, nameSearch, limit]);
+
+	useEffect(() => {
+		fetch(`http://localhost:3001/api/v1/user/`, {
+			method: "GET",
+			headers: {
+				id: `${id}`,
+			},
+		})
+			.then((data) => data.json())
+			.then((dataJson) => {
+				if (dataJson.body) {
+					setAllUsers(dataJson.body);
 				}
 			});
 	}, [id]);
+
+	useEffect(() => {
+		handleSearch();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [id, location.search]);
+
+	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const newValue = event.target.value;
+		setNameValue(newValue);
+		const data = {
+			searchName: newValue,
+			sortBy: sortBy,
+			sortOrder: sortOrder,
+			page: nbPage,
+			limit: limit,
+		};
+
+		if (timeoutId) {
+			clearTimeout(timeoutId);
+		}
+
+		// Debounce
+		const newTimeoutId = setTimeout(() => {
+			dispatch(changeSearch(data));
+		}, 1000);
+		setTimeoutId(newTimeoutId);
+	};
+
+	const handleSearch = () => {
+		fetch(`http://localhost:3001/api/v1/user/admin${location.search}`, {
+			method: "GET",
+			headers: {
+				id: `${id}`,
+			},
+		})
+			.then((data) => data.json())
+			.then((dataJson) => {
+				if (dataJson.body) {
+					setAllUsersFiltered(dataJson.body);
+				}
+			});
+	};
 
 	useEffect(() => {
 		let totalSolde: number = 0;
@@ -120,6 +203,31 @@ export function AdminPage() {
 			});
 		}
 	}
+
+	const renderDots = () => {
+		const dots: JSX.Element[] = [];
+		for (let i = 1; i <= Math.ceil(totalPage); i++) {
+			dots.push(
+				<button
+					key={i}
+					onClick={() => {
+						const data = {
+							searchName: nameSearch,
+							sortBy: sortBy,
+							sortOrder: sortOrder,
+							page: i,
+							limit: limit,
+						};
+						dispatch(changeSearch(data));
+					}}
+					className={nbPage === i ? "active" : ""}
+				>
+					{i}
+				</button>
+			);
+		}
+		return dots;
+	};
 
 	return (
 		<main className="main bg-dark">
@@ -234,9 +342,35 @@ export function AdminPage() {
 					className={"addAdminUser"}
 					onClick={() => setIsModaleOpen(true)}
 				/>
+				<div className="filterBar">
+					<input
+						type="text"
+						value={nameValue}
+						onChange={handleInputChange}
+						placeholder="Recherche par nom..."
+					/>
+					<input
+						className="inputNumber"
+						type="number"
+						min={1}
+						value={limit}
+						onChange={(e) => {
+							const data = {
+								searchName: nameSearch,
+								sortBy: sortBy,
+								sortOrder: sortOrder,
+								page: 1,
+								limit: parseInt(e.target.value),
+							};
+							dispatch(changeSearch(data));
+						}}
+					/>
+					<p>/utilisateurs par page</p>
+
+				</div>
 			</div>
 			<div className="AdminAllUser-container">
-				{allUsers.map((user: UserState) => (
+				{allUsersFiltered.map((user: UserState) => (
 					<Link
 						to={`${user.id}`}
 						key={user.id}
@@ -281,6 +415,7 @@ export function AdminPage() {
 					</Link>
 				))}
 			</div>
+			<div className="pagination">{renderDots()}</div>
 		</main>
 	);
 }

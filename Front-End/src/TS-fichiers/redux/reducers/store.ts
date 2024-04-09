@@ -5,6 +5,7 @@ import storage from "redux-persist/lib/storage";
 import { AuthActionTypes, RootState } from "../actions/typeAction";
 import tokenReducer from "./tokenReduceur";
 import userReducer from "./userReduceur";
+import searchReducer from "./search";
 
 // Définissez la configuration de persistance
 const persistConfig: PersistConfig<RootState> = {
@@ -16,6 +17,7 @@ const persistConfig: PersistConfig<RootState> = {
 const rootReducer: Reducer<RootState & PersistPartial, AuthActionTypes> = persistCombineReducers(persistConfig, {
   user: userReducer,
   token: tokenReducer,
+  search: searchReducer,
 });
 
 

@@ -16,8 +16,13 @@ export interface TokenOffAction {
 	type: "TOKEN_OFF";
 }
 
+export interface searchAction{
+	type: "changeSearch";
+	payload: SearchState
+}
+
 export interface TokenState {
-	token: string | null;
+	token: string;
 }
 
 export interface UserState {
@@ -34,6 +39,15 @@ export interface UserState {
 export interface RootState {
 	token: TokenState;
 	user: UserState;
+	search: SearchState;
+}
+
+export interface SearchState{
+	searchName: string;
+	sortBy: string;
+	sortOrder: string;
+	page: number;
+	limit: number
 }
 
 export type AuthActionTypes =
@@ -41,3 +55,4 @@ export type AuthActionTypes =
 	| LogoutAction
 	| TokenOnAction
 	| TokenOffAction
+	| searchAction
