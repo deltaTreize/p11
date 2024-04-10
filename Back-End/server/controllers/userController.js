@@ -74,7 +74,23 @@ module.exports.getAllProfile = async (req, res) => {
   let response = {}
 
   try {
-    const responseFromService = await userService.getAllProfile(req)
+    const responseFromService = await userService.getAllProfile(req, res)
+    response.status = 200
+    response.message = 'Successfully got All users profile data'
+    response.body = responseFromService
+  } catch (error) {
+    console.log('Error in userController.js')
+    response.status = 400
+    response.message = error.message
+  }
+
+  return res.status(response.status).send(response)
+}
+module.exports.getAllProfilePagined = async (req, res) => {
+  let response = {}
+
+  try {
+    const responseFromService = await userService.getAllProfilePagined(req, res)
     response.status = 200
     response.message = 'Successfully got All users profile data'
     response.body = responseFromService
@@ -111,6 +127,22 @@ module.exports.updateDescription = async (req, res) => {
     const responseFromService = await userService.updateDescription(req)
     response.status = 200
     response.message = 'Successfully updated description of operation'
+    response.body = responseFromService
+  } catch (error) {
+    console.log('Error in updateUserProfile - userController.js')
+    response.status = 400
+    response.message = error.message
+  }
+
+  return res.status(response.status).send(response)
+}
+module.exports.updateCategory = async (req, res) => {
+  let response = {}
+
+  try {
+    const responseFromService = await userService.updateCategory(req)
+    response.status = 200
+    response.message = 'Successfully updated category of operation'
     response.body = responseFromService
   } catch (error) {
     console.log('Error in updateUserProfile - userController.js')

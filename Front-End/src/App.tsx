@@ -40,7 +40,7 @@ function App() {
 					{logged && <Route path="/user/:userId" element={<User />} />}
 					{logged && (
 						<Route
-							path="/user/:userId/:userNbAccount"
+							path="/user/:userId/:nbAccount"
 							element={<UserAccontPage />}
 						/>
 					)}

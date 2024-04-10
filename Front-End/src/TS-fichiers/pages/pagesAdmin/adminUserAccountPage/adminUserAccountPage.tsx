@@ -7,6 +7,7 @@ import { Button } from "../../../components/button/button";
 import { Collapse } from "../../../components/collapse/collapse";
 import { RootState } from "../../../redux/actions/typeAction";
 import "./adminUserAccountPage.scss";
+import { Chart } from "../../../components/charts/chart";
 
 interface User {
 	role: string;
@@ -28,6 +29,7 @@ interface AccountData {
 	operations: Operation[];
 }
 interface Operation {
+	category: string;
 	title: string;
 	date: string;
 	montant: number;
@@ -182,6 +184,7 @@ export function AdminUserAccountPage() {
 						to={""}
 						className={""}
 					/>
+					<Chart />
 				</div>
 
 				<div className="account-adminUserAccountPage">
@@ -214,6 +217,7 @@ export function AdminUserAccountPage() {
 									key={data._id}
 									operationId={data._id}
 									idAccount={targetAccount._id}
+									category={data.category}
 								/>
 							) : (
 								<Collapse
@@ -224,6 +228,7 @@ export function AdminUserAccountPage() {
 									operationId={data._id}
 									idAccount={targetAccount._id}
 									description={""}
+									category={data.category}
 								/>
 							)
 						)}
@@ -231,8 +236,7 @@ export function AdminUserAccountPage() {
 				</div>
 			</main>
 		);
-	}
-	else if (targetAccount && target && targetAccount.visible === false) {
+	} else if (targetAccount && target && targetAccount.visible === false) {
 		return (
 			<main className="main bg-dark">
 				<div className="header">
@@ -278,6 +282,7 @@ export function AdminUserAccountPage() {
 									key={data.title}
 									operationId={""}
 									idAccount={0}
+									category={data.category}
 								/>
 							) : (
 								<Collapse
@@ -288,6 +293,7 @@ export function AdminUserAccountPage() {
 									description={""}
 									operationId={""}
 									idAccount={0}
+									category={data.category}
 								/>
 							)
 						)}
@@ -295,8 +301,7 @@ export function AdminUserAccountPage() {
 				</div>
 			</main>
 		);
+	} else {
+		return <div>Loading...</div>; // Afficher un message de chargement
 	}
-	else {
-    return <div>Loading...</div>; // Afficher un message de chargement
-  }
 }

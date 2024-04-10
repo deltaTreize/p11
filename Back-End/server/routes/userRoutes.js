@@ -34,6 +34,11 @@ router.put(
 	userController.updateDescription
 );
 router.put(
+	"/account/operations/category",
+	tokenValidation.validateToken,
+	userController.updateCategory
+);
+router.put(
 	"/account/close",
 	tokenValidation.validateToken,
 	userController.closeAccount
@@ -41,6 +46,9 @@ router.put(
 
 router.get("/", userController.getAllProfile);
 
+router.get("/admin/", (req, res) => {
+  userController.getAllProfilePagined(req, res);
+});
 // const User = require("../database/models/userModel");
 // const Operation = require("../database/models/userOperation");
 // const bcrypt = require("bcrypt");

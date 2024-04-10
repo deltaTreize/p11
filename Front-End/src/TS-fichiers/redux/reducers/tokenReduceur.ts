@@ -1,7 +1,7 @@
 import { AuthActionTypes,  TokenState } from "../actions/typeAction";
 
 const initialState: TokenState = {
-  token: localStorage.token ? localStorage.token : null,
+  token: localStorage.token ? localStorage.token : "",
 };
 
 const tokenReducer = (state = initialState, action: AuthActionTypes): TokenState => {
@@ -9,7 +9,7 @@ const tokenReducer = (state = initialState, action: AuthActionTypes): TokenState
     case "TOKEN_ON":
       return {...state, token: action.payload.token};
       case "TOKEN_OFF":
-      return { ...state, token: null };
+      return { ...state, token: "" };
     default:
       return state;
   }

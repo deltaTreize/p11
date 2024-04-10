@@ -1,9 +1,11 @@
 import {
 	LogoutAction,
+	SearchState,
 	SignInAction,
 	TokenOffAction,
 	TokenOnAction,
 	UserState,
+	searchAction,
 } from "./typeAction";
 
 export function Login(data: UserState): SignInAction {
@@ -38,5 +40,18 @@ export function TokenOn(token: string): TokenOnAction {
 export function TokenOff(): TokenOffAction {
 	return {
 		type: "TOKEN_OFF",
+	};
+}
+
+export function changeSearch(data: SearchState): searchAction {
+	return {
+		type: "changeSearch",
+		payload: {
+			searchName: data.searchName,
+			sortBy: data.sortBy,
+			sortOrder: data.sortOrder,
+			page: data.page,
+			limit: data.limit,
+		},
 	};
 }

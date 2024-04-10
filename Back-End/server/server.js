@@ -5,6 +5,8 @@ const swaggerUi = require("swagger-ui-express");
 const yaml = require("yamljs");
 const swaggerDocs = yaml.load("./swagger.yaml");
 const dbConnection = require("./database/connection");
+const { updateOperationsByName } = require('./operationUpdate');
+
 
 dotEnv.config();
 
@@ -13,6 +15,8 @@ const PORT = process.env.PORT || 3001;
 
 // Connect to the database
 dbConnection();
+// updateOperationsByName();
+
 
 // Handle CORS issues
 app.use(cors());

@@ -11,15 +11,21 @@ interface CollapseProps {
 	montant: number;
 	operationId: string;
 	idAccount: number;
+	category: string;
 }
 
-export function Collapse({ title, date, description, montant, operationId, idAccount }: CollapseProps) {
-	const [descripDisplay, setDescripDisplay] = useState(false);
-	const [isDisabled, setIsDisabled] = useState(true);
-	const [inputValue, setInputValue] = useState("");
-	const [pencilDisplay, setPencilDisplay] = useState(true);
-	const token = useSelector((state:RootState) => state.token);
+export function Collapse({ title, date, description, montant, operationId, idAccount, category }: CollapseProps) {
+	const [descripDisplay, setDescripDisplay] = useState<boolean>(false);
+	const [categoryDisplay, setCategoryDisplay] = useState<boolean>(false);
+	const [isDisabled, setIsDisabled] = useState<boolean>(true);
+	const [descriptionValue, setDescriptionValue] = useState<string>("");
+	const [categoryValue, setCategoryValue] = useState<string>("");
+	const [pencilDescriptionDisplay, setPencilDescriptionDisplay] = useState<boolean>(true);
+	const [pencilCategoryDisplay, setPencilCategoryDisplay] = useState<boolean>(true);
+	const token = useSelector((state:RootState) => state.token.token);
 	const { userId } = useParams();
+
+	
 
 	async function updateDescription() {
 		setIsDisabled(!isDisabled);
@@ -32,10 +38,32 @@ export function Collapse({ title, date, description, montant, operationId, idAcc
 		};
 
 		let bodyContent = JSON.stringify({
-			description: `${inputValue}`,
+			description: descriptionValue,
 		});
 		fetch(
 			"http://localhost:3001/api/v1/user/account/operations/description",
+			{
+				method: "PUT",
+				body: bodyContent,
+				headers: headersList,
+			}
+			);
+		}
+	async function updateCategory() {
+		setIsDisabled(!isDisabled);
+		let headersList = {
+			id: `${userId}`,
+			idaccount: `${idAccount}`,
+			operationid: `${operationId}`,
+			Authorization: "Bearer " + token,
+			"Content-Type": "application/json",
+		};
+
+		let bodyContent = JSON.stringify({
+			category: categoryValue,
+		});
+		fetch(
+			"http://localhost:3001/api/v1/user/account/operations/category",
 			{
 				method: "PUT",
 				body: bodyContent,
@@ -55,30 +83,65 @@ export function Collapse({ title, date, description, montant, operationId, idAcc
 						display: descripDisplay === true ? "flex" : "none",
 					}}
 				>
+					description:
 					<input
 						placeholder={description}
-						value={inputValue}
+						value={descriptionValue}
 						disabled={isDisabled}
-						onChange={(e) => setInputValue(e.target.value)}
+						onChange={(e) => setDescriptionValue(e.target.value)}
 					/>
 					<i
 						className="fa-solid fa-pencil"
 						style={{
-							display: pencilDisplay === true ? "flex" : "none",
+							display: pencilDescriptionDisplay === true ? "flex" : "none",
 						}}
 						onClick={() => {
-							setPencilDisplay(!pencilDisplay);
+							setPencilDescriptionDisplay(!pencilDescriptionDisplay);
 							setIsDisabled(!isDisabled);
 						}}
 					></i>
 					<i
 						className="fa-solid fa-check"
 						style={{
-							display: pencilDisplay === true ? "none" : "flex",
+							display: pencilDescriptionDisplay === true ? "none" : "flex",
 						}}
 						onClick={() => {
 							updateDescription();
-							setPencilDisplay(!pencilDisplay);
+							setPencilDescriptionDisplay(!pencilDescriptionDisplay);
+						}}
+					></i>
+				</div>
+				<div
+					className="operation-account-infos-category"
+					style={{
+						display: categoryDisplay === true ? "flex" : "none",
+					}}
+				>
+					catégories:
+					<input
+						placeholder={category}
+						value={categoryValue}
+						disabled={isDisabled}
+						onChange={(e) => setCategoryValue(e.target.value)}
+					/>
+					<i
+						className="fa-solid fa-pencil"
+						style={{
+							display: pencilCategoryDisplay === true ? "flex" : "none",
+						}}
+						onClick={() => {
+							setPencilCategoryDisplay(!pencilCategoryDisplay);
+							setIsDisabled(!isDisabled);
+						}}
+					></i>
+					<i
+						className="fa-solid fa-check"
+						style={{
+							display: pencilCategoryDisplay === true ? "none" : "flex",
+						}}
+						onClick={() => {
+							updateCategory();
+							setPencilCategoryDisplay(!pencilCategoryDisplay);
 						}}
 					></i>
 				</div>
@@ -88,14 +151,14 @@ export function Collapse({ title, date, description, montant, operationId, idAcc
 				<i
 					className="fa-solid fa-chevron-down"
 					style={{ color: "#12002b" }}
-					onClick={() => setDescripDisplay(!descripDisplay)}
+					onClick={() => {setDescripDisplay(!descripDisplay); setCategoryDisplay(!categoryDisplay)}}
 				></i>
 			)}
 			{descripDisplay && (
 				<i
 					className="fa-solid fa-chevron-up"
 					style={{ color: "#12002b" }}
-					onClick={() => setDescripDisplay(!descripDisplay)}
+					onClick={() => {setDescripDisplay(!descripDisplay); setCategoryDisplay(!categoryDisplay)}}
 				></i>
 			)}
 		</div>

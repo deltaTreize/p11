@@ -6,7 +6,7 @@
 	align-items: center;
 	width: 60%;
 	position: absolute;
-	left: 50%;
+	left: 45%;
 	top: 50%;
 	transform: translate(-50%, -50%);
 	border-radius: 10px;
@@ -24,4 +24,10 @@
     overflow-y: scroll;
     scrollbar-width: none;
 	}
+}
+.chart{
+  position: fixed;
+  right: 20px;
+  top: 50vh;
+  transform: translateY(-50%);
 }

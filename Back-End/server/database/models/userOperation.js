@@ -7,6 +7,7 @@ const operationSchema = new mongoose.Schema(
     title: String,
     description: String,
     montant: Number,
+    category: String,
   },);
 module.exports = mongoose.model("Operation", operationSchema);
 
