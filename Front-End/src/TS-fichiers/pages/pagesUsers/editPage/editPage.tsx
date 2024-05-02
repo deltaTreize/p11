@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Dispatch } from "redux";
 import { useDispatch, useSelector } from "react-redux";
-import { BackArrow } from "../../../components/backArrow/backArrow";
 import { Button } from "../../../components/button/button";
 import { Login } from "../../../redux/actions/action";
 
@@ -57,11 +56,10 @@ export function EditPage() {
 
 	return (
 		<main className="main bg-dark mainEdit">
-			<div className="header">
-				<BackArrow chemin={`/user/${id}`} />
+			<div className="header-edit">
 				<h1>Vos Informations</h1>
 			</div>
-			<div className="header-edit">
+			<div className="edit">
 				<form action="" onSubmit={handleChange}>
 					<div className="allLabel">
 						<label htmlFor="userName">
@@ -75,26 +73,31 @@ export function EditPage() {
 								}
 							/>
 						</label>
-						<div className="infos">
-							<p className="infos-title">email:</p>
-							<p className="infos-content">{email}</p>
+						<div className="infos-edit">
+							<p className="infos-edit-title">email:</p>
+							<p className="infos-edit-content">{email}</p>
 						</div>
-						<div className="infos">
-							<p className="infos-title">Nom:</p>
-							<p className="infos-content">{lastName}</p>
+						<div className="infos-edit">
+							<p className="infos-edit-title">Nom:</p>
+							<p className="infos-edit-content">{lastName}</p>
 						</div>
-						<div className="infos">
-							<p className="infos-title">Prénom:</p>
-							<p className="infos-content">{firstName}</p>
+						<div className="infos-edit">
+							<p className="infos-edit-title">Prénom:</p>
+							<p className="infos-edit-content">{firstName}</p>
 						</div>
-						<div className="infos">
-							<p className="infos-title">votre conseillé:</p>
-							<p className="infos-content">{"DUPOND Jean"}</p>
+						<div className="infos-edit">
+							<p className="infos-edit-title">votre conseillé:</p>
+							<p className="infos-edit-content">{"DUPOND Jean"}</p>
 						</div>
-						<div className="infos">
-							<p className="infos-title">date de création:</p>
-							<p className="infos-content">{createdAt.slice(0, 10)}</p>
+						<div className="infos-edit">
+							<p className="infos-edit-title">date de création:</p>
+							<p className="infos-edit-content">{createdAt.slice(0, 10)}</p>
 						</div>
+						<label htmlFor="picture">	
+						photo de profil:
+						<input type="file" id="picture"/>
+						</label>
+
 					</div>
 					<div className="edit-buttons">
 						<input

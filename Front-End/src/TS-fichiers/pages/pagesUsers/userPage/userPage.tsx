@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
-import { BackArrow } from "../../../components/backArrow/backArrow";
 import { Button } from "../../../components/button/button";
+import { ChartUser } from "../../../components/charts/chartUser";
 import { RootState } from "../../../redux/actions/typeAction";
 import "./userPage.scss";
 
@@ -30,8 +31,12 @@ export function User() {
 	const admin = role === "admin" ? true : false;
 	const token = useSelector((state: RootState) => state.token.token);
 	const [dataUsers, setDataUsers] = useState<AccountData[]>([]);
-	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+	const navigate = useNavigate();
 	let portefeuilleClient = 0;
+
+	if (admin) {
+		navigate("/admin");
+	}
 
 	useEffect(() => {
 		if (token) {
@@ -50,38 +55,10 @@ export function User() {
 
 	dataUsers.map((account) => (portefeuilleClient += account.solde));
 
+
+
 	return (
 		<main className="main bg-dark">
-			<div className="header">
-				<BackArrow chemin={"/"} />
-				<h1>
-					Bienvenue
-					<br />
-					{firstName} {lastName}
-				</h1>
-				{!admin && (
-					<Button
-						className="virementButton"
-						text={"Effectuer un virement"}
-						onClick={() => setIsModalOpen(!isModalOpen)}
-						type={""}
-						to={""}
-					/>
-				)}
-				{admin && (
-					<Button
-						to={"/admin"}
-						text="View All Users"
-						type={""}
-						className={""}
-						onClick={function (
-							event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-						): void {
-							throw new Error("Function not implemented.");
-						}}
-					/>
-				)}
-			</div>
 			<div className="allInfo-wrapper">
 				<div className="account-wrapper">
 					{dataUsers.map((data) =>
@@ -115,18 +92,8 @@ export function User() {
 				<div className="portefeuille-wrapper">
 					<h2>
 						portefeuille client : <br /> {portefeuilleClient.toFixed(2)}€
-						portefeuille client : <br /> {portefeuilleClient.toFixed(2)}€
-						portefeuille client : <br /> {portefeuilleClient.toFixed(2)}€
-						portefeuille client : <br /> {portefeuilleClient.toFixed(2)}€
-						portefeuille client : <br /> {portefeuilleClient.toFixed(2)}€
-						portefeuille client : <br /> {portefeuilleClient.toFixed(2)}€
-						portefeuille client : <br /> {portefeuilleClient.toFixed(2)}€
-						portefeuille client : <br /> {portefeuilleClient.toFixed(2)}€
-						portefeuille client : <br /> {portefeuilleClient.toFixed(2)}€
-						portefeuille client : <br /> {portefeuilleClient.toFixed(2)}€
-						portefeuille client : <br /> {portefeuilleClient.toFixed(2)}€
-						portefeuille client : <br /> {portefeuilleClient.toFixed(2)}€
 					</h2>
+					<ChartUser/>
 				</div>
 			</div>
 		</main>

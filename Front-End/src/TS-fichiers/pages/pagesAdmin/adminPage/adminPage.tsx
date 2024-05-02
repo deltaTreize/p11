@@ -3,7 +3,6 @@ import ReactModal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Dispatch } from "redux";
-import { BackArrow } from "../../../components/backArrow/backArrow";
 import { Button } from "../../../components/button/button";
 import { changeSearch } from "../../../redux/actions/action";
 import {
@@ -327,7 +326,6 @@ export function AdminPage() {
 			</ReactModal>
 
 			<div className="header">
-				<BackArrow chemin={"/user"} />
 				<h1>
 					{lastName} {firstName}
 				</h1>

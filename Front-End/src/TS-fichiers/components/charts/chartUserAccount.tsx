@@ -91,12 +91,6 @@ export function Chart() {
 
 	const operations = targetAccount?.operations.slice().reverse()
 
-
-	console.log(target);
-	console.log(userId);
-	console.log(nbAccount);
-	console.log(targetAccount);
-
 	const categories = new Set(
 		operations?.map((operation) => operation.category)
 	);

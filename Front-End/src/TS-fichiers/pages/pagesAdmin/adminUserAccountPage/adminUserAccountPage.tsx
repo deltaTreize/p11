@@ -4,10 +4,10 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { BackArrow } from "../../../components/backArrow/backArrow";
 import { Button } from "../../../components/button/button";
+import { Chart } from "../../../components/charts/chartUserAccount";
 import { Collapse } from "../../../components/collapse/collapse";
 import { RootState } from "../../../redux/actions/typeAction";
 import "./adminUserAccountPage.scss";
-import { Chart } from "../../../components/charts/chart";
 
 interface User {
 	role: string;

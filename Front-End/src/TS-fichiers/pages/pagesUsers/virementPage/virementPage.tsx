@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/actions/typeAction";
 
 export function VirementPage() {
-  const [valueOption1, setValueOption1] = useState<string>("");
+	const [valueOption1, setValueOption1] = useState<string>("");
 	const [valueOption2, setValueOption2] = useState<string>("");
 	const [title, setTitle] = useState<string>("");
 	const [description, setDescription] = useState<string>("");
@@ -13,25 +13,24 @@ export function VirementPage() {
 	const token = useSelector((state: RootState) => state.token.token);
 	const userId = useSelector((state: RootState) => state.user.id);
 
+	interface AccountData {
+		firstName: string;
+		name: string;
+		nbAccount: string;
+		solde: number;
+		_id: string;
+		visible: boolean;
+		operations: Operation[];
+	}
+	interface Operation {
+		title: string;
+		date: string;
+		montant: number;
+		description: string;
+		_id: string;
+	}
 
-  interface AccountData {
-    firstName: string;
-    name: string;
-    nbAccount: string;
-    solde: number;
-    _id: string;
-    visible: boolean;
-    operations: Operation[];
-  }
-  interface Operation {
-    title: string;
-    date: string;
-    montant: number;
-    description: string;
-    _id: string;
-  }
-  
-  	useEffect(() => {
+	useEffect(() => {
 		if (token) {
 			fetch("http://localhost:3001/api/v1/user/profile", {
 				method: "POST",
@@ -46,9 +45,8 @@ export function VirementPage() {
 		}
 	}, [token]);
 
-
-  const today = new Date();
-  async function makeVirement() {
+	const today = new Date();
+	async function makeVirement() {
 		/////////// add operation négative sur compte débiteur/////////////////
 		let headersList1 = {
 			id: `${userId}`,
@@ -92,76 +90,89 @@ export function VirementPage() {
 		});
 	}
 
-
 	return (
-    <div className="main bg-dark">
-      <div className="wrapper">
-      <h2 className="titleModal">Effectuer un virement</h2>
+		<div className="main bg-dark">
+			<div className="wrapper">
+				<h2 className="titleModal">Effectuer un virement</h2>
 				<form action="" className="formModal" onSubmit={makeVirement}>
-					<label htmlFor="account1" className="label-account">Compte débiteur :</label>
-					<select
-						name="account1"
-						id="account1"
-						onChange={(e) => setValueOption1(e.target.value)}
-					>
-						<option value="">choisir le compte à débiter!</option>
-						{dataUsers.map((data) =>
-							data.visible === true ? (
-								<option value={data._id} key={"account1" + data._id}>
-									{data.nbAccount} - {data.name} - {data.solde.toFixed(2)} €
-								</option>
-							) : null
-						)}
-					</select>
-					<label htmlFor="account2" className="label-account">Compte créditeur :</label>
-					<select
-						name="account2"
-						id="account2"
-						onChange={(e) => setValueOption2(e.target.value)}
-					>
-						<option value="">choisir le compte à créditer!</option>
-						{dataUsers.map((data) =>
-							data.visible === true && data._id !== valueOption1 ? (
-								<option value={data._id} key={"account2" + data._id}>
-									{data.nbAccount} - {data.name} - {data.solde.toFixed(2)} €
-								</option>
-							) : null
-						)}
-					</select>
-					<label htmlFor="solde">
-						Montant :
-						<input
-							type="number"
-							id="solde"
-							step={0.01}
-							onChange={(e) => setMontant(parseFloat(e.target.value))}
-						/>
-					</label>
-					<label htmlFor="title">
-						Titre :
-						<input
-							type="text"
-							id="title"
-							required
-							onChange={(e) => setTitle(e.target.value)}
-						/>
-					</label>
-					<label htmlFor="description">
-						Description :
-						<input
-							type="text"
+					<div className="choix">
+						<div className="debiteur">
+							<label htmlFor="account1" className="label-account">
+								Compte débiteur :
+							</label>
+							<select
+								name="account1"
+								id="account1"
+								onChange={(e) => setValueOption1(e.target.value)}
+							>
+								<option value="">choisir le compte à débiter!</option>
+								{dataUsers.map((data) =>
+									data.visible === true ? (
+										<option value={data._id} key={"account1" + data._id}>
+											{data.nbAccount} - {data.name} - {data.solde.toFixed(2)} €
+										</option>
+									) : null
+								)}
+							</select>
+						</div>
+						<i
+							className="fa-solid fa-arrow-right-arrow-left"
+							style={{ color: "#2c3e50" }}
+						></i>
+						<div className="crediteur">
+							<label htmlFor="account2" className="label-account">
+								Compte créditeur :
+							</label>
+							<select
+								name="account2"
+								id="account2"
+								onChange={(e) => setValueOption2(e.target.value)}
+							>
+								<option value="">choisir le compte à créditer!</option>
+								{dataUsers.map((data) =>
+									data.visible === true && data._id !== valueOption1 ? (
+										<option value={data._id} key={"account2" + data._id}>
+											{data.nbAccount} - {data.name} - {data.solde.toFixed(2)} €
+										</option>
+									) : null
+								)}
+							</select>
+						</div>
+					</div>
+					<div className="infos">
+						<label htmlFor="solde">
+							Montant :
+							<input
+								type="number"
+								id="solde"
+								step={0.01}
+								onChange={(e) => setMontant(parseFloat(e.target.value))}
+							/>
+						</label>
+						<label htmlFor="title">
+							Titre :
+							<input
+								type="text"
+								id="title"
+								required
+								onChange={(e) => setTitle(e.target.value)}
+							/>
+						</label>
+					</div>
+					<div className="description">
+						<label htmlFor="description">Description :</label>
+						<textarea
 							id="description"
 							onChange={(e) => setDescription(e.target.value)}
 						/>
-					</label>
+					</div>
 					<input
 						type="submit"
 						className="buttonArgentBank modalButton"
 						value="EFFECTUER LE VIREMENT"
 					/>
 				</form>
-
-      </div>
-    </div>
-  )
+			</div>
+		</div>
+	);
 }

@@ -2,10 +2,7 @@
 	background: #fff;
 	width: 70%;
 	box-sizing: border-box;
-	padding-top: 55px;
-	padding-bottom: 33px;
-	padding-left: 100px;
-	padding-right: 100px;
+	padding: 35px 100px;
 	border-radius: 22px;
 	position: absolute;
 	top: 50%;
@@ -13,44 +10,89 @@
 	transform: translate(-50%, -50%);
 }
 .titleModal {
-	font-size: 26px;
-	margin-bottom: 60px;
+	font-size: 34px;
+	margin: 0;
+	margin-bottom: 70px;
 }
 .formModal {
+	font-size: 24px;
+	font-weight: 700;
 	display: flex;
 	flex-direction: column;
 	width: 100%;
 	margin: 0;
-	label {
-		display: flex;
-		justify-content: space-between;
-		align-items: flex-end;
-		width: 60%;
-		height: 30px;
-		font-size: 24px;
-		font-weight: 700;
-    margin: auto;
-		margin-bottom: 37px;
-		input {
-			width: 45%;
-			height: 100%;
-		}
-	}
-	#account1,
-	#account2 {
-		margin-bottom: 40px;
-	}
-	.label-account {
-    margin: 0;
-		margin-bottom: 10px;
-	}
-	select {
-		height: 35px;
-    padding: 0 15px;
-	}
 }
 
 .modalButton {
 	border: none;
 	margin-top: 13px;
+}
+.choix {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 40px;
+	.debiteur,.crediteur{
+		width: 45%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		.label-account {
+			justify-content: center;
+			margin-bottom: 10px;
+			width: 100%;
+		}
+		select{
+			width: 100%;
+			height: 45px;
+			box-sizing: border-box;
+			padding-left: 10px;
+			font-size: 16px;
+		}
+	}
+	.fa-arrow-right-arrow-left{
+		font-size: 25px;
+	}
+}
+
+.infos{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 40px;
+	label{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		width: 45%;
+
+	}
+	input{
+		width: 100%;
+		height: 45px;
+		box-sizing: border-box;
+		padding-left: 10px;
+		margin-top: 10px;
+		font-size: 18px;
+	}
+	#solde{
+		text-align: center;
+	}
+}
+
+.description {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 40px;
+	#description {
+		width: 100%;
+		height: 100px;
+		box-sizing: border-box;
+		padding-left: 10px;
+		margin-top: 10px;
+		resize: none;
+		font-size: 18px;
+	}
 }
