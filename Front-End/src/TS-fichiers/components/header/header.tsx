@@ -36,7 +36,15 @@ export function Header() {
 					alt="Argent Bank Logo"
 				/>
 			</NavLink>
-			<nav className="navLinks">
+			{logged && (
+				<nav className="navLinks">
+					<NavLink className="comptes navLink" id="comptesLink" to="/user/home">Comptes</NavLink> 
+					<NavLink className="virement navLink" id="virementLink" to={`/user/${userId}/virement`}>Virement</NavLink>
+					<NavLink className="RIB navLink" id="RIBLink" to={`/user/${userId}/RIB`}>RIB</NavLink>
+					<NavLink className="budget navLink" id="budgetLink" to={`/user/${userId}/budget`}>Budget</NavLink>
+				</nav>
+			)}
+			<div className="connectionLinks">
 				{logged && (
 					<NavLink
 						className="main-nav-item"
@@ -68,7 +76,7 @@ export function Header() {
 						Se deconnecter
 					</NavLink>
 				)}
-			</nav>
+			</div>
 		</div>
 	);
 }

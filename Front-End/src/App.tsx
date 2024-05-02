@@ -37,7 +37,7 @@ function App() {
 							element={<AdminUserAccountPage />}
 						/>
 					)}
-					{logged && <Route path="/user" element={<User />} />}
+					{logged && <Route path="/user/home" element={<User />} />}
 					{logged && <Route path="/user/:userId" element={<User />} />}
 					{logged && (
 						<Route

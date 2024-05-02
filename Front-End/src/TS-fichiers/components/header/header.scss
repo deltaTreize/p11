@@ -24,19 +24,42 @@
       width: 200px;
     }
   }
-}
-
-.navLinks{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  a{
+  .navLinks{
+    display: flex;
+    position: absolute;
+    left: 220px;
+    height: 65px;
+    .navLink{
+      width: 155px;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      color: #2c3e50;
+      border-right: 1px solid #adadad;
+      transition: all 0.3s ease-in-out;
+      font-size: 18px;
+      &.active{
+        background-color: #00bc77;
+        color: #fff;
+      }
+    }
+  }
+  .connectionLinks{
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 2px;
+    gap: 8px;
+    a{
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 2px;
+    }
   }
 }
+
+

@@ -132,7 +132,7 @@ export function SignIn() {
 					<Button
 						type="button"
 						onClick={HandleSubmit}
-						to={`/user`}
+						to={`/user/home`}
 						text="Se connecter"
 						className={""}
 					/>
