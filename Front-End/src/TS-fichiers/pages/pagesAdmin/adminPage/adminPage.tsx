@@ -381,7 +381,6 @@ export function AdminPage() {
 								<h3 className="AdminAllUser-wrapper-title">
 									{user.lastName} {user.firstName}
 								</h3>
-								<p className="AdminAllUser-wrapper-id"> Id: {user.id}</p>
 								<div className="allAccountUser">
 									{user.account.map((data: accountData) =>
 										data.visible === true ? (

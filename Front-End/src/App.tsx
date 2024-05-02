@@ -14,6 +14,7 @@ import { EditPage } from "./TS-fichiers/pages/pagesUsers/editPage/editPage";
 import { UserAccontPage } from "./TS-fichiers/pages/pagesUsers/userAccontPage/userAccontPage";
 import { User } from "./TS-fichiers/pages/pagesUsers/userPage/userPage";
 import { RootState } from "./TS-fichiers/redux/actions/typeAction";
+import { VirementPage } from "./TS-fichiers/pages/pagesUsers/virementPage/virementPage";
 
 function App() {
 	const token = useSelector((state: RootState) => state.token);
@@ -45,6 +46,7 @@ function App() {
 						/>
 					)}
 					{logged && <Route path="/edit/:userId" element={<EditPage />} />}
+					{logged && <Route path="/user/:userId/virement" element={<VirementPage />} />}
 				</Routes>
 				<Footer />
 			</BrowserRouter>

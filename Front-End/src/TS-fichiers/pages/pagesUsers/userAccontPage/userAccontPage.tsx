@@ -61,12 +61,6 @@ export function UserAccontPage() {
 	return (
 		<main className="main bg-dark">
 			<Chart/>
-			<div className="header">
-				<BackArrow chemin={`/user/${userId}`} />
-				<h1>
-					{lastName} {firstName}
-				</h1>
-			</div>
 			<div className="account-userAccountPage">
 				<section className="entete-account">
 					<p className="entete-account-description">{targetAccount.name}</p>

@@ -79,18 +79,15 @@ export function SignUp() {
 	}
 
 	return (
-		<main className="main bg-dark-signUp">
+		<main>
+			<div className="main bg-blur"></div>
 			<div className="header">
-				<BackArrow chemin={"/sign-In"} />
 				<h1>CREER UN COMPTE</h1>
-			</div>
-			<div className="background">
-				<span></span>
 			</div>
 			<form className="form-signup" onSubmit={createUser}>
 				<div>
-					<span className="inputTitle">Nom</span>
 					<input
+						placeholder="Nom"
 						type="text"
 						id="lastName"
 						minLength={4}
@@ -99,8 +96,8 @@ export function SignUp() {
 					/>
 				</div>
 				<div>
-					<span className="inputTitle">Prénom</span>
 					<input
+						placeholder="Prenom"
 						type="text"
 						id="firstName"
 						minLength={4}
@@ -109,8 +106,8 @@ export function SignUp() {
 					/>
 				</div>
 				<div>
-					<span className="inputTitle">Nom d'utilisateur</span>
 					<input
+						placeholder="Nom d'utilisateur"
 						type="text"
 						id="userName"
 						minLength={4}
@@ -119,8 +116,8 @@ export function SignUp() {
 					/>
 				</div>
 				<div>
-					<span className="inputTitle">Email</span>
 					<input
+						placeholder="Email"
 						type="email"
 						id="email"
 						minLength={4}
@@ -132,8 +129,8 @@ export function SignUp() {
 					/>
 				</div>
 				<div>
-					<span className="inputTitle">Mot de passe</span>
 					<input
+						placeholder="Mot de passe"
 						type={inputType}
 						id="password"
 						minLength= {4}
@@ -149,8 +146,8 @@ export function SignUp() {
 					</span>
 				</div>
 				<div>
-					<span className="inputTitle">Confirmation Mot de passe</span>
 					<input
+						placeholder="Confirmer mot de passe"
 						type={inputType2}
 						id="confirmPassword"
 						minLength={4}
@@ -171,7 +168,7 @@ export function SignUp() {
 					value="CREER UN COMPTE"
 				/>
 			</form>
-			<p style={{ display: `${display}` }}>{errorMessage}</p>
+			<p className="errorMessage" style={{ display: `${display}` }}>{errorMessage}</p>
 		</main>
 	);
 }

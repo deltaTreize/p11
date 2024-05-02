@@ -146,7 +146,7 @@ export function Collapse({ title, date, description, montant, operationId, idAcc
 					></i>
 				</div>
 			</div>
-			<p className="operation-account-montant">{montant.toFixed(2)} €</p>
+			<p className="operation-account-montant" style={{ color: montant >= 0 ? "green" : "red" }}>{montant.toFixed(2)} €</p>
 			{!descripDisplay && (
 				<i
 					className="fa-solid fa-chevron-down"

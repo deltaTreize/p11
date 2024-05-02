@@ -38,8 +38,9 @@
 		color: #12002b;
 		display: flex;
 		width: 32%;
-		height: 30vh;
+		height: 34vh;
 		margin: auto;
+		
 		.AdminAllUser {
 			background-color: #fff;
 			display: flex;
@@ -63,15 +64,19 @@
 					width: 100%;
 					overflow-y: scroll;
 					scrollbar-width: thin;
+					display: flex;
+					flex-direction: column;
+					height: 100%;
 				}
 				.AdminUserAccount {
 					width: 100%;
 					display: flex;
 					align-items: center;
-					justify-content: space-between;
+					justify-content: space-around;
 					box-sizing: border-box;
 					padding: 0 20px;
 					border-top: 0.5px solid grey;
+					height: 100%;
 					&-invisible {
 						background: #999999;
 					}

@@ -84,10 +84,11 @@ export function SignIn() {
 		}
 	};
 	return (
-		<main className="main bg-dark">
+		<main >
+			<div className="main bg-blur"></div>
 			<section className="sign-in-content">
 				<i className="fa fa-user-circle sign-in-icon"></i>
-				<h1>Se connecter</h1>
+				<h1 className="title-signup">Se connecter</h1>
 				<form>
 					<div className="input-wrapper">
 						<label>

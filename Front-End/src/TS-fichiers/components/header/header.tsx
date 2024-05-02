@@ -41,7 +41,7 @@ export function Header() {
 					<NavLink
 						className="main-nav-item"
 						id="userLink"
-						to={`/user/${userId}`}
+						to={`/edit/${userId}`}
 					>
 						<i className="fa fa-user-circle"></i>
 						{userName}

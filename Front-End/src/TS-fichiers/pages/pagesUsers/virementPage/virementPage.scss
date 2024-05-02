@@ -1,0 +1,56 @@
+.wrapper {
+	background: #fff;
+	width: 70%;
+	box-sizing: border-box;
+	padding-top: 55px;
+	padding-bottom: 33px;
+	padding-left: 100px;
+	padding-right: 100px;
+	border-radius: 22px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+.titleModal {
+	font-size: 26px;
+	margin-bottom: 60px;
+}
+.formModal {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	margin: 0;
+	label {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-end;
+		width: 60%;
+		height: 30px;
+		font-size: 24px;
+		font-weight: 700;
+    margin: auto;
+		margin-bottom: 37px;
+		input {
+			width: 45%;
+			height: 100%;
+		}
+	}
+	#account1,
+	#account2 {
+		margin-bottom: 40px;
+	}
+	.label-account {
+    margin: 0;
+		margin-bottom: 10px;
+	}
+	select {
+		height: 35px;
+    padding: 0 15px;
+	}
+}
+
+.modalButton {
+	border: none;
+	margin-top: 13px;
+}
