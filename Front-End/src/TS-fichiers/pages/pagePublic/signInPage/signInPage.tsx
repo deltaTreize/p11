@@ -79,6 +79,7 @@ export function SignIn() {
 				createdAt: userDataJson.body.createdAt,
 				account: userDataJson.body.account,
 				role: userDataJson.body.role,
+				picture: userDataJson.body.picture,
 			};
 			dispatch(Login(userData));
 		}

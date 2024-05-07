@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { Logout, TokenOff, changeSearch } from "../../redux/actions/action";
 import { RootState, SearchState } from "../../redux/actions/typeAction";
 import "./header.scss";
@@ -10,7 +10,9 @@ export function Header() {
 	const userName = useSelector((state: RootState) => state.user.userName);
 	const logged =  token !== "" ? true :  false;
 	const userId = useSelector((state: RootState) => state.user.id);
+	const picture = useSelector((state: RootState) => state.user.picture);
 	const dispatch = useDispatch();
+	const { nbAccount } = useParams();
 	
 	const data: SearchState = {
 		searchName: "",
@@ -32,15 +34,14 @@ export function Header() {
 			<NavLink className="main-nav-logo" to={"/"}>
 				<img
 					className="main-nav-logo-image"
-					src="../../assets/argentBankLogo.png"
+					src="../../../assets/argentBankLogo.png"
 					alt="Argent Bank Logo"
 				/>
 			</NavLink>
 			{logged && (
 				<nav className="navLinks">
-					<NavLink className="comptes navLink" id="comptesLink" to="/user/home">Comptes</NavLink> 
+					<NavLink className="comptes navLink" id="comptesLink" to={`/user/home`}>Comptes</NavLink> 
 					<NavLink className="virement navLink" id="virementLink" to={`/user/${userId}/virement`}>Virement</NavLink>
-					<NavLink className="RIB navLink" id="RIBLink" to={`/user/${userId}/RIB`}>RIB</NavLink>
 					<NavLink className="budget navLink" id="budgetLink" to={`/user/${userId}/budget`}>Budget</NavLink>
 				</nav>
 			)}
@@ -51,7 +52,7 @@ export function Header() {
 						id="userLink"
 						to={`/edit/${userId}`}
 					>
-						<i className="fa fa-user-circle"></i>
+						<img  src={`data:image/png;base64,${picture}`} alt="user" id="userImage"/>
 						{userName}
 					</NavLink>
 				)}

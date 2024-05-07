@@ -1,12 +1,10 @@
-import { useState } from "react";
-import { Dispatch } from "redux";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "redux";
 import { Button } from "../../../components/button/button";
 import { Login } from "../../../redux/actions/action";
-
-import React from "react";
-import "./editPage.scss";
 import { AuthActionTypes, RootState, UserState } from "../../../redux/actions/typeAction.js";
+import "./editPage.scss";
 
 
 export function EditPage() {
@@ -17,10 +15,12 @@ export function EditPage() {
 	const email = useSelector((state: RootState) => state.user.email);
 	const createdAt = useSelector((state: RootState) => state.user.createdAt);
 	const role = useSelector((state: RootState) => state.user.role);
+	const picture = useSelector((state: RootState) => state.user.picture);
 	const token = useSelector((state: RootState) => state.token.token);
 	const dispatch:Dispatch<AuthActionTypes>= useDispatch();
 
-	const [userNameValue, setUserNameValue] = useState(userName);
+	const [userNameValue, setUserNameValue] = useState<string>(userName);
+	const [pictureValue, setPictureValue] = useState<string>(picture);
 
 	async function handleChange() {
 		let headersList = {
@@ -30,7 +30,8 @@ export function EditPage() {
 		};
 
 		let bodyContent = JSON.stringify({
-			userName: `${userNameValue}`,
+			userName: userNameValue,
+			picture: pictureValue
 		});
 		fetch(
 			"http://localhost:3001/api/v1/user/profile",
@@ -48,11 +49,55 @@ export function EditPage() {
 			email: email,
 			createdAt: createdAt,
 			role: role,
+			picture: pictureValue,
 			account: [],
 		};
 		dispatch(Login(userData));
 		setUserNameValue("");
+		setPictureValue("");
 	}
+
+	function uploadPicture(event: { target: { files: any[]; }; }) {
+    const file = event.target.files ? event.target.files[0] : null;
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = async () => {
+            if (typeof reader.result === 'string') {
+                const image = new Image();
+                image.src = reader.result;
+                image.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const maxWidth = 40;
+                    const maxHeight = 40;
+                    let width = image.width;
+                    let height = image.height;
+
+                    // Redimensionner l'image si elle dépasse les dimensions maximales
+                    if (width > maxWidth || height > maxHeight) {
+                        const ratio = Math.min(maxWidth / width, maxHeight / height);
+                        width *= ratio;
+                        height *= ratio;
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx?.drawImage(image, 0, 0, width, height);
+
+                    // Convertir le canvas en base64
+                    const base64String = canvas.toDataURL('image/jpeg');
+
+                    console.log("base64", base64String);
+                    if (typeof base64String === 'string') {
+                        setPictureValue(base64String);
+                    }
+                };
+            }
+        };
+        reader.readAsDataURL(file);
+    }
+};
+
 
 	return (
 		<main className="main bg-dark mainEdit">
@@ -95,7 +140,7 @@ export function EditPage() {
 						</div>
 						<label htmlFor="picture">	
 						photo de profil:
-						<input type="file" id="picture"/>
+						<input type="file" id="picture" accept="image/*" onChange={ ()=> uploadPicture }/>
 						</label>
 
 					</div>

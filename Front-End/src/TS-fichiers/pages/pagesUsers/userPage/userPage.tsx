@@ -74,7 +74,7 @@ export function User() {
 								</div>
 								<div className="account-content-wrapper cta">
 									<Button
-										to={`/user/${userId}/${data.nbAccount}`}
+										to={`/user/home/${userId}/${data.nbAccount}`}
 										text="Transactions"
 										type={""}
 										className={"transactions-button"}

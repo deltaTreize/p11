@@ -22,7 +22,7 @@ dbConnection();
 app.use(cors());
 
 // Request payload middleware
-app.use(express.json());
+app.use(express.json( ));
 app.use(express.urlencoded({ extended: true }));
 
 // Handle custom routes

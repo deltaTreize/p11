@@ -33,6 +33,7 @@ export interface UserState {
 	email: string;
 	createdAt: string;
 	role: string;
+	picture: string;
 	account: [];
 }
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./virementPage.scss";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/actions/typeAction";
+import { Button } from "../../../components/button/button";
 
 export function VirementPage() {
 	const [valueOption1, setValueOption1] = useState<string>("");
@@ -10,6 +11,7 @@ export function VirementPage() {
 	const [description, setDescription] = useState<string>("");
 	const [montant, setMontant] = useState<number>(0);
 	const [dataUsers, setDataUsers] = useState<AccountData[]>([]);
+	const [isAsideShow, setIsAsideShow] = useState<boolean>(false);
 	const token = useSelector((state: RootState) => state.token.token);
 	const userId = useSelector((state: RootState) => state.user.id);
 
@@ -90,9 +92,30 @@ export function VirementPage() {
 		});
 	}
 
+	function addBeneficiaire() {
+
+	}
+
 	return (
 		<div className="main bg-dark">
+			<aside className={`aside${isAsideShow ? "-show" : ""}`}>
+			<i className="fa-solid fa-x" style={{color: "#2c3e50"}} onClick={() => setIsAsideShow(!isAsideShow)}></i>
+				<h2 className="aside-title">AJOUTER UN BENEFICIAIRE</h2>
+				<form action="">
+					<label htmlFor="name">
+						nom du bénéficiaire : 
+						<input type="text" name="name" id="name" autoComplete="off" required/>
+					</label>
+					<label htmlFor="IBAN">
+						IBAN :
+						<input type="text" name="IBAN" id="IBAN" maxLength={27} minLength={27} autoComplete="off" autoCapitalize="characters" required/>
+					</label>
+					<Button type={"submit"} to={""} text={"Ajouter"} className={"submitAddBeneficiaire"} onClick={addBeneficiaire} />
+				</form>
+			</aside>
 			<div className="wrapper">
+				<Button type={""} to={""} text={"+ Bénéficiaires"} className={"addBeneficiaire"} onClick={() => {setIsAsideShow(!isAsideShow); console.log(isAsideShow);
+					}} />
 				<h2 className="titleModal">Effectuer un virement</h2>
 				<form action="" className="formModal" onSubmit={makeVirement}>
 					<div className="choix">

@@ -152,7 +152,6 @@ module.exports.updateCategory = async (req, res) => {
 
   return res.status(response.status).send(response)
 }
-
 module.exports.addAccount = async (req, res) => {
   let response = {}
 

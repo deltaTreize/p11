@@ -20,6 +20,7 @@ export function Login(data: UserState): SignInAction {
 			createdAt: data.createdAt,
 			account: data.account,
 			role: data.role,
+			picture: data.picture,
 		},
 	};
 }

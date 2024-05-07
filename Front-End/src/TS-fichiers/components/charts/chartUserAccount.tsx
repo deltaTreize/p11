@@ -74,22 +74,22 @@ export function Chart() {
 					setDataUsers(data.body);
 				});
 		}
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	let target: User | undefined;
 	if (role === "admin") {
-		target = allUsers?.find(
-			(location) => location.id === userId
-		);
-		}
+		target = allUsers?.find((location) => location.id === userId);
+	}
 	if (role === "user") {
 		target = dataUsers;
-	}	
+	}
 
-	const targetAccount = target?.account.find((account) => account.nbAccount === nbAccount)
+	const targetAccount = target?.account.find(
+		(account) => account.nbAccount === nbAccount
+	);
 
-	const operations = targetAccount?.operations.slice().reverse()
+	const operations = targetAccount?.operations.slice().reverse();
 
 	const categories = new Set(
 		operations?.map((operation) => operation.category)
@@ -202,7 +202,7 @@ export function Chart() {
 
 	const data = {
 		labels: categorieArray,
-		datasets: [
+			datasets: [
 			{
 				label: "% du salaire",
 				data: [

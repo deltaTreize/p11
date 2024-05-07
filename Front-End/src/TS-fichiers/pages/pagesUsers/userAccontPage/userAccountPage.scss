@@ -10,24 +10,176 @@
 	top: 50%;
 	transform: translate(-50%, -50%);
 	border-radius: 10px;
-  .entete-account {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    border-bottom: 2px solid black;
-  }
-  .AllOperation-account {
-    width: 100%;
-    height: 60vh;
-    overflow-y: scroll;
-    scrollbar-width: none;
+	.entete-account {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+		align-items: center;
+		border-bottom: 2px solid black;
+		font-weight: 700;
+    font-size: 18px;
+	}
+	.AllOperation-account {
+		width: 100%;
+		height: 60vh;
+		overflow-y: scroll;
+		scrollbar-width: none;
 	}
 }
-.chart{
-  position: fixed;
-  right: 5%;
-  top: 60vh;
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0px;
+  border: 1px solid black;
+  position: absolute;
+  height: 600px;
+  top: 50%;
+  right: 0;
   transform: translateY(-50%);
+  padding: 0 !important;
+	.card {
+    margin-top: 10px;
+    position: relative;
+		width: 80%;
+		aspect-ratio: 16/9;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+		border-radius: 10px;
+		background-image: url("../../../../../public/assets/fondCard.jpg");
+		cursor: pointer;
+		&-active {
+      display: none;
+		}
+		.card-logo-argentBank {
+			width: 45%;
+			aspect-ratio: 16/9;
+			background-image: url("../../../../../public/assets/argentBankLogoSansFond.png");
+			background-repeat: no-repeat;
+			background-size: contain;
+			position: absolute;
+			top: 5%;
+			left: 50%;
+			transform: translateX(-50%);
+      pointer-events: none;
+
+		}
+		.card-logo-mastercard {
+			background-image: url("../../../../../public/assets/mastercard.png");
+			background-repeat: no-repeat;
+			background-size: contain;
+			width: 20%;
+			height: 20%;
+			border-radius: 10px;
+			position: absolute;
+			bottom: 8%;
+			right: 5%;
+      pointer-events: none;
+
+		}
+		.puce {
+			width: 15%;
+			height: 15%;
+			border-radius: 10px;
+			position: absolute;
+			top: 35%;
+			left: 10%;
+			background-image: url("../../../../../public/assets/puce.png");
+			background-repeat: no-repeat;
+			background-size: contain;
+      pointer-events: none;
+
+		}
+		.sansContact {
+			width: 15%;
+			height: 15%;
+			border-radius: 10px;
+			position: absolute;
+			top: 35%;
+			left: 22%;
+			background-image: url("../../../../../public/assets/sansContact.png");
+			background-repeat: no-repeat;
+			background-size: contain;
+      pointer-events: none;
+
+		}
+		.info {
+			width: 60%;
+			border-radius: 10px;
+			position: absolute;
+			bottom: 5%;
+			left: 10%;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-end;
+			gap: 5px;
+			p {
+				margin: 0;
+				color: #fff;
+        pointer-events: none;
+			}
+			.card-number {
+				font-weight: 700;
+        pointer-events: none;
+			}
+		}
+	}
+  .card-back{ 
+    margin-top: 10px;
+    position: relative;
+		width: 80%;
+		aspect-ratio: 16/9;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+		border-radius: 10px;
+		background: #dfdfdf;
+    display: flex;
+		cursor: pointer;
+		&-active {
+      display: none;
+		}
+    .bandeMagnetique{
+      width: 100%;
+      height: 25px;
+      background: #000;
+      position: absolute;
+      top: 20px;
+    }
+    .info-backCard{
+      width: 100%;
+      height: 80%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      position: absolute;
+      bottom: 0;
+      color: #000;
+      gap: 15px;
+      padding-left: 20px;
+      p{
+        margin: 0;
+        font-weight: 600;
+      }
+    }
+  }
+  .chart-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    .chart-title{
+      margin-bottom: 0;
+    }
+    .chart {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      max-height: 300px;
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+    }
+  }
 }

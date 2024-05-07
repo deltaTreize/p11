@@ -41,7 +41,7 @@ function App() {
 					{logged && <Route path="/user/:userId" element={<User />} />}
 					{logged && (
 						<Route
-							path="/user/:userId/:nbAccount"
+							path="/user/home/:userId/:nbAccount"
 							element={<UserAccontPage />}
 						/>
 					)}

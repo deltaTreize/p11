@@ -11,6 +11,7 @@ let initialState: UserState = {
 	email: "",
 	createdAt: "",
 	role: "",
+	picture: "",
 	account: [],
 };
 
@@ -27,6 +28,7 @@ const userReducer = (	state = initialState,	action: AuthActionTypes ): UserState
 				createdAt: action.payload.createdAt,
 				account: action.payload.account,
 				role: action.payload.role,
+				picture: action.payload.picture,
 			};
 
 		case "LOGOUT":

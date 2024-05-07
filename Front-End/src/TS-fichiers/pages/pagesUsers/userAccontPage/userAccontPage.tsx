@@ -5,6 +5,9 @@ import { Chart } from "../../../components/charts/chartUserAccount";
 import { Collapse } from "../../../components/collapse/collapse";
 import { RootState } from "../../../redux/actions/typeAction";
 import "./userAccountPage.scss";
+import { Card } from "../../../components/card/card";
+import { BackArrow } from "../../../components/backArrow/backArrow";
+import { Button } from "../../../components/button/button";
 
 interface AccountData {
 	firstName: string;
@@ -25,9 +28,6 @@ interface Operation {
 }
 
 export function UserAccontPage() {
-	const firstName = useSelector((state: RootState) => state.user.firstName);
-	const lastName = useSelector((state: RootState) => state.user.lastName);
-	const userId = useSelector((state: RootState) => state.user.id);
 	const [dataUsers, setDataUsers] = useState<AccountData[]>([]);
 	const token = useSelector((state: RootState) => state.token.token);
 
@@ -59,14 +59,21 @@ export function UserAccontPage() {
 	}
 	return (
 		<main className="main bg-dark">
-			<Chart/>
+			<BackArrow chemin={"/user/home"} />
+			<section className="dashboard portefeuille-wrapper">
+				<Card />
+				<div className="chart-wrapper">
+					<h2 className="chart-title">répartition des dépenses</h2>
+					<Chart />
+				</div>
+			</section>
 			<div className="account-userAccountPage">
 				<section className="entete-account">
 					<p className="entete-account-description">{targetAccount.name}</p>
 					<p className="entete-account-description">
 						{targetAccount.nbAccount}
 					</p>
-					<p className="entete-account-description">
+					<p className="entete-account-description" style={{ color: targetAccount.solde >= 0 ? "green" : "red" }}>
 						{targetAccount.solde.toFixed(2)} €
 					</p>
 				</section>

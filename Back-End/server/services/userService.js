@@ -89,14 +89,16 @@ module.exports.updateUserProfile = async (serviceData) => {
 			.split("Bearer")[1]
 			.trim();
 		const decodedJwtToken = jwt.decode(jwtToken);
+		console.log('Image before update:', serviceData.body.picture);
 		const user = await User.findOneAndUpdate(
 			{ _id: decodedJwtToken.id },
 			{
 				userName: serviceData.body.userName,
+				picture: serviceData.body.picture,
 			},
 			{ new: true }
 		);
-
+		console.log('Image after update:', user.picture);
 		if (!user) {
 			throw new Error("User not found!");
 		}
@@ -107,7 +109,6 @@ module.exports.updateUserProfile = async (serviceData) => {
 		throw new Error(error);
 	}
 };
-
 module.exports.addAccount = async (serviceData) => {
 	try {
 		const jwtToken = serviceData.headers.authorization
