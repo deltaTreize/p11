@@ -60,13 +60,14 @@ export function UserAccontPage() {
 	return (
 		<main className="main bg-dark">
 			<BackArrow chemin={"/user/home"} />
-			<section className="dashboard portefeuille-wrapper">
+			{targetAccount.name === "Compte courant" &&
+			 <section className="dashboard portefeuille-wrapper">
 				<Card />
 				<div className="chart-wrapper">
 					<h2 className="chart-title">répartition des dépenses</h2>
 					<Chart />
 				</div>
-			</section>
+			</section>}
 			<div className="account-userAccountPage">
 				<section className="entete-account">
 					<p className="entete-account-description">{targetAccount.name}</p>

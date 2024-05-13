@@ -1,0 +1,95 @@
+.chartCategorie {
+  width: 21%;
+  position: relative;
+  box-sizing: border-box;
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .input-budget-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 28px;
+    margin-top: 35px;
+    .validate-budget{
+      box-sizing: border-box;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 10%;
+      z-index: 3;
+      padding: 2px;
+      height: 100%;
+      font-size: 18px;
+      color: #2c3e50;
+      background: #fff;
+      border: #2c3e50 1px solid;
+      border-left: none;
+      border-radius: 0 5px 5px 0;
+    }
+    .input-budget{
+      box-sizing: border-box;
+      z-index: 3;
+      width: 60%;
+      height: 100%;
+      text-align: center;
+      font-size: 18px;
+      border: #2c3e50 1px solid;
+      border-radius: 5px 0 0 5px;
+    }
+  }
+  .title-budget {
+    font-size: 38px;
+  }  
+  .chartBudget {
+    width: 100%;
+    height: 70%;
+    z-index: 1;
+  }
+  .title-budget-chart {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    position: absolute;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    .modif-budget{
+      cursor: pointer;
+      z-index: 2;
+    }
+  }
+  .charts-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    width: 100%;
+    margin-top: 35px;
+    .info-budget-down, .info-budget-up {
+      font-size: 100%;
+      text-align: center;
+      margin: 0;
+      padding: 5px;
+    }
+
+    .info-budget-up {
+      font-weight: bold;
+      font-size: 150%;
+      border-bottom: 1px solid #000;
+      box-sizing: border-box;
+    }
+  }
+}
+.echarts-for-react {
+  width: 100%;
+}

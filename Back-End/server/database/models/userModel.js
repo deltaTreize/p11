@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Account = require("./userAccount");
+const Budget = require("./userBudget");
 
 const userSchema = new mongoose.Schema(
 	{
@@ -12,6 +13,7 @@ const userSchema = new mongoose.Schema(
 		role: String,
 		picture: String,
 		account: [Account.schema],
+		budget: [Budget.schema],
 	},
 	{
 		timestamps: true,

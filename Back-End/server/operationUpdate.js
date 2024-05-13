@@ -6,10 +6,10 @@ const updateOperationsByName = async () => {
 		{ name: "paye", description: "", category: "salaire" },
 		{ name: "", description: "loyer", category: "loyer" },
 		{ name: "cotisation", description: "", category: "frais bancaires" },
-		{ name: "prelevement ORANGE", description: "", category: "téléphonie" },
+		{ name: "prelevement ORANGE", description: "", category: "telephonie" },
 		{ name: "", description: "course", category: "alimentation" },
 		{ name: "prelevement MMA", description: "", category: "assurances" },
-		{ name: "prelevement M H V", description: "", category: "santé" },
+		{ name: "prelevement M H V", description: "", category: "sante" },
 		{ name: "", description: "Pension alimentaire", category: "pension" },
 		{ name: "", description: "carburant", category: "transport" },
 	];

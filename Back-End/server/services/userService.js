@@ -254,6 +254,37 @@ module.exports.updateCategory = async (serviceData) => {
 		throw new Error(error);
 	}
 };
+module.exports.updateBudget = async (serviceData) => {
+	try {
+		const jwtToken = serviceData.headers.authorization
+			.split("Bearer")[1]
+			.trim();
+		const decodedJwtToken = jwt.decode(jwtToken);
+		const userId = serviceData.headers.id;
+		const budgetCategory = serviceData.headers.category;
+		const user = await User.findById(userId);
+
+		if (!user) {
+			throw new Error("User not found");
+		}
+		const budgetIndex = user.budget.findIndex(
+			(data) => data.name === budgetCategory
+		);
+
+		if (budgetIndex === -1) {
+			throw new Error("budgetIndex not found");
+		}
+		user.budget[budgetIndex].value =
+		serviceData.body.value;
+
+		await user.save();
+
+		return user.toObject();
+	} catch (error) {
+		console.error("Error in userService.js", error);
+		throw new Error(error);
+	}
+};
 
 module.exports.getAllProfile = async (req, res) => {
 	try {
