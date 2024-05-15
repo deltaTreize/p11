@@ -64,7 +64,7 @@ export function UserAccontPage() {
 			 <section className="dashboard portefeuille-wrapper">
 				<Card />
 				<div className="chart-wrapper">
-					<h2 className="chart-title">répartition des dépenses</h2>
+					<h2 className="chart-title">Dépenses</h2>
 					<Chart />
 				</div>
 			</section>}
