@@ -67,7 +67,6 @@ export function Budget() {
 	const budgetLoyer = dataUsers?.budget.find(
 		(Budget) => Budget.name === "loyer"
 	);
-	console.log("before", budgetLoyer);
 
 	const budgetFraisBancaires = dataUsers?.budget.find(
 		(Budget) => Budget.name === "frais bancaires"

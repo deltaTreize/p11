@@ -12,6 +12,9 @@ export function VirementPage() {
 	const [montant, setMontant] = useState<number>(0);
 	const [dataUsers, setDataUsers] = useState<AccountData[]>([]);
 	const [isAsideShow, setIsAsideShow] = useState<boolean>(false);
+	const [beneficiairesExternesList, setBeneficiairesExternesList] = useState<
+		BeneficiairesExternes[]
+	>([]);
 	const token = useSelector((state: RootState) => state.token.token);
 	const userId = useSelector((state: RootState) => state.user.id);
 
@@ -32,6 +35,11 @@ export function VirementPage() {
 		_id: string;
 	}
 
+	interface BeneficiairesExternes {
+		name: string;
+		rib: string;
+	}
+
 	useEffect(() => {
 		if (token) {
 			fetch("http://localhost:3001/api/v1/user/profile", {
@@ -43,6 +51,7 @@ export function VirementPage() {
 				.then((alldata) => alldata.json())
 				.then((data) => {
 					setDataUsers(data.body.account);
+					setBeneficiairesExternesList(data.body.beneficiairesExternes);
 				});
 		}
 	}, [token]);
@@ -92,109 +101,171 @@ export function VirementPage() {
 		});
 	}
 
-	function addBeneficiaire() {
-
-	}
+	function addBeneficiaire() {}
 
 	return (
 		<div className="main bg-dark">
 			<aside className={`aside${isAsideShow ? "-show" : ""}`}>
-			<i className="fa-solid fa-x" style={{color: "#2c3e50"}} onClick={() => setIsAsideShow(!isAsideShow)}></i>
+				<i
+					className="fa-solid fa-x"
+					style={{ color: "#2c3e50" }}
+					onClick={() => setIsAsideShow(!isAsideShow)}
+				></i>
 				<h2 className="aside-title">AJOUTER UN BENEFICIAIRE</h2>
 				<form action="">
 					<label htmlFor="name">
-						nom du bénéficiaire : 
-						<input type="text" name="name" id="name" autoComplete="off" required/>
+						nom du bénéficiaire :
+						<input
+							type="text"
+							name="name"
+							id="name"
+							autoComplete="off"
+							required
+						/>
 					</label>
 					<label htmlFor="IBAN">
 						IBAN :
-						<input type="text" name="IBAN" id="IBAN" maxLength={27} minLength={27} autoComplete="off" autoCapitalize="characters" required/>
+						<input
+							type="text"
+							name="IBAN"
+							id="IBAN"
+							maxLength={27}
+							minLength={27}
+							autoComplete="off"
+							autoCapitalize="characters"
+							required
+						/>
 					</label>
-					<Button type={"submit"} to={""} text={"Ajouter"} className={"submitAddBeneficiaire"} onClick={addBeneficiaire} />
+					<Button
+						type={"submit"}
+						to={""}
+						text={"Ajouter"}
+						className={"submitAddBeneficiaire"}
+						onClick={addBeneficiaire}
+					/>
 				</form>
 			</aside>
 			<div className="wrapper">
-				<Button type={""} to={""} text={"+ Bénéficiaires"} className={"addBeneficiaire"} onClick={() => {setIsAsideShow(!isAsideShow); console.log(isAsideShow);
-					}} />
-				<h2 className="titleModal">Effectuer un virement</h2>
-				<form action="" className="formModal" onSubmit={makeVirement}>
-					<div className="choix">
-						<div className="debiteur">
-							<label htmlFor="account1" className="label-account">
-								Compte débiteur :
-							</label>
-							<select
-								name="account1"
-								id="account1"
-								onChange={(e) => setValueOption1(e.target.value)}
-							>
-								<option value="">choisir le compte à débiter!</option>
-								{dataUsers.map((data) =>
-									data.visible === true ? (
-										<option value={data._id} key={"account1" + data._id}>
-											{data.nbAccount} - {data.name} - {data.solde.toFixed(2)} €
+				<div className="wrapper-virement">
+					<h2 className="titleModal">Effectuer un virement</h2>
+					<form action="" className="formModal" onSubmit={makeVirement}>
+						<div className="choix">
+							<div className="debiteur">
+								<label htmlFor="account1" className="label-account">
+									Compte débiteur :
+								</label>
+								<select
+									name="account1"
+									id="account1"
+									onChange={(e) => setValueOption1(e.target.value)}
+								>
+									<option value="">choisir le compte à débiter!</option>
+									{dataUsers.map((data) =>
+										data.visible === true ? (
+											<option value={data._id} key={"account1" + data._id}>
+												{data.nbAccount} - {data.name} - {data.solde.toFixed(2)}{" "}
+												€
+											</option>
+										) : null
+									)}
+								</select>
+							</div>
+							<i
+								className="fa-solid fa-arrow-right-arrow-left"
+								style={{ color: "#2c3e50" }}
+							></i>
+							<div className="crediteur">
+								<label htmlFor="account2" className="label-account">
+									Compte créditeur :
+								</label>
+								<select
+									name="account2"
+									id="account2"
+									onChange={(e) => setValueOption2(e.target.value)}
+								>
+									<option value="">choisir le compte à créditer!</option>
+									{dataUsers.map((data) =>
+										data.visible === true && data._id !== valueOption1 ? (
+											<option value={data._id} key={"account2" + data._id}>
+												{data.nbAccount} - {data.name} - {data.solde.toFixed(2)}{" "}
+												€
+											</option>
+										) : null
+									)}
+									&&
+									{beneficiairesExternesList.map((data) => (
+										<option value={data.name} key={"account1" + data.name}>
+											{data.name} - {data.rib}
 										</option>
-									) : null
-								)}
-							</select>
+									))}
+								</select>
+							</div>
 						</div>
-						<i
-							className="fa-solid fa-arrow-right-arrow-left"
-							style={{ color: "#2c3e50" }}
-						></i>
-						<div className="crediteur">
-							<label htmlFor="account2" className="label-account">
-								Compte créditeur :
+						<div className="infos">
+							<label htmlFor="solde">
+								Montant :
+								<input
+									type="number"
+									id="solde"
+									step={0.01}
+									onChange={(e) => setMontant(parseFloat(e.target.value))}
+								/>
 							</label>
-							<select
-								name="account2"
-								id="account2"
-								onChange={(e) => setValueOption2(e.target.value)}
-							>
-								<option value="">choisir le compte à créditer!</option>
-								{dataUsers.map((data) =>
-									data.visible === true && data._id !== valueOption1 ? (
-										<option value={data._id} key={"account2" + data._id}>
-											{data.nbAccount} - {data.name} - {data.solde.toFixed(2)} €
-										</option>
-									) : null
-								)}
-							</select>
+							<label htmlFor="title">
+								Titre :
+								<input
+									type="text"
+									id="title"
+									required
+									onChange={(e) => setTitle(e.target.value)}
+								/>
+							</label>
 						</div>
-					</div>
-					<div className="infos">
-						<label htmlFor="solde">
-							Montant :
-							<input
-								type="number"
-								id="solde"
-								step={0.01}
-								onChange={(e) => setMontant(parseFloat(e.target.value))}
+						<div className="description">
+							<label htmlFor="description">Description :</label>
+							<textarea
+								id="description"
+								onChange={(e) => setDescription(e.target.value)}
 							/>
-						</label>
-						<label htmlFor="title">
-							Titre :
-							<input
-								type="text"
-								id="title"
-								required
-								onChange={(e) => setTitle(e.target.value)}
-							/>
-						</label>
-					</div>
-					<div className="description">
-						<label htmlFor="description">Description :</label>
-						<textarea
-							id="description"
-							onChange={(e) => setDescription(e.target.value)}
+						</div>
+						<input
+							type="submit"
+							className="buttonArgentBank modalButton"
+							value="EFFECTUER LE VIREMENT"
+						/>
+					</form>
+				</div>
+				<div className="wrapper-beneficiaires">
+					<div className="wrapper-beneficiaires-header">
+						<h2>B&Eacute;N&Eacute;FICIAIRES</h2>
+						<Button
+							type={"button"}
+							to={""}
+							text={"+"}
+							className={"addBeneficiaire"}
+							onClick={() => {
+								setIsAsideShow(!isAsideShow);
+							}}
 						/>
 					</div>
-					<input
-						type="submit"
-						className="buttonArgentBank modalButton"
-						value="EFFECTUER LE VIREMENT"
-					/>
-				</form>
+					<div className="wrapper-beneficiaires-list">
+						<ul>
+							{beneficiairesExternesList.map((data) => (
+								<li key={data.name + data.rib}>
+									<p className="beneficiaire-name">{data.name}</p> 
+									<p>{data.rib.replace(/(.{4})(?=.)/g,"$1 ")}</p>
+									<i
+						className="fa-solid fa-pencil"
+						style={{
+							color: "#fff",
+						}}
+						onClick={() => {}}
+					></i>
+								</li>
+							))}
+						</ul>
+					</div>
+				</div>
 			</div>
 		</div>
 	);

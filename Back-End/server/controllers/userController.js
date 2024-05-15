@@ -40,6 +40,7 @@ module.exports.loginUser = async (req, res) => {
   let response = {}
 
   try {
+    console.log("connection demandé");
     const responseFromService = await userService.loginUser(req.body)
     response.status = 200
     response.message = 'User successfully logged in'

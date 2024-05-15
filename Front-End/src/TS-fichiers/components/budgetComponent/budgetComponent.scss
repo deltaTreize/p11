@@ -63,6 +63,13 @@
     .modif-budget{
       cursor: pointer;
       z-index: 2;
+      background-color: #d3d2d28c;
+      width: 27px;
+      height: 27px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 5px;
     }
   }
   .charts-info {

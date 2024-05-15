@@ -11,7 +11,7 @@ const { updateOperationsByName } = require('./operationUpdate');
 dotEnv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = 3001;
 
 // Connect to the database
 dbConnection();
@@ -19,7 +19,7 @@ dbConnection();
 
 
 // Handle CORS issues
-app.use(cors());
+app.use(cors({origin: 'http://localhost:3000'}));
 
 // Request payload middleware
 app.use(express.json( ));

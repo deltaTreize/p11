@@ -51,8 +51,10 @@ export function SignIn() {
 				email: `${email}`,
 				password: `${password}`,
 			}),
+			
 		});
 		const loginDataJson = await loginData.json();
+		
 
 		if (loginDataJson.status === 200) {
 			dispatch(TokenOn(loginDataJson.body.token));
