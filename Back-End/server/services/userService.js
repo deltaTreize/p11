@@ -1,6 +1,7 @@
 const User = require("../database/models/userModel");
 const Account = require("../database/models/userAccount");
 const Operation = require("../database/models/userOperation");
+const Beneficiaire = require("../database/models/userBeneficiaires");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { sendConfirmationEmail } = require("../services/emailService");
@@ -89,7 +90,6 @@ module.exports.updateUserProfile = async (serviceData) => {
 			.split("Bearer")[1]
 			.trim();
 		const decodedJwtToken = jwt.decode(jwtToken);
-		console.log('Image before update:', serviceData.body.picture);
 		const user = await User.findOneAndUpdate(
 			{ _id: decodedJwtToken.id },
 			{
@@ -98,7 +98,6 @@ module.exports.updateUserProfile = async (serviceData) => {
 			},
 			{ new: true }
 		);
-		console.log('Image after update:', user.picture);
 		if (!user) {
 			throw new Error("User not found!");
 		}
@@ -126,6 +125,29 @@ module.exports.addAccount = async (serviceData) => {
 		const user = await User.findByIdAndUpdate(
 			userId,
 			{ $push: { account: newAccount } },
+			{ new: true }
+		);
+
+		return user.toObject();
+	} catch (error) {
+		console.error("Error in userService.js", error);
+		throw new Error(error);
+	}
+};
+module.exports.addBeneficiaire = async (serviceData) => {
+	try {
+		const jwtToken = serviceData.headers.authorization
+			.split("Bearer")[1]
+			.trim();
+		const decodedJwtToken = jwt.decode(jwtToken);
+		const userId = serviceData.headers.id;
+		const newBeneficiaire = new Beneficiaire({
+			name: serviceData.body.name,
+			rib: serviceData.body.rib,
+		});
+		const user = await User.findByIdAndUpdate(
+			userId,
+			{ $push: { beneficiairesExternes: newBeneficiaire } },
 			{ new: true }
 		);
 
@@ -254,6 +276,38 @@ module.exports.updateCategory = async (serviceData) => {
 		throw new Error(error);
 	}
 };
+module.exports.updateBeneficiaire = async (serviceData) => {
+	try {
+		const jwtToken = serviceData.headers.authorization
+			.split("Bearer")[1]
+			.trim();
+		const decodedJwtToken = jwt.decode(jwtToken);
+		const userId = serviceData.headers.id;
+		const rib = serviceData.headers.rib;
+		const user = await User.findById(userId);
+
+		if (!user) {
+			throw new Error("User not found");
+		}
+		const beneficiaireIndex = user.beneficiairesExternes.findIndex(
+			(data) => data.rib === rib
+		);
+
+		if (beneficiaireIndex === -1) {
+			throw new Error("Account not found");
+		}
+
+		user.beneficiairesExternes[beneficiaireIndex].name = serviceData.body.name;
+		user.beneficiairesExternes[beneficiaireIndex].rib = serviceData.body.rib;
+
+		await user.save();
+
+		return user.toObject();
+	} catch (error) {
+		console.error("Error in userService.js", error);
+		throw new Error(error);
+	}
+};
 module.exports.updateBudget = async (serviceData) => {
 	try {
 		const jwtToken = serviceData.headers.authorization
@@ -274,8 +328,7 @@ module.exports.updateBudget = async (serviceData) => {
 		if (budgetIndex === -1) {
 			throw new Error("budgetIndex not found");
 		}
-		user.budget[budgetIndex].value =
-		serviceData.body.value;
+		user.budget[budgetIndex].value = serviceData.body.value;
 
 		await user.save();
 
@@ -292,7 +345,7 @@ module.exports.getAllProfile = async (req, res) => {
 		const Admin = await User.findOne({ _id: idAdmin, role: "admin" });
 		if (Admin) {
 			const query = { role: "user", confirmed: true };
-			const users = await User.find(query)
+			const users = await User.find(query);
 			return users.map((user) => user.toObject());
 		}
 
