@@ -294,7 +294,7 @@ module.exports.updateBeneficiaire = async (serviceData) => {
 		);
 
 		if (beneficiaireIndex === -1) {
-			throw new Error("beneficiaire not found");
+			throw new Error("Account not found");
 		}
 
 		user.beneficiairesExternes[beneficiaireIndex].name = serviceData.body.name;
