@@ -56,6 +56,18 @@ router.put(
 	userController.updateBudget
 )
 
+router.put(
+	"/beneficiaires",
+	tokenValidation.validateToken,
+	userController.addBeneficiaire
+)
+
+router.put(
+	"/beneficiaires/modifier",
+	tokenValidation.validateToken,
+	userController.updateBeneficiaire
+)
+
 // const User = require("../database/models/userModel");
 // const Operation = require("../database/models/userOperation");
 // const bcrypt = require("bcrypt");

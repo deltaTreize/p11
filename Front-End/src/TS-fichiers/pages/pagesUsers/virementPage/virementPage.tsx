@@ -11,10 +11,12 @@ export function VirementPage() {
 	const [description, setDescription] = useState<string>("");
 	const [montant, setMontant] = useState<number>(0);
 	const [dataUsers, setDataUsers] = useState<AccountData[]>([]);
-	const [isAsideShow, setIsAsideShow] = useState<boolean>(false);
+	const [isAsideAddShow, setIsAsideAddShow] = useState<boolean>(false);
 	const [beneficiairesExternesList, setBeneficiairesExternesList] = useState<
 		BeneficiairesExternes[]
 	>([]);
+	const [newBeneficiaireName, setNewBeneficiaireName] = useState<string>("");
+	const [newBeneficiaireIban, setNewBeneficiaireIban] = useState<string>("");
 	const token = useSelector((state: RootState) => state.token.token);
 	const userId = useSelector((state: RootState) => state.user.id);
 
@@ -101,15 +103,33 @@ export function VirementPage() {
 		});
 	}
 
-	function addBeneficiaire() {}
+	function addBeneficiaire() {
+		let body = JSON.stringify({
+			name: `${newBeneficiaireName}`,
+			rib: `${newBeneficiaireIban}`,
+		});
+		fetch("http://localhost:3001/api/v1/user/beneficiaires", {
+			method: "PUT",
+			headers: {
+				id: `${userId}`,
+				Authorization: "Bearer " + token,
+				"Content-Type": "application/json",
+			},
+			body: body,
+		});
+	}
+
+	function modifierBeneficiaire(name: string, rib: string) {
+
+	}
 
 	return (
 		<div className="main bg-dark">
-			<aside className={`aside${isAsideShow ? "-show" : ""}`}>
+			<aside className={`asideAdd${isAsideAddShow ? "-show" : ""}`}>
 				<i
 					className="fa-solid fa-x"
 					style={{ color: "#2c3e50" }}
-					onClick={() => setIsAsideShow(!isAsideShow)}
+					onClick={() => setIsAsideAddShow(!isAsideAddShow)}
 				></i>
 				<h2 className="aside-title">AJOUTER UN BENEFICIAIRE</h2>
 				<form action="">
@@ -120,6 +140,7 @@ export function VirementPage() {
 							name="name"
 							id="name"
 							autoComplete="off"
+							onChange={(e) => setNewBeneficiaireName(e.target.value)}
 							required
 						/>
 					</label>
@@ -133,6 +154,7 @@ export function VirementPage() {
 							minLength={27}
 							autoComplete="off"
 							autoCapitalize="characters"
+							onChange={(e) => setNewBeneficiaireIban(e.target.value)}
 							required
 						/>
 					</label>
@@ -244,7 +266,7 @@ export function VirementPage() {
 							text={"+"}
 							className={"addBeneficiaire"}
 							onClick={() => {
-								setIsAsideShow(!isAsideShow);
+								setIsAsideAddShow(!isAsideAddShow);
 							}}
 						/>
 					</div>
@@ -259,7 +281,7 @@ export function VirementPage() {
 						style={{
 							color: "#fff",
 						}}
-						onClick={() => {}}
+						onClick={() => {modifierBeneficiaire(data.name, data.rib)}}
 					></i>
 								</li>
 							))}

@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Account = require("./userAccount");
 const Budget = require("./userBudget");
+const Beneficiaires = require("./userBeneficiaires");
 
 const userSchema = new mongoose.Schema(
 	{
@@ -14,6 +15,7 @@ const userSchema = new mongoose.Schema(
 		picture: String,
 		account: [Account.schema],
 		budget: [Budget.schema],
+		beneficiairesExternes: [Beneficiaires.schema],
 	},
 	{
 		timestamps: true,
