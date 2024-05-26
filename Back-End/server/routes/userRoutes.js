@@ -61,6 +61,11 @@ router.put(
 	tokenValidation.validateToken,
 	userController.addBeneficiaire
 )
+router.delete(
+	"/beneficiaires",
+	tokenValidation.validateToken,
+	userController.deleteBeneficiaire
+)
 
 router.put(
 	"/beneficiaires/modifier",

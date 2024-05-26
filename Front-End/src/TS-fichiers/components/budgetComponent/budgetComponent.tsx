@@ -24,30 +24,23 @@ export function BudgetComponent({
 	const show = displayInputBudgetValue ? "flex" : "none";
 
 	function updateBudget(argument: string) {
-		console.log(argument);
-
-		let headersList = {
-			id: id,
-			category: argument,
-			Authorization: "Bearer " + token,
-			"Content-Type": "application/json",
-		};
-		let bodyContent = JSON.stringify({
-			value: budgetValue,
-		});
-
-		fetch("http://localhost:3001/api/v1/user/budget", {
-			method: "PUT",
-			body: bodyContent,
-			headers: headersList,
-		})
-			.then((response) => response.json())
-			.then((data) => {
-				console.log("after", data.body.budget[0]);
+		
+			let headersList = {
+				id: id,
+				category: argument,
+				Authorization: "Bearer " + token,
+				"Content-Type": "application/json",
+			};
+			let bodyContent = JSON.stringify({
+				value: budgetValue,
 			});
 
-		setDisplayInputBudgetValue(!displayInputBudgetValue);
-		window.location.reload();
+			fetch("http://localhost:3001/api/v1/user/budget", {
+				method: "PUT",
+				body: bodyContent,
+				headers: headersList,
+			})
+			setDisplayInputBudgetValue(!displayInputBudgetValue);
 	}
 
 	return (

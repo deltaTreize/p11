@@ -62,7 +62,7 @@ export function Budget() {
 				});
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [token, id]);
+	}, [token, id, dataUsers]);
 
 	const budgetLoyer = dataUsers?.budget.find(
 		(Budget) => Budget.name === "loyer"
@@ -89,14 +89,9 @@ export function Budget() {
 	const budgetTransport = dataUsers?.budget.find(
 		(Budget) => Budget.name === "transport"
 	);
-	const budgetSalaire = dataUsers?.budget.find(
-		(Budget) => Budget.name === "salaire"
-	);
-
 	const target = dataUsers?.account.find(
 		(Account) => Account.name === "Compte courant"
 	);
-
 	const categories = new Set(
 		target?.operations?.map((operation) => operation.category)
 	);
@@ -140,47 +135,38 @@ export function Budget() {
 	const salaires = operations?.filter(
 		(operation) => operation.category === "salaire"
 	);
-
 	let transportMontant: number = 0;
 	transport?.forEach((operation) => {
 		transportMontant += operation.montant;
 	});
-
 	let pensionMontant: number = 0;
 	pension?.forEach((operation) => {
 		pensionMontant += operation.montant;
 	});
-
 	let santeMontant: number = 0;
 	sante?.forEach((operation) => {
 		santeMontant += operation.montant;
 	});
-
 	let assurancesMontant: number = 0;
 	assurances?.forEach((operation) => {
 		assurancesMontant += operation.montant;
 	});
-
 	let alimentationMontant: number = 0;
 	alimentation?.forEach((operation) => {
 		alimentationMontant += operation.montant;
 	});
-
 	let telephonieMontant: number = 0;
 	telephonie?.forEach((operation) => {
 		telephonieMontant += operation.montant;
 	});
-
 	let fraisBancairesMontant: number = 0;
 	fraisBancaires?.forEach((operation) => {
 		fraisBancairesMontant += operation.montant;
 	});
-
 	let loyersMontant: number = 0;
 	loyers?.forEach((operation) => {
 		loyersMontant += operation.montant;
 	});
-
 	let salairesMontant: number = 0;
 	salaires?.forEach((operation) => {
 		salairesMontant += operation.montant;

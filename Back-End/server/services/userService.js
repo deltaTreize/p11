@@ -157,6 +157,32 @@ module.exports.addBeneficiaire = async (serviceData) => {
 		throw new Error(error);
 	}
 };
+module.exports.deleteBeneficiaire = async (serviceData) => {
+	try {
+		const jwtToken = serviceData.headers.authorization
+			.split("Bearer")[1]
+			.trim();
+		const decodedJwtToken = jwt.decode(jwtToken);
+		const userId = serviceData.headers.id;
+		const iban = serviceData.headers.iban;
+
+		const user = await User.findById(userId);
+		const beneficiaireIndex = user.beneficiairesExternes.findIndex(
+			(data) => data.rib === iban
+		);
+
+		if (beneficiaireIndex > -1) {
+			user.beneficiairesExternes.splice(beneficiaireIndex, 1);
+		} else {
+			throw new Error("Bénéficiaire non trouvé");
+		}
+		await user.save();
+		return user.toObject();
+	} catch (error) {
+		console.error("Error in userService.js", error);
+		throw new Error(error);
+	}
+};
 
 module.exports.addOperation = async (serviceData) => {
 	try {
@@ -338,7 +364,6 @@ module.exports.updateBudget = async (serviceData) => {
 		throw new Error(error);
 	}
 };
-
 module.exports.getAllProfile = async (req, res) => {
 	try {
 		const idAdmin = req.headers.id;
