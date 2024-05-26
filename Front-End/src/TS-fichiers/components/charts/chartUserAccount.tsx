@@ -1,11 +1,8 @@
-import { ArcElement, Chart as ChartJS, Legend, Tooltip } from "chart.js";
+import ReactECharts from "echarts-for-react";
 import React, { useEffect, useState } from "react";
-import { Doughnut } from "react-chartjs-2";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { RootState } from "../../redux/actions/typeAction";
-
-ChartJS.register(ArcElement, Tooltip, Legend);
 
 interface User {
 	role: string;
@@ -97,8 +94,6 @@ export function Chart() {
 	categories.add("rest");
 	categories.delete("null");
 	categories.delete("salaire");
-
-	const categorieArray: string[] = Array.from(categories);
 
 	const transport = operations?.filter(
 		(operation) => operation.category === "transport"
@@ -200,32 +195,41 @@ export function Chart() {
 		fraisBancairesPourcentage -
 		loyersPourcentage;
 
-	const data = {
-		labels: categorieArray,
-			datasets: [
+	const option = {
+		tooltip: {
+			trigger: "item",
+		},
+		legend: {
+			show: true,
+			bottom: 0,
+      textStyle: {
+        color: "#fff",
+        fontSize: 16,
+      }
+		},
+		series: [
 			{
-				label: "% du salaire",
+				height: "100%",
+				width: "100%",
+				label: {
+					show: false,
+				},
+				name: `% du salaire`,
+				type: "pie",
+				radius: ["30%", "50%"],
+				center: ["50%", "50%"],
+				startAngle: 0,
+				endAngle: 360,
 				data: [
-					transportPourcentage.toFixed(2),
-					pensionPourcentage.toFixed(2),
-					santePourcentage.toFixed(2),
-					assurancesPourcentage.toFixed(2),
-					alimentationPourcentage.toFixed(2),
-					telephoniePourcentage.toFixed(2),
-					fraisBancairesPourcentage.toFixed(2),
-					loyersPourcentage.toFixed(2),
-					restPourcentage.toFixed(2),
-				],
-				backgroundColor: [
-					"rgb(255, 99, 132)",
-					"rgb(54, 162, 235)",
-					"rgb(255, 206, 86)",
-					"rgb(75, 192, 192)",
-					"rgb(153, 102, 255)",
-					"rgb(255, 159, 64)",
-					"red",
-					"rgb(54, 162, 235)",
-					"green",
+					{name: "Transport", value: transportPourcentage.toFixed(2)},
+					{name: "Pension", value: pensionPourcentage.toFixed(2)},
+					{name: "Sante", value: santePourcentage.toFixed(2)},
+					{name: "Assurances", value: assurancesPourcentage.toFixed(2)},
+					{name: "Alimentation", value: alimentationPourcentage.toFixed(2)},
+					{name: "Telephonie", value: telephoniePourcentage.toFixed(2)},
+					{name: "Frais bancaires", value: fraisBancairesPourcentage.toFixed(2)},
+					{name: "Loyers", value: loyersPourcentage.toFixed(2)},
+					{name: "Reste", value: restPourcentage.toFixed(2)},
 				],
 			},
 		],
@@ -233,7 +237,7 @@ export function Chart() {
 
 	return (
 		<div className="chart">
-			<Doughnut datasetIdKey="id" data={data} />
+			<ReactECharts option={option} style={{height: "100%"}}/>
 		</div>
 	);
 }

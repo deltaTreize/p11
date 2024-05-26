@@ -1,0 +1,20 @@
+.buttons{
+  display: flex;
+  gap: 20px;
+  i{
+    cursor: pointer;
+  }
+}
+
+.beneficiaire-name{
+  width: 30%;
+  text-align: left;
+  height: 25px;
+}
+.beneficiaire-rib{
+  width: 50%;
+  height: 25px;
+}
+.fa-check{
+  margin-left: 20px;
+}

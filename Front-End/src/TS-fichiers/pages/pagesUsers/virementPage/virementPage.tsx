@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./virementPage.scss";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/actions/typeAction";
 import { Button } from "../../../components/button/button";
+import { BeneficiairesExterne } from "../../../components/beneficiaires/beneficiaires";
 
 export function VirementPage() {
 	const [valueOption1, setValueOption1] = useState<string>("");
@@ -12,14 +13,16 @@ export function VirementPage() {
 	const [montant, setMontant] = useState<number>(0);
 	const [dataUsers, setDataUsers] = useState<AccountData[]>([]);
 	const [isAsideAddShow, setIsAsideAddShow] = useState<boolean>(false);
-	const [beneficiairesExternesList, setBeneficiairesExternesList] = useState<
-		BeneficiairesExternes[]
-	>([]);
-	const [newBeneficiaireName, setNewBeneficiaireName] = useState<string>("");
-	const [newBeneficiaireIban, setNewBeneficiaireIban] = useState<string>("");
 	const token = useSelector((state: RootState) => state.token.token);
 	const userId = useSelector((state: RootState) => state.user.id);
+	const [newBeneficiaireName, setNewBeneficiaireName] = useState<string>("");
+  const [newBeneficiaireIban, setNewBeneficiaireIban] = useState<string>("");
+  const [beneficiairesExternesList, setBeneficiairesExternesList] = useState<BeneficiairesExternes[]>([]);
 
+	interface BeneficiairesExternes {
+		name: string;
+		rib: string;
+	}
 	interface AccountData {
 		firstName: string;
 		name: string;
@@ -37,12 +40,8 @@ export function VirementPage() {
 		_id: string;
 	}
 
-	interface BeneficiairesExternes {
-		name: string;
-		rib: string;
-	}
 
-	useEffect(() => {
+	const fetchData = useCallback(() => {
 		if (token) {
 			fetch("http://localhost:3001/api/v1/user/profile", {
 				method: "POST",
@@ -57,6 +56,10 @@ export function VirementPage() {
 				});
 		}
 	}, [token]);
+
+	useEffect(() => {
+		fetchData();
+	}, [fetchData]);
 
 	const today = new Date();
 	async function makeVirement() {
@@ -116,12 +119,42 @@ export function VirementPage() {
 				"Content-Type": "application/json",
 			},
 			body: body,
+		}).then(() => {
+			fetchData();
 		});
+		setNewBeneficiaireName("");
+		setNewBeneficiaireIban("");
+		setIsAsideAddShow(!isAsideAddShow);
 	}
 
-	function modifierBeneficiaire(name: string, rib: string) {
+	const handleDeleteBeneficiaire = (rib: string) => {
+		fetch(`http://localhost:3001/api/v1/user/beneficiaires`, {
+			method: "DELETE",
+			headers: {
+				id: `${userId}`,
+				iban: `${rib}`,
+				Authorization: "Bearer " + token,
+				"Content-Type": "application/json",
+			},
+		}).then(() => {
+			fetchData();
+		});
+	};
 
-	}
+	const handleModifyBeneficiaire = (oldRib: string, name: string, rib: string) => {
+		fetch(`http://localhost:3001/api/v1/user/beneficiaires/modifier`, {
+			method: "PUT",
+			headers: {
+				id: `${userId}`,
+				rib: `${oldRib}`,
+				Authorization: "Bearer " + token,
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ name: `${name}`, rib: `${rib}` }),
+		}).then((data) => {
+			console.log(data.json());
+			fetchData();
+		});	};
 
 	return (
 		<div className="main bg-dark">
@@ -140,8 +173,8 @@ export function VirementPage() {
 							name="name"
 							id="name"
 							autoComplete="off"
-							onChange={(e) => setNewBeneficiaireName(e.target.value)}
 							required
+							onChange={(e) => setNewBeneficiaireName(e.target.value)}
 						/>
 					</label>
 					<label htmlFor="IBAN">
@@ -154,8 +187,8 @@ export function VirementPage() {
 							minLength={27}
 							autoComplete="off"
 							autoCapitalize="characters"
-							onChange={(e) => setNewBeneficiaireIban(e.target.value)}
 							required
+							onChange={(e) => setNewBeneficiaireIban(e.target.value)}
 						/>
 					</label>
 					<Button
@@ -271,21 +304,10 @@ export function VirementPage() {
 						/>
 					</div>
 					<div className="wrapper-beneficiaires-list">
-						<ul>
-							{beneficiairesExternesList.map((data) => (
-								<li key={data.name + data.rib}>
-									<p className="beneficiaire-name">{data.name}</p> 
-									<p>{data.rib.replace(/(.{4})(?=.)/g,"$1 ")}</p>
-									<i
-						className="fa-solid fa-pencil"
-						style={{
-							color: "#fff",
-						}}
-						onClick={() => {modifierBeneficiaire(data.name, data.rib)}}
-					></i>
-								</li>
-							))}
-						</ul>
+						{beneficiairesExternesList.map((data) => (
+						<BeneficiairesExterne name={data.name} rib={data.rib} key={data.rib} onDelete={handleDeleteBeneficiaire}
+						onModify={handleModifyBeneficiaire} />
+						))}
 					</div>
 				</div>
 			</div>
