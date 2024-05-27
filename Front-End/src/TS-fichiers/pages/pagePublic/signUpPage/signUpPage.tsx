@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { BackArrow } from "../../../components/backArrow/backArrow";
 import "./signUpPage.scss";
 
 export function SignUp() {
@@ -46,7 +45,7 @@ export function SignUp() {
 			setDisplay("flex");
 		}
 		if (password === confPassword) {
-			fetch("http://localhost:3001/api/v1/user/signup", {
+			fetch("https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/signup", {
 				method: "POST",
 				headers: headersList,
 				body: bodyContent,
@@ -62,7 +61,7 @@ export function SignUp() {
 					console.log( "data",data);
 
         // Envoi de l'e-mail de confirmation avec l'ID de l'utilisateur
-        fetch(`http://localhost:3001/send-confirmation-email/${data.userId}`)
+        fetch(`https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/send-confirmation-email/${data.userId}`)
           .then(() => {
 						setDisplay("flex");
 						setErrorMessage("en attente de confirmation...");

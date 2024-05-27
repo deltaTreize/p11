@@ -50,7 +50,7 @@ export function Budget() {
 
 	useEffect(() => {
 		if (role === "user") {
-			fetch("http://localhost:3001/api/v1/user/profile", {
+			fetch("https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/profile", {
 				method: "POST",
 				headers: {
 					Authorization: "Bearer " + token,
@@ -62,7 +62,7 @@ export function Budget() {
 				});
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [token, id, dataUsers]);
+	}, [token, id]);
 
 	const budgetLoyer = dataUsers?.budget.find(
 		(Budget) => Budget.name === "loyer"

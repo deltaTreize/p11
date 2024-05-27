@@ -54,7 +54,7 @@ export function AdminUserPage() {
 	}
 
 	useEffect(() => {
-		fetch("http://localhost:3001/api/v1/user", {
+		fetch("https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user", {
 			method: "GET",
 			headers: {
 				id: `${id}`,
@@ -90,7 +90,7 @@ export function AdminUserPage() {
 			visible: !visible,
 		});
 
-		fetch("http://localhost:3001/api/v1/user/account", {
+		fetch("https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/account", {
 			method: "PUT",
 			body: bodyContent,
 			headers: headersList,
@@ -114,7 +114,7 @@ export function AdminUserPage() {
 			description: `${description}`,
 			montant: -montant,
 		});
-		fetch("http://localhost:3001/api/v1/user/account/operations", {
+		fetch("https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/account/operations", {
 			method: "PUT",
 			body: bodyContent1,
 			headers: headersList1,
@@ -135,7 +135,7 @@ export function AdminUserPage() {
 			description: `${description}`,
 			montant: montant,
 		});
-		fetch("http://localhost:3001/api/v1/user/account/operations", {
+		fetch("https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/account/operations", {
 			method: "PUT",
 			body: bodyContent2,
 			headers: headersList2,

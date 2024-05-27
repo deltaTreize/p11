@@ -74,7 +74,7 @@ export function AdminPage() {
 	}, [nameSearch, nbPage, limit]);
 
 	useEffect(() => {
-		fetch(`http://localhost:3001/api/v1/user/admin?name=${nameSearch}`, {
+		fetch(`https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/admin?name=${nameSearch}`, {
 			method: "GET",
 			headers: {
 				id: `${id}`,
@@ -89,7 +89,7 @@ export function AdminPage() {
 	}, [id, nameSearch, limit]);
 
 	useEffect(() => {
-		fetch(`http://localhost:3001/api/v1/user/`, {
+		fetch(`https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/`, {
 			method: "GET",
 			headers: {
 				id: `${id}`,
@@ -131,7 +131,7 @@ export function AdminPage() {
 	};
 
 	const handleSearch = () => {
-		fetch(`http://localhost:3001/api/v1/user/admin${location.search}`, {
+		fetch(`https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/admin${location.search}`, {
 			method: "GET",
 			headers: {
 				id: `${id}`,
@@ -184,7 +184,7 @@ export function AdminPage() {
 			setDisplay("flex");
 		}
 		if (password === confPassword) {
-			fetch("http://localhost:3001/api/v1/user/signup", {
+			fetch("https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/signup", {
 				method: "POST",
 				headers: headersList,
 				body: bodyContent,

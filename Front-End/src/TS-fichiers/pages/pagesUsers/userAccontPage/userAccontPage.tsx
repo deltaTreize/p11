@@ -7,7 +7,6 @@ import { RootState } from "../../../redux/actions/typeAction";
 import "./userAccountPage.scss";
 import { Card } from "../../../components/card/card";
 import { BackArrow } from "../../../components/backArrow/backArrow";
-import { Button } from "../../../components/button/button";
 
 interface AccountData {
 	firstName: string;
@@ -34,7 +33,7 @@ export function UserAccontPage() {
 	const { nbAccount } = useParams();
 
 	useEffect(() => {
-		fetch("http://localhost:3001/api/v1/user/profile", {
+		fetch("https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/profile", {
 			method: "POST",
 			headers: {
 				Authorization: "Bearer " + token,

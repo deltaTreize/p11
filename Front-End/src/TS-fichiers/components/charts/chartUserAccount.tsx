@@ -48,7 +48,7 @@ export function Chart() {
 
 	useEffect(() => {
 		if (role === "admin") {
-			fetch("http://localhost:3001/api/v1/user", {
+			fetch("https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user", {
 				method: "GET",
 				headers: {
 					id: `${id}`,
@@ -60,7 +60,7 @@ export function Chart() {
 				});
 		}
 		if (role === "user") {
-			fetch("http://localhost:3001/api/v1/user/profile", {
+			fetch("https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/profile", {
 				method: "POST",
 				headers: {
 					Authorization: "Bearer " + token,

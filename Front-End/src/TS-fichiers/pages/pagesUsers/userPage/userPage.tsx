@@ -25,7 +25,6 @@ interface Operation {
 
 export function User() {
 	const firstName = useSelector((state: RootState) => state.user.firstName);
-	const lastName = useSelector((state: RootState) => state.user.lastName);
 	const userId = useSelector((state: RootState) => state.user.id);
 	const role = useSelector((state: RootState) => state.user.role);
 	const admin = role === "admin" ? true : false;
@@ -40,7 +39,7 @@ export function User() {
 
 	useEffect(() => {
 		if (token) {
-			fetch("http://localhost:3001/api/v1/user/profile", {
+			fetch("https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/profile", {
 				method: "POST",
 				headers: {
 					Authorization: "Bearer " + token,

@@ -35,7 +35,7 @@ export function BudgetComponent({
 				value: budgetValue,
 			});
 
-			fetch("http://localhost:3001/api/v1/user/budget", {
+			fetch("https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/budget", {
 				method: "PUT",
 				body: bodyContent,
 				headers: headersList,

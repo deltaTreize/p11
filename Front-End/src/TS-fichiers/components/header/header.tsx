@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Logout, TokenOff, changeSearch } from "../../redux/actions/action";
 import { RootState, SearchState } from "../../redux/actions/typeAction";
 import "./header.scss";
@@ -12,7 +12,6 @@ export function Header() {
 	const userId = useSelector((state: RootState) => state.user.id);
 	const picture = useSelector((state: RootState) => state.user.picture);
 	const dispatch = useDispatch();
-	const { nbAccount } = useParams();
 	
 	const data: SearchState = {
 		searchName: "",

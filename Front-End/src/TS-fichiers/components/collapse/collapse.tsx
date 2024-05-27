@@ -41,7 +41,7 @@ export function Collapse({ title, date, description, montant, operationId, idAcc
 			description: descriptionValue,
 		});
 		fetch(
-			"http://localhost:3001/api/v1/user/account/operations/description",
+			"https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/account/operations/description",
 			{
 				method: "PUT",
 				body: bodyContent,
@@ -63,7 +63,7 @@ export function Collapse({ title, date, description, montant, operationId, idAcc
 			category: categoryValue,
 		});
 		fetch(
-			"http://localhost:3001/api/v1/user/account/operations/category",
+			"https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/account/operations/category",
 			{
 				method: "PUT",
 				body: bodyContent,
