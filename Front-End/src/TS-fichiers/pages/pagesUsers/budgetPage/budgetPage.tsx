@@ -63,6 +63,7 @@ export function Budget() {
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [token, id]);
+console.log(dataUsers?.budget);
 
 	const budgetLoyer = dataUsers?.budget.find(
 		(Budget) => Budget.name === "loyer"
@@ -183,16 +184,6 @@ export function Budget() {
 		loyer: loyersMontant.toFixed(2),
 	} as any;
 
-	const budgetParCategorie = {
-		transport: budgetTransport?.value.toFixed(2),
-		pension: budgetPension?.value.toFixed(2),
-		sante: budgetSante?.value.toFixed(2),
-		assurances: budgetAssurances?.value.toFixed(2),
-		alimentation: budgetAlimentation?.value.toFixed(2),
-		telephonie: budgetTelephonie?.value.toFixed(2),
-		"frais bancaires": budgetFraisBancaires?.value.toFixed(2),
-		loyer: budgetLoyer?.value.toFixed(2),
-	} as any;
 
 	const totalBudgetisé: number = [
 		budgetTransport?.value ?? 0,
@@ -204,6 +195,7 @@ export function Budget() {
 		budgetFraisBancaires?.value ?? 0,
 		budgetLoyer?.value ?? 0,
 	].reduce((acc, curr) => acc + curr, 0);
+
 
 	const totalDejaDepense: number = [
 		Math.abs(transportMontant) ?? 0,
@@ -222,12 +214,10 @@ export function Budget() {
 				<div className="allCharts">
 					{categorieArray.map((categorie) => {
 						const montantCategorie = montantsParCategorie[categorie];
-						const budgetCategorie = budgetParCategorie[categorie];
 						return (
 							<BudgetComponent
 								categorie={categorie}
 								montantCategorie={montantCategorie}
-								budgetCategorie={budgetCategorie}
 							/>
 						);
 					})}

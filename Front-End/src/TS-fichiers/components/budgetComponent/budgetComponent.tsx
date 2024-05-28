@@ -1,46 +1,102 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/actions/typeAction";
 import { ChartBudget } from "../charts/chartBudget";
-
 import "./budgetComponent.scss";
 
 interface Props {
 	categorie: string;
 	montantCategorie: number;
-	budgetCategorie: number;
+}
+interface Budget {
+	name: string;
+	value: number;
 }
 
-export function BudgetComponent({
-	categorie,
-	montantCategorie,
-	budgetCategorie,
-}: Props) {
+export function BudgetComponent({ categorie, montantCategorie }: Props) {
 	const token = useSelector((state: RootState) => state.token.token);
 	const id = useSelector((state: RootState) => state.user.id);
+	const role = useSelector((state: RootState) => state.user.role);
+	const [budgetArray, setBudgetArray] = useState<Budget[]>([]);
 	const [budgetValue, setBudgetValue] = useState<number>(0);
 	const [displayInputBudgetValue, setDisplayInputBudgetValue] =
 		useState<boolean>(false);
 	const show = displayInputBudgetValue ? "flex" : "none";
+	const[counter, setCounter] = useState<number>(0);
+
+	useEffect(() => {
+		if (role === "user") {
+			fetch(
+				"https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/profile",
+				{
+					method: "POST",
+					headers: {
+						Authorization: "Bearer " + token,
+					},
+				}
+			)
+				.then((alldata) => alldata.json())
+				.then((data) => {
+					setBudgetArray(data.body.budget);
+				});
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [token, id, counter]);
+
+	const budgetLoyer = budgetArray.find((Budget) => Budget.name === "loyer");
+
+	const budgetFraisBancaires = budgetArray.find(
+		(Budget) => Budget.name === "frais bancaires"
+	);
+	const budgetTelephonie = budgetArray.find(
+		(Budget) => Budget.name === "telephonie"
+	);
+	const budgetAlimentation = budgetArray.find(
+		(Budget) => Budget.name === "alimentation"
+	);
+	const budgetAssurances = budgetArray.find(
+		(Budget) => Budget.name === "assurances"
+	);
+	const budgetSante = budgetArray.find((Budget) => Budget.name === "sante");
+	const budgetPension = budgetArray.find((Budget) => Budget.name === "pension");
+	const budgetTransport = budgetArray.find(
+		(Budget) => Budget.name === "transport"
+	);
+	const budgetParCategorie = {
+		transport: budgetTransport?.value.toFixed(2),
+		pension: budgetPension?.value.toFixed(2),
+		sante: budgetSante?.value.toFixed(2),
+		assurances: budgetAssurances?.value.toFixed(2),
+		alimentation: budgetAlimentation?.value.toFixed(2),
+		telephonie: budgetTelephonie?.value.toFixed(2),
+		"frais bancaires": budgetFraisBancaires?.value.toFixed(2),
+		loyer: budgetLoyer?.value.toFixed(2),
+	} as any;
+
+	const budgetCategorie = budgetParCategorie[categorie];
 
 	function updateBudget(argument: string) {
-		
-			let headersList = {
-				id: id,
-				category: argument,
-				Authorization: "Bearer " + token,
-				"Content-Type": "application/json",
-			};
-			let bodyContent = JSON.stringify({
-				value: budgetValue,
-			});
+		let headersList = {
+			id: id,
+			category: argument,
+			Authorization: "Bearer " + token,
+			"Content-Type": "application/json",
+		};
+		let bodyContent = JSON.stringify({
+			value: budgetValue,
+		});
 
-			fetch("https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/budget", {
+		fetch(
+			"https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/budget",
+			{
 				method: "PUT",
 				body: bodyContent,
 				headers: headersList,
-			})
+			}
+		).then(() => {
 			setDisplayInputBudgetValue(!displayInputBudgetValue);
+			setCounter(counter + 1);
+		})
 	}
 
 	return (
