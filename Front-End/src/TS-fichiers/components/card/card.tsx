@@ -1,11 +1,41 @@
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
+import { RootState } from "../../redux/actions/typeAction";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { AccountData } from "../../interfaces/interfaces";
 
 export function Card() {
 
+	const lastName = useSelector((state: RootState) => state.user.lastName);
+  const firstName = useSelector((state: RootState) => state.user.firstName);
+  const token= useSelector((state: RootState) => state.token.token);
+  const [dataUsers, setDataUsers] = useState<AccountData[]>([]);
+	const { nbAccount } = useParams();
   const [activeCard , setActiveCard] = useState(false);
   const cardClass = activeCard ? "card-active" : "card";
   const cardBackClass = activeCard ? "card-back" : "card-back-active";
+
+  useEffect(() => {
+    
+    fetch("https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/profile", {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((alldata) => alldata.json())
+    .then((data) => {
+      setDataUsers(data.body.account);
+    });
+  }, [token]);
+
+  	const targetAccount = dataUsers
+		? dataUsers?.find((nb) => nb.nbAccount === nbAccount)
+		: null;
+
+    const nbCard = targetAccount?.cardNumber;
+    const cardDate = targetAccount?.cardDate;
+    
 
   return(<>
     <div className={cardClass} onClick={() => setActiveCard(!activeCard)}>
@@ -14,9 +44,9 @@ export function Card() {
       <div className="puce"></div>
       <div className="sansContact"></div>
       <section className="info">
-        <p className="card-number">1234 5678 9012 3456</p>
-        <p className="card-date">expire fin 06/11</p>
-        <p className="card-name">LEBLOND LUDOVIC</p>
+        <p className="card-number">{nbCard}</p>
+        <p className="card-date">expire fin {cardDate}</p>
+        <p className="card-name">{lastName} {firstName}</p>
       </section>
     </div>
     <div className={cardBackClass} onClick={() => setActiveCard(!activeCard)}>

@@ -3,36 +3,8 @@ import ReactECharts from "echarts-for-react";
 import { useParams } from "react-router-dom";
 import { RootState } from "../../redux/actions/typeAction";
 import { useSelector } from "react-redux";
+import { User } from "../../interfaces/interfaces";
 
-interface User {
-	role: string;
-	id: string;
-	lastName: string;
-	firstName: string;
-	userName: string;
-	email: string;
-	createdAt: string;
-	updatedAt: string;
-	account: AccountData[];
-}
-
-interface AccountData {
-	firstName: string;
-	name: string;
-	nbAccount: string;
-	solde: number;
-	_id: number;
-	visible: boolean;
-	operations: Operation[];
-}
-interface Operation {
-	title: string;
-	date: string;
-	montant: number;
-	description: string;
-	_id: string;
-	category: string;
-}
 interface Data {
 	name: string;
 	value: number;

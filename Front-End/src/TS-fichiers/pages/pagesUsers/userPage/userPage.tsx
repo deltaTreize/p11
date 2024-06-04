@@ -5,23 +5,9 @@ import { Button } from "../../../components/button/button";
 import { ChartUser } from "../../../components/charts/chartUser";
 import { RootState } from "../../../redux/actions/typeAction";
 import "./userPage.scss";
+import Spinner from "../../../components/spinner/spinner";
+import { AccountData } from "../../../interfaces/interfaces";
 
-interface AccountData {
-	firstName: string;
-	name: string;
-	nbAccount: string;
-	solde: number;
-	_id: string;
-	visible: boolean;
-	operations: Operation[];
-}
-interface Operation {
-	title: string;
-	date: string;
-	montant: number;
-	description: string;
-	_id: string;
-}
 
 export function User() {
 	const firstName = useSelector((state: RootState) => state.user.firstName);
@@ -54,7 +40,9 @@ export function User() {
 
 	dataUsers.map((account) => (portefeuilleClient += account.solde));
 
-
+	if (!dataUsers) {
+		return <Spinner />;
+	}
 
 	return (
 		<main className="main bg-dark">
@@ -90,7 +78,7 @@ export function User() {
 				</div>
 				<div className="portefeuille-wrapper">
 					<h2>
-						portefeuille client : <br /> {portefeuilleClient.toFixed(2)}€
+						portefeuille client<br /> {portefeuilleClient.toFixed(2)}€
 					</h2>
 					<ChartUser/>
 				</div>

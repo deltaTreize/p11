@@ -6,6 +6,7 @@ import { BackArrow } from "../../../components/backArrow/backArrow";
 import { Button } from "../../../components/button/button";
 import { RootState } from "../../../redux/actions/typeAction";
 import "./AdminUserPage.scss";
+import { User, AccountData } from "../../../interfaces/interfaces";
 
 export function AdminUserPage() {
 	const id = useSelector((state: RootState) => state.user.id);
@@ -25,33 +26,6 @@ export function AdminUserPage() {
 	const [montant, setMontant] = useState<number>(0);
 	const { userId } = useParams();
 
-	interface User {
-		role: string;
-		id: string;
-		lastName: string;
-		firstName: string;
-		userName: string;
-		email: string;
-		createdAt: string;
-		updatedAt: string;
-		account: AccountData[];
-	}
-	interface AccountData {
-		firstName: string;
-		name: string;
-		nbAccount: string;
-		solde: number;
-		_id: string;
-		visible: boolean;
-		operations: Operation[];
-	}
-	interface Operation {
-		title: string;
-		date: string;
-		montant: number;
-		description: string;
-		_id: string;
-	}
 
 	useEffect(() => {
 		fetch("https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user", {
@@ -227,7 +201,7 @@ export function AdminUserPage() {
 						>
 							<option value="">choisir le compte à créditer!</option>
 							{target.account.map((data) =>
-								data.visible === true && data._id !== valueOption1 ? (
+								data.visible === true && data._id.toString() !== valueOption1 ? (
 									<option value={data._id} key={"account2" + data._id}>
 										{data.nbAccount} - {data.name} - {data.solde.toFixed(2)}
 									</option>

@@ -108,7 +108,7 @@ export function EditPage() {
 				<form action="" onSubmit={handleChange}>
 					<div className="allLabel">
 						<label htmlFor="userName">
-							Nom d'utilisateur:
+							Nom d'utilisateur
 							<input
 								type="text"
 								placeholder={userName}
@@ -119,27 +119,27 @@ export function EditPage() {
 							/>
 						</label>
 						<div className="infos-edit">
-							<p className="infos-edit-title">email:</p>
+							<p className="infos-edit-title">email</p>
 							<p className="infos-edit-content">{email}</p>
 						</div>
 						<div className="infos-edit">
-							<p className="infos-edit-title">Nom:</p>
+							<p className="infos-edit-title">Nom</p>
 							<p className="infos-edit-content">{lastName}</p>
 						</div>
 						<div className="infos-edit">
-							<p className="infos-edit-title">Prénom:</p>
+							<p className="infos-edit-title">Prénom</p>
 							<p className="infos-edit-content">{firstName}</p>
 						</div>
 						<div className="infos-edit">
-							<p className="infos-edit-title">votre conseillé:</p>
+							<p className="infos-edit-title">votre conseiller</p>
 							<p className="infos-edit-content">{"DUPOND Jean"}</p>
 						</div>
 						<div className="infos-edit">
-							<p className="infos-edit-title">date de création:</p>
+							<p className="infos-edit-title">date de création</p>
 							<p className="infos-edit-content">{createdAt.slice(0, 10)}</p>
 						</div>
 						<label htmlFor="picture">	
-						photo de profil:
+						photo de profil
 						<input type="file" id="picture" accept="image/*" onChange={ ()=> uploadPicture }/>
 						</label>
 

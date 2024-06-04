@@ -3,36 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { RootState } from "../../redux/actions/typeAction";
-
-interface User {
-	role: string;
-	id: string;
-	lastName: string;
-	firstName: string;
-	userName: string;
-	email: string;
-	createdAt: string;
-	updatedAt: string;
-	account: AccountData[];
-}
-
-interface AccountData {
-	firstName: string;
-	name: string;
-	nbAccount: string;
-	solde: number;
-	_id: number;
-	visible: boolean;
-	operations: Operation[];
-}
-interface Operation {
-	title: string;
-	date: string;
-	montant: number;
-	description: string;
-	_id: string;
-	category: string;
-}
+import { User } from "../../interfaces/interfaces";
 
 export function Chart() {
 	const { nbAccount, userId } = useParams<{

@@ -7,24 +7,9 @@ import { RootState } from "../../../redux/actions/typeAction";
 import "./userAccountPage.scss";
 import { Card } from "../../../components/card/card";
 import { BackArrow } from "../../../components/backArrow/backArrow";
+import Spinner from "../../../components/spinner/spinner";
+import { AccountData } from "../../../interfaces/interfaces";
 
-interface AccountData {
-	firstName: string;
-	name: string;
-	nbAccount: string;
-	solde: number;
-	_id: number;
-	visible: boolean;
-	operations: Operation[];
-}
-interface Operation {
-	title: string;
-	date: string;
-	montant: number;
-	description: string;
-	_id: string;
-	category: string;
-}
 
 export function UserAccontPage() {
 	const [dataUsers, setDataUsers] = useState<AccountData[]>([]);
@@ -54,7 +39,7 @@ export function UserAccontPage() {
 		: null;
 
 	if (!targetAccount) {
-		return <div>Loading...</div>;
+		return <Spinner />;
 	}
 	return (
 		<main className="main bg-dark">

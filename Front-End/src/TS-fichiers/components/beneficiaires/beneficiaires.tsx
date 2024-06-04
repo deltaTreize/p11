@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import "./beneficiaires.scss";
-interface BeneficiairesExternes {
-	name: string;
-	rib: string;
-	onDelete: (rib: string) => void;
-	onModify: ( oldRib: string, name: string, rib: string) => void;
-}
+import { BeneficiairesExternes } from "../../interfaces/interfaces";
 
 export function BeneficiairesExterne({
 	name,

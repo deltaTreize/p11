@@ -11,6 +11,7 @@ import {
 	UserState,
 } from "../../../redux/actions/typeAction";
 import "./adminPage.scss";
+import { AccountData } from "../../../interfaces/interfaces";
 
 export function AdminPage() {
 	const dispatch: Dispatch<AuthActionTypes> = useDispatch();
@@ -44,19 +45,6 @@ export function AdminPage() {
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	interface userData {
-		account: AccountData[];
-	}
-	interface AccountData {
-		solde: number;
-	}
-	interface accountData {
-		visible: boolean;
-		_id: number;
-		name: string;
-		nbAccount: string;
-		solde: number;
-	}
 
 	useEffect(() => {
 		const queryParams = new URLSearchParams(location.search);
@@ -147,7 +135,7 @@ export function AdminPage() {
 
 	useEffect(() => {
 		let totalSolde: number = 0;
-		allUsers.forEach((userData: userData) => {
+		allUsers.forEach((userData) => {
 			userData.account.forEach((data: AccountData) => {
 				totalSolde += data.solde;
 			});
@@ -380,7 +368,7 @@ export function AdminPage() {
 									{user.lastName} {user.firstName}
 								</h3>
 								<div className="allAccountUser">
-									{user.account.map((data: accountData) =>
+									{user.account.map((data: AccountData) =>
 										data.visible === true ? (
 											<div className="AdminUserAccount" key={data._id}>
 												<p className="AdminUserAccount-name">{data.name}</p>

@@ -8,34 +8,8 @@ import { Chart } from "../../../components/charts/chartUserAccount";
 import { Collapse } from "../../../components/collapse/collapse";
 import { RootState } from "../../../redux/actions/typeAction";
 import "./adminUserAccountPage.scss";
+import { User } from "../../../interfaces/interfaces";
 
-interface User {
-	role: string;
-	id: string;
-	lastName: string;
-	firstName: string;
-	userName: string;
-	email: string;
-	createdAt: string;
-	updatedAt: string;
-	account: AccountData[];
-}
-interface AccountData {
-	name: string;
-	nbAccount: string;
-	solde: number;
-	_id: number;
-	visible: boolean;
-	operations: Operation[];
-}
-interface Operation {
-	category: string;
-	title: string;
-	date: string;
-	montant: number;
-	description: string;
-	_id: string;
-}
 
 export function AdminUserAccountPage() {
 	const token = useSelector((state: RootState) => state.token.token);

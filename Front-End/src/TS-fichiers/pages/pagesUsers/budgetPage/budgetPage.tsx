@@ -3,41 +3,9 @@ import { useSelector } from "react-redux";
 import { BudgetComponent } from "../../../components/budgetComponent/budgetComponent";
 import { RootState } from "../../../redux/actions/typeAction";
 import "./budgetPage.scss";
+import Spinner from "../../../components/spinner/spinner";
+import { User, Operation } from "../../../interfaces/interfaces";
 
-interface User {
-	role: string;
-	id: string;
-	lastName: string;
-	firstName: string;
-	userName: string;
-	email: string;
-	createdAt: string;
-	updatedAt: string;
-	account: AccountData[];
-	budget: BudgetModel[];
-}
-
-interface BudgetModel {
-	name: string;
-	value: number;
-}
-interface AccountData {
-	firstName: string;
-	name: string;
-	nbAccount: string;
-	solde: number;
-	_id: number;
-	visible: boolean;
-	operations: Operation[];
-}
-interface Operation {
-	title: string;
-	date: string;
-	montant: number;
-	description: string;
-	_id: string;
-	category: string;
-}
 
 export function Budget() {
 	const token = useSelector((state: RootState) => state.token.token);
@@ -63,7 +31,6 @@ export function Budget() {
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [token, id]);
-console.log(dataUsers?.budget);
 
 	const budgetLoyer = dataUsers?.budget.find(
 		(Budget) => Budget.name === "loyer"
@@ -207,6 +174,11 @@ console.log(dataUsers?.budget);
 		Math.abs(loyersMontant) ?? 0,
 	].reduce((acc, curr) => acc + curr, 0);
 
+
+	if (!dataUsers) {
+		return <Spinner />;
+	}
+
 	return (
 		<div className="main bg-dark budgetMain">
 			<h1 className="title-budget">Mon Budget</h1>
@@ -229,7 +201,7 @@ console.log(dataUsers?.budget);
 						<p>Sur un salaire de</p>
 						<p className="number">{salairesMontant.toFixed(2)}€</p>
 						<p>
-							Il vous reste:{" "}
+							Il vous reste {" "}
 							<span className="number">
 								{(salairesMontant - totalBudgetisé).toFixed(2)}€
 							</span>
@@ -237,17 +209,17 @@ console.log(dataUsers?.budget);
 						<p>de disponible dans votre budget mensuel!</p>
 					</div>
 					<div className="budget-wrapper-pourcentage">
-						<p>Vous avez dépensé:</p>
+						<p>Vous avez dépensé </p>
 						<p className="number">{totalDejaDepense.toFixed(2)}€</p>
 						<p>
-							Il vous reste: {" "}
+							Il vous reste  {" "}
 							<span className="number">
 								{(totalBudgetisé - totalDejaDepense).toFixed(2)}€
 							</span>
 						</p>
 						<p className="paragraphe"> à dépenser</p>
 						<p>
-							Pourcentage du budget non dépensé: <br/>
+							Pourcentage du budget non dépensé  <br/>
 							<span className="number">{(
 								((totalBudgetisé - totalDejaDepense) / totalBudgetisé) *
 								100
