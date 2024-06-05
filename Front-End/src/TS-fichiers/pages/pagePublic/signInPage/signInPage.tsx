@@ -111,6 +111,7 @@ export function SignIn() {
 							<input
 								type={inputType}
 								id="password"
+								autoComplete="current-password"
 								onChange={(e) => {
 									setPassword(e.target.value);
 								}}
