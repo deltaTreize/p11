@@ -99,6 +99,7 @@ export function SignIn() {
 							<input
 								type="text"
 								id="username"
+								autoComplete="username"
 								onChange={(e) => {
 									setEmail(e.target.value);
 								}}
