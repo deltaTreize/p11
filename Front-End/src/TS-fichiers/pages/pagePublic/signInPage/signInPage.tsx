@@ -143,13 +143,10 @@ export function SignIn() {
 						type="button"
 						to={"/sign-Up"}
 						text="Creer un compte"
-						className={""}
-						onClick={function (
-							event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-						): void {
+						className={""} 
+						onClick={function (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>): void {
 							throw new Error("Function not implemented.");
-						}}
-					/>
+						} }					/>
 				</form>
 			</section>
 		</main>

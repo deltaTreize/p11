@@ -12,6 +12,7 @@ import {
 } from "../../../redux/actions/typeAction";
 import "./adminPage.scss";
 import { AccountData } from "../../../interfaces/interfaces";
+import Spinner from "../../../components/spinner/spinner";
 
 export function AdminPage() {
 	const dispatch: Dispatch<AuthActionTypes> = useDispatch();
@@ -58,31 +59,36 @@ export function AdminPage() {
 			pathname: location.pathname,
 			search: queryParams.toString(),
 		});
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [nameSearch, nbPage, limit]);
+	}, [nameSearch, nbPage, limit, sortBy, sortOrder]);
 
 	useEffect(() => {
-		fetch(`https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/admin?name=${nameSearch}`, {
-			method: "GET",
-			headers: {
-				id: `${id}`,
-			},
-		})
+		fetch(
+			`https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/admin?name=${nameSearch}`,
+			{
+				method: "GET",
+				headers: {
+					id: `${id}`,
+				},
+			}
+		)
 			.then((data) => data.json())
 			.then((dataJson) => {
 				if (dataJson.body) {
 					setTotalPage(dataJson.body.length / limit);
 				}
 			});
-	}, [id, nameSearch, limit]);
+	}, [nameSearch]);
 
 	useEffect(() => {
-		fetch(`https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/`, {
-			method: "GET",
-			headers: {
-				id: `${id}`,
-			},
-		})
+		fetch(
+			`https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/`,
+			{
+				method: "GET",
+				headers: {
+					id: `${id}`,
+				},
+			}
+		)
 			.then((data) => data.json())
 			.then((dataJson) => {
 				if (dataJson.body) {
@@ -91,10 +97,6 @@ export function AdminPage() {
 			});
 	}, [id]);
 
-	useEffect(() => {
-		handleSearch();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [id, location.search]);
 
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const newValue = event.target.value;
@@ -118,20 +120,26 @@ export function AdminPage() {
 		setTimeoutId(newTimeoutId);
 	};
 
-	const handleSearch = () => {
-		fetch(`https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/admin${location.search}`, {
-			method: "GET",
-			headers: {
-				id: `${id}`,
-			},
-		})
-			.then((data) => data.json())
-			.then((dataJson) => {
-				if (dataJson.body) {
-					setAllUsersFiltered(dataJson.body);
+	useEffect(() => {
+		if (location.search) {
+			fetch(
+				`https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/admin${location.search}`,
+				{
+					method: "GET",
+					headers: {
+						id: `${id}`,
+					},
 				}
-			});
-	};
+			)
+				.then((data) => data.json())
+				.then((dataJson) => {
+					if (dataJson.body) {
+						setAllUsersFiltered(dataJson.body);
+					}
+				});
+			}
+		}, [location.search]);
+
 
 	useEffect(() => {
 		let totalSolde: number = 0;
@@ -172,11 +180,14 @@ export function AdminPage() {
 			setDisplay("flex");
 		}
 		if (password === confPassword) {
-			fetch("https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/signup", {
-				method: "POST",
-				headers: headersList,
-				body: bodyContent,
-			}).then(async (response) => {
+			fetch(
+				"https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/signup",
+				{
+					method: "POST",
+					headers: headersList,
+					body: bodyContent,
+				}
+			).then(async (response) => {
 				if (response.status === 400) {
 					console.log("error", response.json());
 
@@ -215,6 +226,10 @@ export function AdminPage() {
 		}
 		return dots;
 	};
+
+	if (!allUsersFiltered) {
+		return <Spinner />;
+	}
 
 	return (
 		<main className="main bg-dark">
@@ -352,7 +367,6 @@ export function AdminPage() {
 						}}
 					/>
 					<p>/utilisateurs par page</p>
-
 				</div>
 			</div>
 			<div className="AdminAllUser-container">

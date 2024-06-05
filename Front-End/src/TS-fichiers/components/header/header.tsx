@@ -8,11 +8,11 @@ import "./header.scss";
 export function Header() {
 	const token = useSelector((state: RootState) => state.token.token);
 	const userName = useSelector((state: RootState) => state.user.userName);
-	const logged =  token !== "" ? true :  false;
+	const logged = token !== "" ? true : false;
 	const userId = useSelector((state: RootState) => state.user.id);
 	const picture = useSelector((state: RootState) => state.user.picture);
 	const dispatch = useDispatch();
-	
+
 	const data: SearchState = {
 		searchName: "",
 		sortBy: "lastName",
@@ -20,9 +20,9 @@ export function Header() {
 		page: 1,
 		limit: 3,
 	};
-	
+
 	const handleLogout = () => {
-		localStorage.id = '';
+		localStorage.id = "";
 		dispatch<any>(TokenOff());
 		dispatch<any>(Logout());
 		dispatch<any>(changeSearch(data));
@@ -39,9 +39,27 @@ export function Header() {
 			</NavLink>
 			{logged && (
 				<nav className="navLinks">
-					<NavLink className="comptes navLink" id="comptesLink" to={`/user/home`}>Comptes</NavLink> 
-					<NavLink className="virement navLink" id="virementLink" to={`/user/${userId}/virement`}>Virement</NavLink>
-					<NavLink className="budget navLink" id="budgetLink" to={`/user/${userId}/budget`}>Budget</NavLink>
+					<NavLink
+						className="comptes navLink"
+						id="comptesLink"
+						to={`/user/home`}
+					>
+						Comptes
+					</NavLink>
+					<NavLink
+						className="virement navLink"
+						id="virementLink"
+						to={`/user/${userId}/virement`}
+					>
+						Virement
+					</NavLink>
+					<NavLink
+						className="budget navLink"
+						id="budgetLink"
+						to={`/user/${userId}/budget`}
+					>
+						Budget
+					</NavLink>
 				</nav>
 			)}
 			<div className="connectionLinks">
@@ -51,16 +69,19 @@ export function Header() {
 						id="userLink"
 						to={`/edit/${userId}`}
 					>
-						<img  src={`data:image/png;base64,${picture}`} alt="user" id="userImage"/>
+						{picture && (
+							<img
+								src={`data:image/png;base64,${picture}`}
+								alt="user"
+								id="userImage"
+							/>
+						)}
+						{!picture && <i className="fa fa-user-circle"></i>}
 						{userName}
 					</NavLink>
 				)}
 				{!logged && (
-					<NavLink
-						className="main-nav-item"
-						id="signInLink"
-						to={"/sign-In"}
-					>
+					<NavLink className="main-nav-item" id="signInLink" to={"/sign-In"}>
 						<i className="fa fa-user-circle"></i>
 						Se connecter
 					</NavLink>
