@@ -11,7 +11,6 @@ import "./adminUserAccountPage.scss";
 import { User } from "../../../interfaces/interfaces";
 import Spinner from "../../../components/spinner/spinner";
 
-
 export function AdminUserAccountPage() {
 	const token = useSelector((state: RootState) => state.token.token);
 	const id = useSelector((state: RootState) => state.user.id);
@@ -27,12 +26,15 @@ export function AdminUserAccountPage() {
 	}>();
 
 	useEffect(() => {
-		fetch("https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user", {
-			method: "GET",
-			headers: {
-				id: `${id}`,
-			},
-		})
+		fetch(
+			"https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user",
+			{
+				method: "GET",
+				headers: {
+					id: `${id}`,
+				},
+			}
+		)
 			.then((data) => data.json())
 			.then((dataJson) => setAllUsers(dataJson.body));
 	}, [id]);
@@ -48,14 +50,17 @@ export function AdminUserAccountPage() {
 		: undefined;
 
 	function closeAccount() {
-		fetch("https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/account/close", {
-			method: "PUT",
-			headers: {
-				id: `${userId}`,
-				idAccount: `${targetAccount?._id}`,
-				Authorization: "Bearer " + token,
-			},
-		});
+		fetch(
+			"https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/account/close",
+			{
+				method: "PUT",
+				headers: {
+					id: `${userId}`,
+					idAccount: `${targetAccount?._id}`,
+					Authorization: "Bearer " + token,
+				},
+			}
+		);
 		window.location.reload();
 	}
 
@@ -80,16 +85,19 @@ export function AdminUserAccountPage() {
 			montant: montant,
 		});
 
-		fetch("https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/account/operations", {
-			method: "PUT",
-			body: bodyContent,
-			headers: headersList,
-		});
+		fetch(
+			"https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/account/operations",
+			{
+				method: "PUT",
+				body: bodyContent,
+				headers: headersList,
+			}
+		);
 	}
 
 	if (targetAccount && target && targetAccount.visible === true) {
 		return (
-			<main className="main bg-dark">
+			<main className="main bg-dark main-adminUserAccountPage">
 				<ReactModal
 					isOpen={isModaleOpen}
 					className="Modal"
@@ -99,7 +107,7 @@ export function AdminUserAccountPage() {
 					shouldCloseOnOverlayClick={true}
 				>
 					<h2 className="titleModal">Ajouter une Opération</h2>
-					<form action="" className="formModal" onSubmit={addOperation}>
+					<form action="" className="formModal-addOperations" onSubmit={addOperation}>
 						<label htmlFor="title">
 							Titre :
 							<input
@@ -130,12 +138,12 @@ export function AdminUserAccountPage() {
 						</label>
 						<input
 							type="submit"
-							className="buttonArgentBank modalButton"
+							className="buttonArgentBank modalButton addOperations"
 							value="AJOUTER"
 						/>
 					</form>
 				</ReactModal>
-				<div className="header">
+				<div className="header header-adminUserAccountPage">
 					<BackArrow chemin={`/admin/${userId}`} />
 					<h1>
 						{target?.lastName} {target?.firstName}
@@ -159,55 +167,63 @@ export function AdminUserAccountPage() {
 						to={""}
 						className={""}
 					/>
-					<Chart />
 				</div>
 
-				<div className="account-adminUserAccountPage">
-					<section className="entete-account">
-						<p className="entete-account-description">{targetAccount.name}</p>
-						<p className="entete-account-description">
-							{targetAccount.nbAccount}
-							<br />
-							Id: {targetAccount._id}
-						</p>
-						<p className="entete-account-description">
-							{targetAccount.solde.toFixed(2)} €
-						</p>
-						<span
-							className="trash"
-							data-descr="Close this account"
-							onClick={closeAccount}
-						>
-							<i className="fa-solid fa-trash" style={{ color: "#12002b" }}></i>
-						</span>
-					</section>
-					<section className="AllOperation-account">
-						{operations?.map((data) =>
-							data.description !== "undefined" ? (
-								<Collapse
-									title={data.title}
-									date={data.date}
-									montant={data.montant}
-									description={data.description}
-									key={data._id}
-									operationId={data._id}
-									idAccount={targetAccount._id}
-									category={data.category}
-								/>
-							) : (
-								<Collapse
-									title={data.title}
-									date={data.date}
-									montant={data.montant}
-									key={data.title}
-									operationId={data._id}
-									idAccount={targetAccount._id}
-									description={""}
-									category={data.category}
-								/>
-							)
-						)}
-					</section>
+				<div className="data-adminUserAccountPage">
+					<div className="account-adminUserAccountPage">
+						<section className="entete-account">
+							<p className="entete-account-description">{targetAccount.name}</p>
+							<p className="entete-account-description">
+								{targetAccount.nbAccount}
+								<br />
+								Id: {targetAccount._id}
+							</p>
+							<p className="entete-account-description">
+								{targetAccount.solde.toFixed(2)} €
+							</p>
+							<span
+								className="trash"
+								data-descr="Close this account"
+								onClick={closeAccount}
+							>
+								<i
+									className="fa-solid fa-trash"
+									style={{ color: "#12002b" }}
+								></i>
+							</span>
+						</section>
+						<section className="AllOperation-account">
+							{operations?.map((data) =>
+								data.description !== "undefined" ? (
+									<Collapse
+										title={data.title}
+										date={data.date}
+										montant={data.montant}
+										description={data.description}
+										key={data._id}
+										operationId={data._id}
+										idAccount={targetAccount._id}
+										category={data.category}
+									/>
+								) : (
+									<Collapse
+										title={data.title}
+										date={data.date}
+										montant={data.montant}
+										key={data.title}
+										operationId={data._id}
+										idAccount={targetAccount._id}
+										description={""}
+										category={data.category}
+									/>
+								)
+							)}
+						</section>
+					</div>
+					<div className="chart-wrapper">
+						<h2>Dépenses</h2>
+						<Chart />
+					</div>
 				</div>
 			</main>
 		);
@@ -277,6 +293,6 @@ export function AdminUserAccountPage() {
 			</main>
 		);
 	} else {
-		return <Spinner/>; // Afficher un message de chargement
+		return <Spinner />; // Afficher un message de chargement
 	}
 }

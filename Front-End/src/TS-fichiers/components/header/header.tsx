@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Logout, TokenOff, changeSearch } from "../../redux/actions/action";
 import { RootState, SearchState } from "../../redux/actions/typeAction";
 import "./header.scss";
@@ -61,6 +61,17 @@ export function Header() {
 					>
 						Budget
 					</NavLink>
+				</nav>
+			)}
+			{role === "admin" && (
+				<nav className="navLinks">
+				<Link
+					className="comptes navLink accueil"
+					id="comptesLink"
+					to={`/admin`}
+				>
+					Accueil
+				</Link>
 				</nav>
 			)}
 			<div className="connectionLinks">
