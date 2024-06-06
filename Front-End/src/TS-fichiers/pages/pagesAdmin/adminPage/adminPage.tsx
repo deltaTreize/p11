@@ -12,7 +12,6 @@ import {
 } from "../../../redux/actions/typeAction";
 import "./adminPage.scss";
 import { AccountData } from "../../../interfaces/interfaces";
-import Spinner from "../../../components/spinner/spinner";
 
 export function AdminPage() {
 	const dispatch: Dispatch<AuthActionTypes> = useDispatch();
@@ -206,14 +205,6 @@ export function AdminPage() {
 		}
 		return dots;
 	};
-
-	if (!allUsersFiltered) {
-		return <Spinner />;
-	}
-
-	if (!totalPage) {
-		return <Spinner />;
-	}
 
 	return (
 		<main className="main bg-dark main-admin">

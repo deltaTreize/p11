@@ -9,6 +9,7 @@ import { Collapse } from "../../../components/collapse/collapse";
 import { RootState } from "../../../redux/actions/typeAction";
 import "./adminUserAccountPage.scss";
 import { User } from "../../../interfaces/interfaces";
+import Spinner from "../../../components/spinner/spinner";
 
 
 export function AdminUserAccountPage() {
@@ -276,6 +277,6 @@ export function AdminUserAccountPage() {
 			</main>
 		);
 	} else {
-		return <div>Loading...</div>; // Afficher un message de chargement
+		return <Spinner/>; // Afficher un message de chargement
 	}
 }

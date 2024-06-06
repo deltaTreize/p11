@@ -7,6 +7,7 @@ import { Button } from "../../../components/button/button";
 import { RootState } from "../../../redux/actions/typeAction";
 import "./AdminUserPage.scss";
 import { User, AccountData } from "../../../interfaces/interfaces";
+import Spinner from "../../../components/spinner/spinner";
 
 export function AdminUserPage() {
 	const id = useSelector((state: RootState) => state.user.id);
@@ -117,7 +118,7 @@ export function AdminUserPage() {
 	}
 
 	if (!target || target === undefined) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }		
 	return (
 			<main className="main bg-dark">
