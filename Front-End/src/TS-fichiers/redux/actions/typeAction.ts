@@ -48,7 +48,7 @@ export interface SearchState{
 	sortBy: string;
 	sortOrder: string;
 	page: number;
-	limit: number
+	limit: number;
 }
 
 export type AuthActionTypes =

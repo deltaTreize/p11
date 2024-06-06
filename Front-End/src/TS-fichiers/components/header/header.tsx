@@ -8,6 +8,7 @@ import "./header.scss";
 export function Header() {
 	const token = useSelector((state: RootState) => state.token.token);
 	const userName = useSelector((state: RootState) => state.user.userName);
+	const role = useSelector((state: RootState) => state.user.role);
 	const logged = token !== "" ? true : false;
 	const userId = useSelector((state: RootState) => state.user.id);
 	const picture = useSelector((state: RootState) => state.user.picture);
@@ -37,7 +38,7 @@ export function Header() {
 					alt="Argent Bank Logo"
 				/>
 			</NavLink>
-			{logged && (
+			{role === "user" && (
 				<nav className="navLinks">
 					<NavLink
 						className="comptes navLink"

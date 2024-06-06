@@ -1,4 +1,4 @@
-import { AuthActionTypes,  SearchState } from "../actions/typeAction";
+import { AuthActionTypes, SearchState } from "../actions/typeAction";
 
 const initialState: SearchState = {
   searchName: "",

@@ -24,6 +24,7 @@ export function AdminPage() {
 	const limit = useSelector((state: RootState) => state.search.limit);
 	const sortBy = useSelector((state: RootState) => state.search.sortBy);
 	const sortOrder = useSelector((state: RootState) => state.search.sortOrder);
+	const [totalPage, setTotalPage] = useState<number>(1);
 	const [allUsersFiltered, setAllUsersFiltered] = useState<UserState[]>([]);
 	const [allUsers, setAllUsers] = useState<UserState[]>([]);
 	const [portefeuilleAllClient, setPortefeuilleAllClient] = useState<number>(0);
@@ -41,11 +42,9 @@ export function AdminPage() {
 	const [checked2, setChecked2] = useState<boolean>(false);
 	const [inputType2, setInputType2] = useState<string>("password");
 	const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
-	const [totalPage, setTotalPage] = useState<number>(0);
 	const [nameValue, setNameValue] = useState<string>(nameSearch);
 	const navigate = useNavigate();
 	const location = useLocation();
-
 
 	useEffect(() => {
 		const queryParams = new URLSearchParams(location.search);
@@ -60,24 +59,6 @@ export function AdminPage() {
 			search: queryParams.toString(),
 		});
 	}, [nameSearch, nbPage, limit, sortBy, sortOrder]);
-
-	useEffect(() => {
-		fetch(
-			`https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/admin?name=${nameSearch}`,
-			{
-				method: "GET",
-				headers: {
-					id: `${id}`,
-				},
-			}
-		)
-			.then((data) => data.json())
-			.then((dataJson) => {
-				if (dataJson.body) {
-					setTotalPage(dataJson.body.length / limit);
-				}
-			});
-	}, [nameSearch]);
 
 	useEffect(() => {
 		fetch(
@@ -96,7 +77,6 @@ export function AdminPage() {
 				}
 			});
 	}, [id]);
-
 
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const newValue = event.target.value;
@@ -134,12 +114,12 @@ export function AdminPage() {
 				.then((data) => data.json())
 				.then((dataJson) => {
 					if (dataJson.body) {
-						setAllUsersFiltered(dataJson.body);
+						setAllUsersFiltered(dataJson.body.users);
+						setTotalPage(dataJson.body.totalPages);
 					}
 				});
-			}
-		}, [location.search]);
-
+		}
+	}, [location.search]);
 
 	useEffect(() => {
 		let totalSolde: number = 0;
@@ -204,7 +184,7 @@ export function AdminPage() {
 
 	const renderDots = () => {
 		const dots: JSX.Element[] = [];
-		for (let i = 1; i <= Math.ceil(totalPage); i++) {
+		for (let i = 1; i <= totalPage; i++) {
 			dots.push(
 				<button
 					key={i}
@@ -231,8 +211,12 @@ export function AdminPage() {
 		return <Spinner />;
 	}
 
+	if (!totalPage) {
+		return <Spinner />;
+	}
+
 	return (
-		<main className="main bg-dark">
+		<main className="main bg-dark main-admin">
 			<ReactModal
 				isOpen={isModaleOpen}
 				className="Modal"
@@ -241,9 +225,9 @@ export function AdminPage() {
 				onRequestClose={() => setIsModaleOpen(false)}
 				shouldCloseOnOverlayClick={true}
 			>
-				<form className="form-signup" onSubmit={createUser}>
-					<div>
-						<span className="inputTitle">Nom</span>
+				<form className="form-signup-admin" onSubmit={createUser}>
+					<div className="form-signup-admin-group">
+						<p className="inputTitle">Nom</p>
 						<input
 							type="text"
 							id="lastName"
@@ -252,8 +236,8 @@ export function AdminPage() {
 							onChange={(e) => setNewLastName(e.target.value)}
 						/>
 					</div>
-					<div>
-						<span className="inputTitle">Prénom</span>
+					<div className="form-signup-admin-group">
+						<p className="inputTitle">Prénom</p>
 						<input
 							type="text"
 							id="firstName"
@@ -262,8 +246,8 @@ export function AdminPage() {
 							onChange={(e) => setNewFirstName(e.target.value)}
 						/>
 					</div>
-					<div>
-						<span className="inputTitle">Nom d'utilisateur</span>
+					<div className="form-signup-admin-group">
+						<p className="inputTitle">Nom d'utilisateur</p>
 						<input
 							type="text"
 							id="userName"
@@ -272,8 +256,8 @@ export function AdminPage() {
 							onChange={(e) => setUserName(e.target.value)}
 						/>
 					</div>
-					<div>
-						<span className="inputTitle">Email</span>
+					<div className="form-signup-admin-group">
+						<p className="inputTitle">Email</p>
 						<input
 							type="email"
 							id="email"
@@ -285,8 +269,8 @@ export function AdminPage() {
 							}}
 						/>
 					</div>
-					<div>
-						<span className="inputTitle">Mot de passe</span>
+					<div className="form-signup-admin-group">
+						<p className="inputTitle">Mot de passe</p>
 						<input
 							type={inputType}
 							id="password"
@@ -302,8 +286,8 @@ export function AdminPage() {
 							{!checked && <i className="fa-solid fa-eye-slash"></i>}
 						</span>
 					</div>
-					<div>
-						<span className="inputTitle">Confirmation Mot de passe</span>
+					<div className="form-signup-admin-group">
+						<p className="inputTitle">Confirmation Mot de passe</p>
 						<input
 							type={inputType2}
 							id="confirmPassword"
@@ -366,7 +350,7 @@ export function AdminPage() {
 							dispatch(changeSearch(data));
 						}}
 					/>
-					<p>/utilisateurs par page</p>
+					<p className="filterBar-text"> utilisateurs par page</p>
 				</div>
 			</div>
 			<div className="AdminAllUser-container">
