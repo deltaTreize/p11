@@ -1,7 +1,12 @@
 import React, { useState } from "react";
-import { Beneficiaires } from "../../redux/actions/typeAction";
 import "./beneficiaires.scss";
 
+interface Beneficiaires {
+	name: string;
+	rib: string;
+	onDelete: (rib: string) => void;
+	onModify: (oldRib: string, name: string, rib: string) => void;
+}
 export function BeneficiairesExterne({
 	name,
 	rib,

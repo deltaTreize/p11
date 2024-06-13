@@ -70,9 +70,6 @@ export function SignIn() {
 			);
 			const userDataJson = await userDataFetched.json();
 
-			console.log(userDataJson.body.budget);
-			
-
 			const userData: UserState = {
 				id: userDataJson.body.id,
 				firstName: userDataJson.body.firstName,

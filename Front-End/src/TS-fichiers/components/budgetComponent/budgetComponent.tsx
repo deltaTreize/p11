@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { RootState, Budget } from "../../redux/actions/typeAction";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "redux";
+import { UpdateBudget } from "../../redux/actions/action";
+import { AuthActionTypes, RootState } from "../../redux/actions/typeAction";
 import { ChartBudget } from "../charts/chartBudget";
 import "./budgetComponent.scss";
 
@@ -12,32 +14,13 @@ interface Props {
 export function BudgetComponent({ categorie, montantCategorie }: Props) {
 	const token = useSelector((state: RootState) => state.token.token);
 	const id = useSelector((state: RootState) => state.user.id);
-	const role = useSelector((state: RootState) => state.user.role);
-	const [budgetArray, setBudgetArray] = useState<Budget[]>([]);
+	const budgetArray = useSelector((state: RootState) => state.user.budget);
 	const [budgetValue, setBudgetValue] = useState<number>(0);
 	const [displayInputBudgetValue, setDisplayInputBudgetValue] =
 		useState<boolean>(false);
 	const show = displayInputBudgetValue ? "flex" : "none";
-	const[counter, setCounter] = useState<number>(0);
-
-	useEffect(() => {
-		if (role === "user") {
-			fetch(
-				"https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/profile",
-				{
-					method: "POST",
-					headers: {
-						Authorization: "Bearer " + token,
-					},
-				}
-			)
-				.then((alldata) => alldata.json())
-				.then((data) => {
-					setBudgetArray(data.body.budget);
-				});
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [token, id, counter]);
+	const [counter, setCounter] = useState<number>(0);
+	const dispatch: Dispatch<AuthActionTypes> = useDispatch();
 
 	const budgetLoyer = budgetArray.find((Budget) => Budget.name === "loyer");
 
@@ -89,10 +72,13 @@ export function BudgetComponent({ categorie, montantCategorie }: Props) {
 				body: bodyContent,
 				headers: headersList,
 			}
-		).then(() => {
-			setDisplayInputBudgetValue(!displayInputBudgetValue);
-			setCounter(counter + 1);
-		})
+		)
+			.then((data) => data.json())
+			.then((dataJson) => {
+				dispatch(UpdateBudget(dataJson.body.budget));
+				setDisplayInputBudgetValue(!displayInputBudgetValue);
+				setCounter(counter + 1);
+			});
 	}
 
 	return (

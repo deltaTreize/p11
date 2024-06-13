@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import React from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 import { Button } from "../../../components/button/button";
 import { ChartUser } from "../../../components/charts/chartUser";
-import { RootState, AccountData } from "../../../redux/actions/typeAction";
-import "./userPage.scss";
 import Spinner from "../../../components/spinner/spinner";
+import { RootState } from "../../../redux/actions/typeAction";
+import "./userPage.scss";
 
 
 export function User() {
@@ -13,29 +13,13 @@ export function User() {
 	const userId = useSelector((state: RootState) => state.user.id);
 	const role = useSelector((state: RootState) => state.user.role);
 	const admin = role === "admin" ? true : false;
-	const token = useSelector((state: RootState) => state.token.token);
-	const [dataUsers, setDataUsers] = useState<AccountData[]>([]);
+	const dataUsers = useSelector((state: RootState) => state.user.account);
 	const navigate = useNavigate();
 	let portefeuilleClient = 0;
 
 	if (admin) {
 		navigate("/admin");
 	}
-
-	useEffect(() => {
-		if (token) {
-			fetch("https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/profile", {
-				method: "POST",
-				headers: {
-					Authorization: "Bearer " + token,
-				},
-			})
-				.then((alldata) => alldata.json())
-				.then((data) => {
-					setDataUsers(data.body.account);
-				});
-		}
-	}, [token]);
 
 	dataUsers.map((account) => (portefeuilleClient += account.solde));
 

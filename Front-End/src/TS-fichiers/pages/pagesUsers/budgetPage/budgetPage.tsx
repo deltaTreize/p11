@@ -1,35 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { BudgetComponent } from "../../../components/budgetComponent/budgetComponent";
-import { RootState, UserState, Operation } from "../../../redux/actions/typeAction";
-import "./budgetPage.scss";
 import Spinner from "../../../components/spinner/spinner";
-
+import {
+	Operation,
+	RootState
+} from "../../../redux/actions/typeAction";
+import "./budgetPage.scss";
 
 export function Budget() {
-	const token = useSelector((state: RootState) => state.token.token);
-	const role = useSelector((state: RootState) => state.user.role);
-	const [dataUsers, setDataUsers] = useState<UserState>();
-	const id = useSelector((state: RootState) => state.user.id);
+	const dataUsers = useSelector((state: RootState) => state.user);
 	const date = new Date();
 	const month = date.getMonth() + 1;
 	const year = date.getFullYear();
-
-	useEffect(() => {
-		if (role === "user") {
-			fetch("https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/profile", {
-				method: "POST",
-				headers: {
-					Authorization: "Bearer " + token,
-				},
-			})
-				.then((alldata) => alldata.json())
-				.then((data) => {
-					setDataUsers(data.body);
-				});
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [token, id]);
 
 	const budgetLoyer = dataUsers?.budget.find(
 		(Budget) => Budget.name === "loyer"
@@ -60,11 +43,17 @@ export function Budget() {
 		(Account) => Account.name === "Compte courant"
 	);
 	const categories = new Set(
-		target?.operations?.map((operation) => operation.category)
+		target?.operations
+			?.map((operation) => operation.category)
+			.filter(
+				(category) =>
+					category !== null &&
+					category !== "null" &&
+					category !== "salaire" &&
+					category !== undefined &&
+					category !== "undefined"
+			)
 	);
-	categories.delete("null");
-	categories.delete("salaire");
-	categories.delete("undefined");
 
 	const categorieArray: string[] = Array.from(categories);
 
@@ -150,7 +139,6 @@ export function Budget() {
 		loyer: loyersMontant.toFixed(2),
 	} as any;
 
-
 	const totalBudgetisé: number = [
 		budgetTransport?.value ?? 0,
 		budgetPension?.value ?? 0,
@@ -162,7 +150,6 @@ export function Budget() {
 		budgetLoyer?.value ?? 0,
 	].reduce((acc, curr) => acc + curr, 0);
 
-
 	const totalDejaDepense: number = [
 		Math.abs(transportMontant) ?? 0,
 		Math.abs(pensionMontant) ?? 0,
@@ -172,7 +159,6 @@ export function Budget() {
 		Math.abs(fraisBancairesMontant) ?? 0,
 		Math.abs(loyersMontant) ?? 0,
 	].reduce((acc, curr) => acc + curr, 0);
-
 
 	if (!dataUsers) {
 		return <Spinner />;
@@ -200,7 +186,7 @@ export function Budget() {
 						<p>Sur un salaire de</p>
 						<p className="number">{salairesMontant.toFixed(2)}€</p>
 						<p>
-							Il vous reste {" "}
+							Il vous reste{" "}
 							<span className="number">
 								{(salairesMontant - totalBudgetisé).toFixed(2)}€
 							</span>
@@ -211,19 +197,21 @@ export function Budget() {
 						<p>Vous avez dépensé </p>
 						<p className="number">{totalDejaDepense.toFixed(2)}€</p>
 						<p>
-							Il vous reste  {" "}
+							Il vous reste{" "}
 							<span className="number">
 								{(totalBudgetisé - totalDejaDepense).toFixed(2)}€
 							</span>
 						</p>
 						<p className="paragraphe"> à dépenser</p>
 						<p>
-							Pourcentage du budget non dépensé  <br/>
-							<span className="number">{(
-								((totalBudgetisé - totalDejaDepense) / totalBudgetisé) *
-								100
-							).toFixed(2)}
-							%</span>
+							Pourcentage du budget non dépensé <br />
+							<span className="number">
+								{(
+									((totalBudgetisé - totalDejaDepense) / totalBudgetisé) *
+									100
+								).toFixed(2)}
+								%
+							</span>
 						</p>
 					</div>
 				</div>

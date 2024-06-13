@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
 import ReactECharts from "echarts-for-react";
-import { useParams } from "react-router-dom";
-import { RootState, UserState } from "../../redux/actions/typeAction";
+import React from "react";
 import { useSelector } from "react-redux";
+import { RootState } from "../../redux/actions/typeAction";
 
 interface Data {
 	name: string;
@@ -10,53 +9,8 @@ interface Data {
 }
 
 export function ChartUser() {
-	const { userId } = useParams<{
-		nbAccount: string;
-		userId: string;
-	}>();
-
-	const token = useSelector((state: RootState) => state.token.token);
-	const role = useSelector((state: RootState) => state.user.role);
-	const [dataUsers, setDataUsers] = useState<UserState | undefined>();
-	const id = useSelector((state: RootState) => state.user.id);
-	const [allUsers, setAllUsers] = useState<UserState[]>([]);
-
-	useEffect(() => {
-		if (role === "admin") {
-			fetch("https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user", {
-				method: "GET",
-				headers: {
-					id: `${id}`,
-				},
-			})
-				.then((data) => data.json())
-				.then((dataJson) => {
-					setAllUsers(dataJson.body);
-				});
-		}
-
-		if (role === "user") {
-			fetch("https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/profile", {
-				method: "POST",
-				headers: {
-					Authorization: "Bearer " + token,
-				},
-			})
-				.then((alldata) => alldata.json())
-				.then((data) => {
-					setDataUsers(data.body);
-				});
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [token, id]);
-
-	let target: UserState | undefined;
-	if (role === "admin") {
-		target = allUsers?.find((location) => location.id === userId);
-	}
-	if (role === "user") {
-		target = dataUsers;
-	}
+	const dataUsers = useSelector((state: RootState) => state.user);
+	const target = dataUsers;
 
 	const option = {
 		tooltip: {
@@ -65,11 +19,11 @@ export function ChartUser() {
 		legend: {
 			bottom: "0",
 			left: "center",
-      width: "75%",
-      textStyle: {
-        color: "#fff",
-        fontSize: 16,
-      }
+			width: "75%",
+			textStyle: {
+				color: "#fff",
+				fontSize: 16,
+			},
 		},
 		series: [
 			{
@@ -80,9 +34,9 @@ export function ChartUser() {
 				startAngle: 180,
 				endAngle: 360,
 				data: [] as Data[],
-        label: {
-          show: false
-        }
+				label: {
+					show: false,
+				},
 			},
 		],
 	};

@@ -1,17 +1,17 @@
-.asideAdd{
+.asideAdd {
 	right: -100%;
 	top: 49%;
 	transform: translateY(-50%);
-	.aside-title{
+	.aside-title {
 		display: none;
 	}
-	form{
+	form {
 		display: none;
 	}
-	.fa-x{
+	.fa-x {
 		display: none;
 	}
-	&-show{
+	&-show {
 		transition: all 0.5s linear;
 		position: fixed;
 		top: 49%;
@@ -24,20 +24,20 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		.fa-x{
+		.fa-x {
 			display: flex;
 			position: absolute;
 			top: 20px;
 			left: 40px;
 			font-size: 30px;
-			cursor: pointer
+			cursor: pointer;
 		}
-		.aside-title{
+		.aside-title {
 			display: flex;
 			margin-top: 105px;
 			font-size: 34px;
 		}
-		form{
+		form {
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
@@ -46,7 +46,7 @@
 			box-sizing: border-box;
 			gap: 15px;
 			padding: 52px 50px;
-			label{
+			label {
 				display: flex;
 				flex-direction: column;
 				justify-content: center;
@@ -56,7 +56,7 @@
 				font-size: 24px;
 				font-weight: 700;
 				margin-bottom: 20px;
-				input{
+				input {
 					width: 100%;
 					height: 45px;
 					font-size: 18px;
@@ -66,7 +66,7 @@
 	}
 }
 
-.wrapper{
+.wrapper {
 	display: flex;
 	justify-content: space-around;
 	box-sizing: border-box;
@@ -86,7 +86,7 @@
 		width: 60%;
 		border-radius: 10px;
 	}
-	.wrapper-beneficiaires{
+	.wrapper-beneficiaires {
 		width: 30%;
 		background: #2c3e50;
 		color: #fff;
@@ -96,7 +96,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		.wrapper-beneficiaires-header{
+		.wrapper-beneficiaires-header {
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -104,7 +104,7 @@
 			box-sizing: border-box;
 			height: 50px;
 			position: relative;
-			.addBeneficiaire{
+			.addBeneficiaire {
 				height: 40px;
 				border-radius: 50%;
 				box-sizing: border-box;
@@ -116,20 +116,22 @@
 				transform: translateY(-50%);
 			}
 		}
-		.wrapper-beneficiaires-list{
+		.wrapper-beneficiaires-list {
+			overflow-y: scroll;
+			scrollbar-width: none;
 			width: 100%;
-			ul{
+			ul {
 				box-sizing: border-box;
 				padding: 0 30px;
 				width: 100%;
-				li{
+				li {
 					display: flex;
 					justify-content: space-between;
 					align-items: center;
 					width: 100%;
 					list-style: none;
 					margin-bottom: 10px;
-					.beneficiaire-name{
+					.beneficiaire-name {
 						font-weight: 900;
 					}
 				}
@@ -162,7 +164,8 @@
 	justify-content: space-between;
 	align-items: center;
 	margin-bottom: 40px;
-	.debiteur,.crediteur{
+	.debiteur,
+	.crediteur {
 		width: 45%;
 		display: flex;
 		flex-direction: column;
@@ -172,7 +175,7 @@
 			margin-bottom: 10px;
 			width: 100%;
 		}
-		select{
+		select {
 			width: 100%;
 			height: 45px;
 			box-sizing: border-box;
@@ -180,7 +183,7 @@
 			font-size: 16px;
 		}
 	}
-	.fa-arrow-right-arrow-left{
+	.fa-arrow-right-arrow-left {
 		font-size: 25px;
 		position: absolute;
 		bottom: 22px;
@@ -189,20 +192,20 @@
 	}
 }
 
-.infos{
+.infos,
+.description {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	margin-bottom: 40px;
-	label{
+	label {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 		width: 45%;
-
 	}
-	input{
+	input {
 		width: 100%;
 		height: 45px;
 		box-sizing: border-box;
@@ -210,24 +213,7 @@
 		margin-top: 10px;
 		font-size: 18px;
 	}
-	#solde{
+	#solde {
 		text-align: center;
 	}
 }
-
-.description {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	margin-bottom: 40px;
-	#description {
-		width: 100%;
-		height: 100px;
-		box-sizing: border-box;
-		padding-left: 10px;
-		margin-top: 10px;
-		resize: none;
-		font-size: 18px;
-	}
-}
-

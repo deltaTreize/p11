@@ -37,6 +37,25 @@ const userReducer = (	state = initialState,	action: AuthActionTypes ): UserState
 				beneficiairesExternes: action.payload.beneficiairesExternes
 			};
 
+		case "UPDATE_ACCOUNT":
+			return {
+				...state,
+				account: action.payload.account,
+
+			};
+
+		case "UPDATE_BENEFICIAIRES":
+			return {
+				...state,
+				beneficiairesExternes: action.payload.beneficiairesExternes,
+			};
+			
+		case "UPDATE_BUDGET":
+			return {
+				...state,
+				budget: action.payload.budget,
+			};
+
 		case "LOGOUT":
 			return initialState;
 

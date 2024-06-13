@@ -1,45 +1,32 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "redux";
 import { BeneficiairesExterne } from "../../../components/beneficiaires/beneficiaires";
 import { Button } from "../../../components/button/button";
-import { AccountData, Beneficiaires, RootState } from "../../../redux/actions/typeAction";
+import {
+	UpdateAccount,
+	UpdateBeneficiaires,
+} from "../../../redux/actions/action";
+import { AuthActionTypes, RootState } from "../../../redux/actions/typeAction";
 import "./virementPage.scss";
 
 export function VirementPage() {
+	const userId = useSelector((state: RootState) => state.user.id);
+	const account = useSelector((state: RootState) => state.user.account);
+	const token = useSelector((state: RootState) => state.token.token);
+	const beneficiairesExternesList = useSelector(
+		(state: RootState) => state.user.beneficiairesExternes
+	);
 	const [valueOption1, setValueOption1] = useState<string>("");
 	const [valueOption2, setValueOption2] = useState<string>("");
 	const [title, setTitle] = useState<string>("");
 	const [description, setDescription] = useState<string>("");
+	const [category, setCategory] = useState<string>("");
 	const [montant, setMontant] = useState<number>(0);
-	const [dataUsers, setDataUsers] = useState<AccountData[]>([]);
 	const [isAsideAddShow, setIsAsideAddShow] = useState<boolean>(false);
-	const token = useSelector((state: RootState) => state.token.token);
-	const userId = useSelector((state: RootState) => state.user.id);
 	const [newBeneficiaireName, setNewBeneficiaireName] = useState<string>("");
-  const [newBeneficiaireIban, setNewBeneficiaireIban] = useState<string>("");
-  const [beneficiairesExternesList, setBeneficiairesExternesList] = useState<Beneficiaires[]>([]);
-
-
-
-	const fetchData = useCallback(() => {
-		if (token) {
-			fetch("https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/profile", {
-				method: "POST",
-				headers: {
-					Authorization: "Bearer " + token,
-				},
-			})
-				.then((alldata) => alldata.json())
-				.then((data) => {
-					setDataUsers(data.body.account);
-					setBeneficiairesExternesList(data.body.beneficiairesExternes);
-				});
-		}
-	}, [token]);
-
-	useEffect(() => {
-		fetchData();
-	}, [fetchData]);
+	const [newBeneficiaireIban, setNewBeneficiaireIban] = useState<string>("");
+	const dispatch: Dispatch<AuthActionTypes> = useDispatch();
 
 	const today = new Date();
 	async function makeVirement() {
@@ -56,13 +43,19 @@ export function VirementPage() {
 				.slice(0, 10)}`,
 			title: `${title}`,
 			description: `${description}`,
+			category: `${category}`,
 			montant: -montant,
 		});
-		fetch("https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/account/operations", {
-			method: "PUT",
-			body: bodyContent1,
-			headers: headersList1,
-		});
+		const response = await fetch(
+			"https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/account/operations",
+			{
+				method: "PUT",
+				body: bodyContent1,
+				headers: headersList1,
+			}
+		);
+
+		const data = await response.json();
 
 		///////////add operation positive sur compte créditeur/////////////////////
 		let headersList2 = {
@@ -77,64 +70,101 @@ export function VirementPage() {
 				.slice(0, 10)}`,
 			title: `${title}`,
 			description: `${description}`,
+			category: `${category}`,
 			montant: montant,
 		});
-		fetch("https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/account/operations", {
-			method: "PUT",
-			body: bodyContent2,
-			headers: headersList2,
-		});
+		const response2 = await fetch(
+			"https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/account/operations",
+			{
+				method: "PUT",
+				body: bodyContent2,
+				headers: headersList2,
+			}
+		);
+
+		const data2 = await response2.json();
+
+		if (data2.status === 200 && data.status === 200) {
+			fetch(
+				"https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/profile",
+				{
+					method: "POST",
+					headers: {
+						Authorization: "Bearer " + token,
+					},
+				}
+			)
+				.then((alldata) => alldata.json())
+				.then((data) => {
+					dispatch(UpdateAccount(data.body.account));
+				});
+		}
 	}
 
-	function addBeneficiaire() {
+	async function addBeneficiaire() {
 		let body = JSON.stringify({
 			name: `${newBeneficiaireName}`,
 			rib: `${newBeneficiaireIban}`,
 		});
-		fetch("https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/beneficiaires", {
-			method: "PUT",
-			headers: {
-				id: `${userId}`,
-				Authorization: "Bearer " + token,
-				"Content-Type": "application/json",
-			},
-			body: body,
-		}).then(() => {
-			fetchData();
-		});
+		const data = await fetch(
+			"https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/beneficiaires",
+			{
+				method: "PUT",
+				headers: {
+					id: `${userId}`,
+					Authorization: "Bearer " + token,
+					"Content-Type": "application/json",
+				},
+				body: body,
+			}
+		);
+		const dataJson = await data.json();
+
+		dispatch(UpdateBeneficiaires(dataJson.body.beneficiairesExternes));
 		setNewBeneficiaireName("");
 		setNewBeneficiaireIban("");
 		setIsAsideAddShow(!isAsideAddShow);
 	}
 
-	const handleDeleteBeneficiaire = (rib: string) => {
-		fetch(`https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/beneficiaires`, {
-			method: "DELETE",
-			headers: {
-				id: `${userId}`,
-				iban: `${rib}`,
-				Authorization: "Bearer " + token,
-				"Content-Type": "application/json",
-			},
-		}).then(() => {
-			fetchData();
-		});
+	const handleDeleteBeneficiaire = async (rib: string) => {
+		const data = await fetch(
+			`https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/beneficiaires`,
+			{
+				method: "DELETE",
+				headers: {
+					id: `${userId}`,
+					iban: `${rib}`,
+					Authorization: "Bearer " + token,
+					"Content-Type": "application/json",
+				},
+			}
+		);
+		const dataJson = await data.json();
+		dispatch(UpdateBeneficiaires(dataJson.body.beneficiairesExternes));
 	};
 
-	const handleModifyBeneficiaire = (oldRib: string, name: string, rib: string) => {
-		fetch(`https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/beneficiaires/modifier`, {
-			method: "PUT",
-			headers: {
-				id: `${userId}`,
-				rib: `${oldRib}`,
-				Authorization: "Bearer " + token,
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ name: `${name}`, rib: `${rib}` }),
-		}).then((data) => {
-			console.log(data.json());
-			fetchData();
-		});	};
+	const handleModifyBeneficiaire = async (
+		oldRib: string,
+		name: string,
+		rib: string
+	) => {
+		const data = await fetch(
+			`https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/beneficiaires/modifier`,
+			{
+				method: "PUT",
+				headers: {
+					id: `${userId}`,
+					rib: `${oldRib}`,
+					Authorization: "Bearer " + token,
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ name: `${name}`, rib: `${rib}` }),
+			}
+		);
+		const dataJson = await data.json();
+
+		dispatch(UpdateBeneficiaires(dataJson.body.beneficiairesExternes));
+	};
 
 	return (
 		<div className="main bg-dark">
@@ -195,7 +225,7 @@ export function VirementPage() {
 									onChange={(e) => setValueOption1(e.target.value)}
 								>
 									<option value="">choisir le compte à débiter</option>
-									{dataUsers.map((data) =>
+									{account.map((data) =>
 										data.visible === true ? (
 											<option value={data._id} key={"account1" + data._id}>
 												{data.nbAccount} - {data.name} - {data.solde.toFixed(2)}{" "}
@@ -219,8 +249,9 @@ export function VirementPage() {
 									onChange={(e) => setValueOption2(e.target.value)}
 								>
 									<option value="">choisir le compte à créditer</option>
-									{dataUsers.map((data) =>
-										data.visible === true && data._id.toString() !== valueOption1 ? (
+									{account.map((data) =>
+										data.visible === true &&
+										data._id.toString() !== valueOption1 ? (
 											<option value={data._id} key={"account2" + data._id}>
 												{data.nbAccount} - {data.name} - {data.solde.toFixed(2)}{" "}
 												€
@@ -257,11 +288,20 @@ export function VirementPage() {
 							</label>
 						</div>
 						<div className="description">
-							<label htmlFor="description">Description</label>
-							<textarea
-								id="description"
-								onChange={(e) => setDescription(e.target.value)}
-							/>
+							<label htmlFor="description">
+								Description
+								<input
+									id="description"
+									onChange={(e) => setDescription(e.target.value)}
+								/>
+							</label>
+							<label htmlFor="category">
+								Catégorie
+								<input
+									id="category"
+									onChange={(e) => setCategory(e.target.value)}
+								/>
+							</label>
 						</div>
 						<input
 							type="submit"
@@ -285,8 +325,13 @@ export function VirementPage() {
 					</div>
 					<div className="wrapper-beneficiaires-list">
 						{beneficiairesExternesList.map((data) => (
-						<BeneficiairesExterne name={data.name} rib={data.rib} key={data.rib} onDelete={handleDeleteBeneficiaire}
-						onModify={handleModifyBeneficiaire} />
+							<BeneficiairesExterne
+								name={data.name}
+								rib={data.rib}
+								key={data.rib}
+								onDelete={handleDeleteBeneficiaire}
+								onModify={handleModifyBeneficiaire}
+							/>
 						))}
 					</div>
 				</div>

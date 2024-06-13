@@ -1,56 +1,16 @@
 import ReactECharts from "echarts-for-react";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { RootState, UserState } from "../../redux/actions/typeAction";
+import { RootState } from "../../redux/actions/typeAction";
 
 export function Chart() {
-	const { nbAccount, userId } = useParams<{
+	const { nbAccount } = useParams<{
 		nbAccount: string;
-		userId: string;
 	}>();
 
-	const token = useSelector((state: RootState) => state.token.token);
-	const role = useSelector((state: RootState) => state.user.role);
-	const [dataUsers, setDataUsers] = useState<UserState | undefined>();
-	const id = useSelector((state: RootState) => state.user.id);
-	const [allUsers, setAllUsers] = useState<UserState[]>([]);
-
-	useEffect(() => {
-		if (role === "admin") {
-			fetch("https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user", {
-				method: "GET",
-				headers: {
-					id: `${id}`,
-				},
-			})
-				.then((data) => data.json())
-				.then((dataJson) => {
-					setAllUsers(dataJson.body);
-				});
-		}
-		if (role === "user") {
-			fetch("https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/profile", {
-				method: "POST",
-				headers: {
-					Authorization: "Bearer " + token,
-				},
-			})
-				.then((alldata) => alldata.json())
-				.then((data) => {
-					setDataUsers(data.body);
-				});
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
-	let target: UserState | undefined;
-	if (role === "admin") {
-		target = allUsers?.find((location) => location.id === userId);
-	}
-	if (role === "user") {
-		target = dataUsers;
-	}
+	const dataUsers = useSelector((state: RootState) => state.user);
+	const target = dataUsers;
 
 	const targetAccount = target?.account.find(
 		(account) => account.nbAccount === nbAccount
@@ -172,10 +132,10 @@ export function Chart() {
 		legend: {
 			show: true,
 			bottom: 0,
-      textStyle: {
-        color: "#fff",
-        fontSize: 16,
-      }
+			textStyle: {
+				color: "#fff",
+				fontSize: 16,
+			},
 		},
 		series: [
 			{
@@ -191,15 +151,18 @@ export function Chart() {
 				startAngle: 0,
 				endAngle: 360,
 				data: [
-					{name: "Transport", value: transportPourcentage.toFixed(2)},
-					{name: "Pension", value: pensionPourcentage.toFixed(2)},
-					{name: "Sante", value: santePourcentage.toFixed(2)},
-					{name: "Assurances", value: assurancesPourcentage.toFixed(2)},
-					{name: "Alimentation", value: alimentationPourcentage.toFixed(2)},
-					{name: "Telephonie", value: telephoniePourcentage.toFixed(2)},
-					{name: "Frais bancaires", value: fraisBancairesPourcentage.toFixed(2)},
-					{name: "Loyers", value: loyersPourcentage.toFixed(2)},
-					{name: "Reste", value: restPourcentage.toFixed(2)},
+					{ name: "Transport", value: transportPourcentage.toFixed(2) },
+					{ name: "Pension", value: pensionPourcentage.toFixed(2) },
+					{ name: "Sante", value: santePourcentage.toFixed(2) },
+					{ name: "Assurances", value: assurancesPourcentage.toFixed(2) },
+					{ name: "Alimentation", value: alimentationPourcentage.toFixed(2) },
+					{ name: "Telephonie", value: telephoniePourcentage.toFixed(2) },
+					{
+						name: "Frais bancaires",
+						value: fraisBancairesPourcentage.toFixed(2),
+					},
+					{ name: "Loyers", value: loyersPourcentage.toFixed(2) },
+					{ name: "Reste", value: restPourcentage.toFixed(2) },
 				],
 			},
 		],
@@ -207,7 +170,7 @@ export function Chart() {
 
 	return (
 		<div className="chart">
-			<ReactECharts option={option} style={{height: "100%"}}/>
+			<ReactECharts option={option} style={{ height: "100%" }} />
 		</div>
 	);
 }

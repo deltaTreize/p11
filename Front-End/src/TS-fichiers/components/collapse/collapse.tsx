@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "redux";
 import { useParams } from "react-router-dom";
-import { RootState } from "../../redux/actions/typeAction";
+import { AuthActionTypes, RootState } from "../../redux/actions/typeAction";
 import "./collapse.scss";
+import { UpdateAccount } from "../../redux/actions/action";
 
 interface CollapseProps {
 	title: string;
@@ -14,18 +16,27 @@ interface CollapseProps {
 	category: string;
 }
 
-export function Collapse({ title, date, description, montant, operationId, idAccount, category }: CollapseProps) {
+export function Collapse({
+	title,
+	date,
+	description,
+	montant,
+	operationId,
+	idAccount,
+	category,
+}: CollapseProps) {
 	const [descripDisplay, setDescripDisplay] = useState<boolean>(false);
 	const [categoryDisplay, setCategoryDisplay] = useState<boolean>(false);
 	const [isDisabled, setIsDisabled] = useState<boolean>(true);
 	const [descriptionValue, setDescriptionValue] = useState<string>("");
 	const [categoryValue, setCategoryValue] = useState<string>("");
-	const [pencilDescriptionDisplay, setPencilDescriptionDisplay] = useState<boolean>(true);
-	const [pencilCategoryDisplay, setPencilCategoryDisplay] = useState<boolean>(true);
-	const token = useSelector((state:RootState) => state.token.token);
+	const [pencilDescriptionDisplay, setPencilDescriptionDisplay] =
+		useState<boolean>(true);
+	const [pencilCategoryDisplay, setPencilCategoryDisplay] =
+		useState<boolean>(true);
+	const token = useSelector((state: RootState) => state.token.token);
 	const { userId } = useParams();
-
-	
+	const dispatch: Dispatch<AuthActionTypes> = useDispatch();
 
 	async function updateDescription() {
 		setIsDisabled(!isDisabled);
@@ -47,8 +58,11 @@ export function Collapse({ title, date, description, montant, operationId, idAcc
 				body: bodyContent,
 				headers: headersList,
 			}
-			);
-		}
+		)
+			.then((response) => response.json())
+			.then((data) => dispatch(UpdateAccount(data.body.account)));
+	}
+
 	async function updateCategory() {
 		setIsDisabled(!isDisabled);
 		let headersList = {
@@ -69,8 +83,10 @@ export function Collapse({ title, date, description, montant, operationId, idAcc
 				body: bodyContent,
 				headers: headersList,
 			}
-			);
-		}
+		)
+			.then((response) => response.json())
+			.then((data) => dispatch(UpdateAccount(data.body.account)));
+	}
 
 	return (
 		<div className="operation-account">
@@ -146,19 +162,30 @@ export function Collapse({ title, date, description, montant, operationId, idAcc
 					></i>
 				</div>
 			</div>
-			<p className="operation-account-montant" style={{ color: montant >= 0 ? "green" : "red" }}>{montant.toFixed(2)} €</p>
+			<p
+				className="operation-account-montant"
+				style={{ color: montant >= 0 ? "green" : "red" }}
+			>
+				{montant.toFixed(2)} €
+			</p>
 			{!descripDisplay && (
 				<i
 					className="fa-solid fa-chevron-down"
 					style={{ color: "#12002b" }}
-					onClick={() => {setDescripDisplay(!descripDisplay); setCategoryDisplay(!categoryDisplay)}}
+					onClick={() => {
+						setDescripDisplay(!descripDisplay);
+						setCategoryDisplay(!categoryDisplay);
+					}}
 				></i>
 			)}
 			{descripDisplay && (
 				<i
 					className="fa-solid fa-chevron-up"
 					style={{ color: "#12002b" }}
-					onClick={() => {setDescripDisplay(!descripDisplay); setCategoryDisplay(!categoryDisplay)}}
+					onClick={() => {
+						setDescripDisplay(!descripDisplay);
+						setCategoryDisplay(!categoryDisplay);
+					}}
 				></i>
 			)}
 		</div>

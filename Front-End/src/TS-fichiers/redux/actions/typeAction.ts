@@ -1,7 +1,26 @@
-
 export interface SignInAction {
 	type: "SIGN_IN";
 	payload: UserState;
+}
+
+export interface UpdateAccountAction {
+	type: "UPDATE_ACCOUNT";
+	payload: {
+		account: AccountData[];
+	};
+}
+
+export interface UpdateBeneficiairesAction {
+	type: "UPDATE_BENEFICIAIRES";
+	payload: {
+		beneficiairesExternes: Beneficiaires[];
+	};
+}
+export interface UpdateBudgetAction {
+	type: "UPDATE_BUDGET";
+	payload: {
+		budget: Budget[];
+	};
 }
 
 export interface LogoutAction {
@@ -10,16 +29,16 @@ export interface LogoutAction {
 
 export interface TokenOnAction {
 	type: "TOKEN_ON";
-	payload:{token:string}
+	payload: { token: string };
 }
 
 export interface TokenOffAction {
 	type: "TOKEN_OFF";
 }
 
-export interface searchAction{
+export interface searchAction {
 	type: "changeSearch";
-	payload: SearchState
+	payload: SearchState;
 }
 
 export interface TokenState {
@@ -47,8 +66,8 @@ export interface AccountData {
 	nbAccount: string;
 	solde: number;
 	visible: boolean;
-  cardNumber: string;
-  cardDate: string;
+	cardNumber: string;
+	cardDate: string;
 	operations: Operation[];
 }
 
@@ -69,8 +88,7 @@ export interface Budget {
 export interface Beneficiaires {
 	name: string;
 	rib: string;
-	onDelete: (rib: string) => void;
-	onModify: ( oldRib: string, name: string, rib: string) => void;
+	_id: string;
 }
 
 export interface RootState {
@@ -79,7 +97,7 @@ export interface RootState {
 	search: SearchState;
 }
 
-export interface SearchState{
+export interface SearchState {
 	searchName: string;
 	sortBy: string;
 	sortOrder: string;
@@ -93,3 +111,7 @@ export type AuthActionTypes =
 	| TokenOnAction
 	| TokenOffAction
 	| searchAction
+	| UpdateAccountAction
+	| UpdateBeneficiairesAction
+	| UpdateBudgetAction
+

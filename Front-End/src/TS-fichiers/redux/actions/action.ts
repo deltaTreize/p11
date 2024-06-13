@@ -1,9 +1,15 @@
 import {
+	AccountData,
+	Beneficiaires,
+	Budget,
 	LogoutAction,
 	SearchState,
 	SignInAction,
 	TokenOffAction,
 	TokenOnAction,
+	UpdateAccountAction,
+	UpdateBeneficiairesAction,
+	UpdateBudgetAction,
 	UserState,
 	searchAction,
 } from "./typeAction";
@@ -23,7 +29,37 @@ export function Login(data: UserState): SignInAction {
 			picture: data.picture,
 			updatedAt: data.updatedAt,
 			budget: data.budget,
-			beneficiairesExternes: data.beneficiairesExternes
+			beneficiairesExternes: data.beneficiairesExternes,
+		},
+	};
+}
+
+export function UpdateAccount(data: AccountData[]): UpdateAccountAction {
+	return {
+		type: "UPDATE_ACCOUNT",
+		payload: {
+			account: data,
+		},
+	};
+}
+
+export function UpdateBeneficiaires(
+	data: Beneficiaires[]
+): UpdateBeneficiairesAction {
+	return {
+		type: "UPDATE_BENEFICIAIRES",
+		payload: {
+			beneficiairesExternes: data,
+		},
+	};
+}
+export function UpdateBudget(
+	data: Budget[]
+): UpdateBudgetAction {
+	return {
+		type: "UPDATE_BUDGET",
+		payload: {
+			budget: data,
 		},
 	};
 }
