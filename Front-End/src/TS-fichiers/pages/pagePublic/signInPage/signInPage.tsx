@@ -20,41 +20,39 @@ export function SignIn() {
 		!checked ? setInputType("text") : setInputType("password");
 	}
 
-		const setCookie = (name: string, value: string, days: number) => {
+	const setCookie = (name: string, value: string, days: number) => {
 		Cookies.set(name, value, { expires: days });
 	};
-	
+
 	// Fonction pour supprimer un cookie
 	const deleteCookie = (name: string) => {
 		Cookies.remove(name);
 	};
-	
+
 	// Fonction pour gérer la case "Remember Me"
 	const handleRememberMe = (seSouvenir: boolean, token: string) => {
 		if (seSouvenir) {
 			// Si la case est cochée, créer un cookie avec une durée de vie plus longue
-			setCookie('argentBank', token, 15); // Exemple : durée de vie de 7 jours
+			setCookie("argentBank", token, 15); // Exemple : durée de vie de 7 jours
 		} else {
 			// Si la case est décochée, supprimer le cookie
-			deleteCookie('argentBank');
+			deleteCookie("argentBank");
 		}
 	};
-	
 
-	
-	
 	const HandleSubmit = async () => {
-		const loginData = await fetch("https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/login", {
-			method: "POST",
-			headers: { "content-type": "application/json" },
-			body: JSON.stringify({
-				email: `${email}`,
-				password: `${password}`,
-			}),
-			
-		});
+		const loginData = await fetch(
+			"https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/login",
+			{
+				method: "POST",
+				headers: { "content-type": "application/json" },
+				body: JSON.stringify({
+					email: `${email}`,
+					password: `${password}`,
+				}),
+			}
+		);
 		const loginDataJson = await loginData.json();
-		
 
 		if (loginDataJson.status === 200) {
 			dispatch(TokenOn(loginDataJson.body.token));
@@ -87,7 +85,7 @@ export function SignIn() {
 		}
 	};
 	return (
-		<main >
+		<main>
 			<div className="main bg-blur"></div>
 			<section className="sign-in-content">
 				<i className="fa fa-user-circle sign-in-icon"></i>
@@ -145,10 +143,13 @@ export function SignIn() {
 						type="button"
 						to={"/sign-Up"}
 						text="Creer un compte"
-						className={""} 
-						onClick={function (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>): void {
+						className={""}
+						onClick={function (
+							event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+						): void {
 							throw new Error("Function not implemented.");
-						} }					/>
+						}}
+					/>
 				</form>
 			</section>
 		</main>

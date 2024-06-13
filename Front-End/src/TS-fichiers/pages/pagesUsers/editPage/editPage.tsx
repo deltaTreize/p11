@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Dispatch } from "redux";
 import { Button } from "../../../components/button/button";
 import { Login } from "../../../redux/actions/action";
-import { AuthActionTypes, RootState, UserState } from "../../../redux/actions/typeAction.js";
+import {
+	AuthActionTypes,
+	RootState,
+	UserState,
+} from "../../../redux/actions/typeAction.js";
 import "./editPage.scss";
-
 
 export function EditPage() {
 	const id = useSelector((state: RootState) => state.user.id);
@@ -17,7 +21,8 @@ export function EditPage() {
 	const role = useSelector((state: RootState) => state.user.role);
 	const picture = useSelector((state: RootState) => state.user.picture);
 	const token = useSelector((state: RootState) => state.token.token);
-	const dispatch:Dispatch<AuthActionTypes>= useDispatch();
+	const dispatch: Dispatch<AuthActionTypes> = useDispatch();
+	const Navigate = useNavigate();
 
 	const [userNameValue, setUserNameValue] = useState<string>(userName);
 	const [pictureValue, setPictureValue] = useState<string>(picture);
@@ -31,7 +36,7 @@ export function EditPage() {
 
 		let bodyContent = JSON.stringify({
 			userName: userNameValue,
-			picture: pictureValue
+			picture: pictureValue,
 		});
 		fetch(
 			"https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/profile",
@@ -54,50 +59,48 @@ export function EditPage() {
 		};
 		dispatch(Login(userData));
 		setUserNameValue("");
-		setPictureValue("");
+		Navigate(`/user/home`);
 	}
 
-	function uploadPicture(event: { target: { files: any[]; }; }) {
-    const file = event.target.files ? event.target.files[0] : null;
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = async () => {
-            if (typeof reader.result === 'string') {
-                const image = new Image();
-                image.src = reader.result;
-                image.onload = () => {
-                    const canvas = document.createElement('canvas');
-                    const maxWidth = 40;
-                    const maxHeight = 40;
-                    let width = image.width;
-                    let height = image.height;
+	function uploadPicture(event: any) {
+		const file = event.target.files ? event.target.files[0] : null;
+		if (file) {
+			const reader = new FileReader();
+			reader.onload = async () => {
+				if (typeof reader.result === "string") {
+					const image = new Image();
+					image.src = reader.result;
+					image.onload = () => {
+						const canvas = document.createElement("canvas");
+						const maxWidth = 40;
+						const maxHeight = 40;
+						let width = image.width;
+						let height = image.height;
 
-                    // Redimensionner l'image si elle dépasse les dimensions maximales
-                    if (width > maxWidth || height > maxHeight) {
-                        const ratio = Math.min(maxWidth / width, maxHeight / height);
-                        width *= ratio;
-                        height *= ratio;
-                    }
+						// Redimensionner l'image si elle dépasse les dimensions maximales
+						if (width > maxWidth || height > maxHeight) {
+							const ratio = Math.min(maxWidth / width, maxHeight / height);
+							width = Math.round(width * ratio);
+							height = Math.round(height * ratio);
+						}
 
-                    canvas.width = width;
-                    canvas.height = height;
-                    const ctx = canvas.getContext('2d');
-                    ctx?.drawImage(image, 0, 0, width, height);
+						canvas.width = width;
+						canvas.height = height;
+						const ctx = canvas.getContext("2d");
+						ctx?.drawImage(image, 0, 0, width, height);
 
-                    // Convertir le canvas en base64
-                    const base64String = canvas.toDataURL('image/jpeg');
-
-                    console.log("base64", base64String);
-                    if (typeof base64String === 'string') {
-                        setPictureValue(base64String);
-                    }
-                };
-            }
-        };
-        reader.readAsDataURL(file);
-    }
-};
-
+						// Convertir le canvas en base64
+						let base64String = canvas.toDataURL("image/jpeg");
+						base64String = base64String.replace(/^data:image\/[a-z]+;base64,/, '');
+						if (typeof base64String === "string") {
+							setPictureValue(base64String);
+						}
+					};
+				}
+			};
+			reader.readAsDataURL(file);
+		}
+	}
 
 	return (
 		<main className="main bg-dark mainEdit">
@@ -113,9 +116,7 @@ export function EditPage() {
 								type="text"
 								placeholder={userName}
 								id="userName"
-								onChange={(e) =>
-									setUserNameValue(e.target.value)
-								}
+								onChange={(e) => setUserNameValue(e.target.value)}
 							/>
 						</label>
 						<div className="infos-edit">
@@ -138,21 +139,29 @@ export function EditPage() {
 							<p className="infos-edit-title">date de création</p>
 							<p className="infos-edit-content">{createdAt.slice(0, 10)}</p>
 						</div>
-						<label htmlFor="picture">	
-						photo de profil
-						<input type="file" id="picture" accept="image/*" onChange={ ()=> uploadPicture }/>
+						<label htmlFor="picture">
+							photo de profil
+							<input
+								type="file"
+								id="picture"
+								accept="image/*"
+								onChange={uploadPicture}
+							/>
 						</label>
-
 					</div>
 					<div className="edit-buttons">
-						<input
-							className="buttonArgentBank"
-							type="submit"
-							value="Save"
+						<input className="buttonArgentBank" type="submit" value="Save" />
+						<Button
+							to={`/user/home`}
+							text="Cancel"
+							type={""}
+							className={""}
+							onClick={function (
+								event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+							): void {
+								throw new Error("Function not implemented.");
+							}}
 						/>
-						<Button to={`/user/${id}`} text="Cancel" type={""} className={""} onClick={function (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>): void {
-							throw new Error("Function not implemented.");
-						} } />
 					</div>
 				</form>
 			</div>

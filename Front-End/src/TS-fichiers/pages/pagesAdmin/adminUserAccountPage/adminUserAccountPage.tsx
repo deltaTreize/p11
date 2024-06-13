@@ -109,7 +109,7 @@ export function AdminUserAccountPage() {
 					<h2 className="titleModal">Ajouter une Opération</h2>
 					<form action="" className="formModal-addOperations" onSubmit={addOperation}>
 						<label htmlFor="title">
-							Titre :
+							Titre
 							<input
 								type="text"
 								id="title"
@@ -118,15 +118,25 @@ export function AdminUserAccountPage() {
 							/>
 						</label>
 						<label htmlFor="description">
-							Description :
+							Description
 							<input
 								type="text"
 								id="description"
+								required
+								onChange={(e) => setDescription(e.target.value)}
+							/>
+						</label>
+						<label htmlFor="category">
+							Catégorie
+							<input
+								type="text"
+								id="category"
+								required
 								onChange={(e) => setDescription(e.target.value)}
 							/>
 						</label>
 						<label htmlFor="montant">
-							Montant:
+							Montant
 							<input
 								type="number"
 								step="0.01"
