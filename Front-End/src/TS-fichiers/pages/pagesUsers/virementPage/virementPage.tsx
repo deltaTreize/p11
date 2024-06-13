@@ -1,10 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
-import "./virementPage.scss";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../redux/actions/typeAction";
-import { Button } from "../../../components/button/button";
 import { BeneficiairesExterne } from "../../../components/beneficiaires/beneficiaires";
-import { AccountData, BeneficiairesExternes } from "../../../interfaces/interfaces";
+import { Button } from "../../../components/button/button";
+import { AccountData, Beneficiaires, RootState } from "../../../redux/actions/typeAction";
+import "./virementPage.scss";
 
 export function VirementPage() {
 	const [valueOption1, setValueOption1] = useState<string>("");
@@ -18,7 +17,7 @@ export function VirementPage() {
 	const userId = useSelector((state: RootState) => state.user.id);
 	const [newBeneficiaireName, setNewBeneficiaireName] = useState<string>("");
   const [newBeneficiaireIban, setNewBeneficiaireIban] = useState<string>("");
-  const [beneficiairesExternesList, setBeneficiairesExternesList] = useState<BeneficiairesExternes[]>([]);
+  const [beneficiairesExternesList, setBeneficiairesExternesList] = useState<Beneficiaires[]>([]);
 
 
 

@@ -9,9 +9,9 @@ import {
 	AuthActionTypes,
 	RootState,
 	UserState,
+	AccountData
 } from "../../../redux/actions/typeAction";
 import "./adminPage.scss";
-import { AccountData } from "../../../interfaces/interfaces";
 
 export function AdminPage() {
 	const dispatch: Dispatch<AuthActionTypes> = useDispatch();

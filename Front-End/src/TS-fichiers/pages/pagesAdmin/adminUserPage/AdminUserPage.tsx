@@ -4,15 +4,14 @@ import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { BackArrow } from "../../../components/backArrow/backArrow";
 import { Button } from "../../../components/button/button";
-import { RootState } from "../../../redux/actions/typeAction";
-import "./AdminUserPage.scss";
-import { User, AccountData } from "../../../interfaces/interfaces";
 import Spinner from "../../../components/spinner/spinner";
+import { AccountData, RootState, UserState } from "../../../redux/actions/typeAction";
+import "./AdminUserPage.scss";
 
 export function AdminUserPage() {
 	const id = useSelector((state: RootState) => state.user.id);
 	const token = useSelector((state: RootState) => state.token.token);
-	const [target, setTarget] = useState<User>();
+	const [target, setTarget] = useState<UserState>();
 	const [name, setName] = useState<string>("");
 	const [nbAccount, setNbAccount] = useState<string>("");
 	const solde = 0.0;
@@ -39,7 +38,7 @@ export function AdminUserPage() {
 		)
 			.then((data) => data.json())
 			.then((dataJson) => {
-				let target = dataJson.body.find((user: User) => user.id === userId);
+				let target = dataJson.body.find((user: UserState) => user.id === userId);
 				let totalSolde = 0;
 				target.account.forEach((data: AccountData) => {
 					totalSolde += data.solde;
@@ -320,7 +319,7 @@ export function AdminUserPage() {
 				) : (
 					<Link
 						to={`${data.nbAccount}`}
-						key={data.firstName + data.nbAccount}
+						key={data.nbAccount}
 						className="linkAccountAdminUserPage "
 					>
 						<div className="accountAdminUserPage accountAdminUserPage-invisible">

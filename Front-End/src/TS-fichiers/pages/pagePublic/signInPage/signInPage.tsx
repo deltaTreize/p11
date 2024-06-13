@@ -70,6 +70,9 @@ export function SignIn() {
 			);
 			const userDataJson = await userDataFetched.json();
 
+			console.log(userDataJson.body.budget);
+			
+
 			const userData: UserState = {
 				id: userDataJson.body.id,
 				firstName: userDataJson.body.firstName,
@@ -80,6 +83,9 @@ export function SignIn() {
 				account: userDataJson.body.account,
 				role: userDataJson.body.role,
 				picture: userDataJson.body.picture,
+				budget: userDataJson.body.budget,
+				beneficiairesExternes: userDataJson.body.beneficiairesExternes,
+				updatedAt: userDataJson.body.updatedAt
 			};
 			dispatch(Login(userData));
 		}

@@ -1,8 +1,10 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "./backArrow.scss";
-import { BackArrowProps } from "../../interfaces/interfaces";
 
+interface BackArrowProps {
+	chemin: string;
+}
 
 export function BackArrow({ chemin }: BackArrowProps) {
 	return (

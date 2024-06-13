@@ -6,15 +6,14 @@ import { BackArrow } from "../../../components/backArrow/backArrow";
 import { Button } from "../../../components/button/button";
 import { Chart } from "../../../components/charts/chartUserAccount";
 import { Collapse } from "../../../components/collapse/collapse";
-import { RootState } from "../../../redux/actions/typeAction";
+import { RootState, UserState } from "../../../redux/actions/typeAction";
 import "./adminUserAccountPage.scss";
-import { User } from "../../../interfaces/interfaces";
 import Spinner from "../../../components/spinner/spinner";
 
 export function AdminUserAccountPage() {
 	const token = useSelector((state: RootState) => state.token.token);
 	const id = useSelector((state: RootState) => state.user.id);
-	const [allUsers, setAllUsers] = useState<User[]>([]);
+	const [allUsers, setAllUsers] = useState<UserState[]>([]);
 	const [title, setTitle] = useState<string>("");
 	const [description, setDescription] = useState<string>("");
 	const [montant, setMontant] = useState<number>(0);
@@ -39,7 +38,7 @@ export function AdminUserAccountPage() {
 			.then((dataJson) => setAllUsers(dataJson.body));
 	}, [id]);
 
-	const target: User | undefined = allUsers.length
+	const target: UserState | undefined = allUsers.length
 		? allUsers.find((location) => location.id === userId)
 		: undefined;
 	const targetAccount = target

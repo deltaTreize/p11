@@ -13,6 +13,9 @@ let initialState: UserState = {
 	role: "",
 	picture: "",
 	account: [],
+	updatedAt: "",
+	budget: [],
+	beneficiairesExternes: []
 };
 
 const userReducer = (	state = initialState,	action: AuthActionTypes ): UserState => {
@@ -29,6 +32,9 @@ const userReducer = (	state = initialState,	action: AuthActionTypes ): UserState
 				account: action.payload.account,
 				role: action.payload.role,
 				picture: action.payload.picture,
+				updatedAt: action.payload.updatedAt,
+				budget: action.payload.budget,
+				beneficiairesExternes: action.payload.beneficiairesExternes
 			};
 
 		case "LOGOUT":

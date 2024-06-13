@@ -3,12 +3,11 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Chart } from "../../../components/charts/chartUserAccount";
 import { Collapse } from "../../../components/collapse/collapse";
-import { RootState } from "../../../redux/actions/typeAction";
+import { RootState, AccountData } from "../../../redux/actions/typeAction";
 import "./userAccountPage.scss";
 import { Card } from "../../../components/card/card";
 import { BackArrow } from "../../../components/backArrow/backArrow";
 import Spinner from "../../../components/spinner/spinner";
-import { AccountData } from "../../../interfaces/interfaces";
 
 
 export function UserAccontPage() {

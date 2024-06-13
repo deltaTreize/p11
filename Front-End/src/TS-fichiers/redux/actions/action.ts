@@ -21,6 +21,9 @@ export function Login(data: UserState): SignInAction {
 			account: data.account,
 			role: data.role,
 			picture: data.picture,
+			updatedAt: data.updatedAt,
+			budget: data.budget,
+			beneficiairesExternes: data.beneficiairesExternes
 		},
 	};
 }

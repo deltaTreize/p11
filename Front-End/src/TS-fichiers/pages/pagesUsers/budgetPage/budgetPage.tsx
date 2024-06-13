@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { BudgetComponent } from "../../../components/budgetComponent/budgetComponent";
-import { RootState } from "../../../redux/actions/typeAction";
+import { RootState, UserState, Operation } from "../../../redux/actions/typeAction";
 import "./budgetPage.scss";
 import Spinner from "../../../components/spinner/spinner";
-import { User, Operation } from "../../../interfaces/interfaces";
 
 
 export function Budget() {
 	const token = useSelector((state: RootState) => state.token.token);
 	const role = useSelector((state: RootState) => state.user.role);
-	const [dataUsers, setDataUsers] = useState<User>();
+	const [dataUsers, setDataUsers] = useState<UserState>();
 	const id = useSelector((state: RootState) => state.user.id);
 	const date = new Date();
 	const month = date.getMonth() + 1;

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
+import { Beneficiaires } from "../../redux/actions/typeAction";
 import "./beneficiaires.scss";
-import { BeneficiairesExternes } from "../../interfaces/interfaces";
 
 export function BeneficiairesExterne({
 	name,
 	rib,
 	onDelete,
 	onModify,
-}: BeneficiairesExternes) {
+}: Beneficiaires) {
 	const [isBeneficiaireModif, setisBeneficiaireModif] =
 		useState<boolean>(false);
 	const [nameValue, setNameValue] = useState<string>(name);

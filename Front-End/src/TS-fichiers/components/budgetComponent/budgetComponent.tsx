@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../redux/actions/typeAction";
+import { RootState, Budget } from "../../redux/actions/typeAction";
 import { ChartBudget } from "../charts/chartBudget";
 import "./budgetComponent.scss";
-import { BudgetModel } from "../../interfaces/interfaces";
 
 interface Props {
 	categorie: string;
@@ -14,7 +13,7 @@ export function BudgetComponent({ categorie, montantCategorie }: Props) {
 	const token = useSelector((state: RootState) => state.token.token);
 	const id = useSelector((state: RootState) => state.user.id);
 	const role = useSelector((state: RootState) => state.user.role);
-	const [budgetArray, setBudgetArray] = useState<BudgetModel[]>([]);
+	const [budgetArray, setBudgetArray] = useState<Budget[]>([]);
 	const [budgetValue, setBudgetValue] = useState<number>(0);
 	const [displayInputBudgetValue, setDisplayInputBudgetValue] =
 		useState<boolean>(false);

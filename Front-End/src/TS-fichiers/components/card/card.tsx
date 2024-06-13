@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { RootState } from "../../redux/actions/typeAction";
+import { RootState, AccountData } from "../../redux/actions/typeAction";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { AccountData } from "../../interfaces/interfaces";
 
 export function Card() {
 

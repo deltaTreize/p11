@@ -3,10 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { Button } from "../../../components/button/button";
 import { ChartUser } from "../../../components/charts/chartUser";
-import { RootState } from "../../../redux/actions/typeAction";
+import { RootState, AccountData } from "../../../redux/actions/typeAction";
 import "./userPage.scss";
 import Spinner from "../../../components/spinner/spinner";
-import { AccountData } from "../../../interfaces/interfaces";
 
 
 export function User() {

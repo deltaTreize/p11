@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import ReactECharts from "echarts-for-react";
 import { useParams } from "react-router-dom";
-import { RootState } from "../../redux/actions/typeAction";
+import { RootState, UserState } from "../../redux/actions/typeAction";
 import { useSelector } from "react-redux";
-import { User } from "../../interfaces/interfaces";
 
 interface Data {
 	name: string;
@@ -18,9 +17,9 @@ export function ChartUser() {
 
 	const token = useSelector((state: RootState) => state.token.token);
 	const role = useSelector((state: RootState) => state.user.role);
-	const [dataUsers, setDataUsers] = useState<User | undefined>();
+	const [dataUsers, setDataUsers] = useState<UserState | undefined>();
 	const id = useSelector((state: RootState) => state.user.id);
-	const [allUsers, setAllUsers] = useState<User[]>([]);
+	const [allUsers, setAllUsers] = useState<UserState[]>([]);
 
 	useEffect(() => {
 		if (role === "admin") {
@@ -51,7 +50,7 @@ export function ChartUser() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [token, id]);
 
-	let target: User | undefined;
+	let target: UserState | undefined;
 	if (role === "admin") {
 		target = allUsers?.find((location) => location.id === userId);
 	}
