@@ -1,3 +1,5 @@
+@use './../../../../global.scss' as global;
+
 .header-edit {
 	h1 {
 		margin: 40px 0;
@@ -10,7 +12,7 @@
 	align-items: center;
 	margin: 0 auto;
 	width: 600px;
-	color: #2c3e50;
+	color: global.$font-color;
 	form {
 		width: 100%;
 		display: flex;

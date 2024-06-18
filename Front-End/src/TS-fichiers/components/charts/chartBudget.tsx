@@ -34,7 +34,7 @@ export function ChartBudget({categoryName, categoryValue, categoryBudget}: Chart
 				label: {
 					show: false,
 				},
-        color: ['#00bc77', '#103d20'],
+        color: ['#0066ff', '#003d99'],
 			},
 		],
 	};

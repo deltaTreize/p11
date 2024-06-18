@@ -1,10 +1,12 @@
+@use './../../../../global.scss' as global;
+
 main{
 	position: relative;
 	min-height: 84vh;
 }
 .bg-blur {
 	position: absolute;
-	background-image: url('../../../../../public/assets/bank-tree.jpeg');
+	background-image: url('../../../../../public/assets/famille.jpg');
 	background-repeat: no-repeat;
 	background-size: cover;
 	filter: blur(10px);
@@ -23,8 +25,10 @@ main{
 		transform: translate(-50%, -50%);
 		.title-signup{
 			font-size: 38px;
+			color: global.$font-color;
 		}
 		.sign-in-icon {
+			color: global.$font-color;
 			font-size: 30px;
 		}
 		.input-remember {

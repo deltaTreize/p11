@@ -1,3 +1,6 @@
+@use './../../../global.scss' as global;
+
+
 .main-nav {
   display: flex;
   justify-content: space-between;
@@ -6,7 +9,7 @@
   box-sizing: border-box;
   a {
     font-weight: bold;
-    color: #2c3e50;
+    color: global.$font-color;
     gap: 5px;
   }
   .main-nav-item {
@@ -36,12 +39,12 @@
       justify-content: center;
       align-items: center;
       text-decoration: none;
-      color: #2c3e50;
+      color: global.$font-color;
       border-right: 1px solid #adadad;
       transition: all 0.3s ease-in-out;
       font-size: 18px;
       &.active{
-        background-color: #00bc77;
+        background-color: global.$primary-color;
         color: #fff;
       }
     }

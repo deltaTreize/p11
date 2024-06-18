@@ -1,10 +1,11 @@
+@use './../../../../global.scss' as global;
+
 .HomePage{
   max-height: 84vh;
 }
 
 .hero {
-  background-image: url('../../../../../public/assets/bank-tree.jpeg');
-  background-position: 0 -50px;
+  background-image: url('../../../../../public/assets/famille.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   height: 300px;
@@ -58,7 +59,7 @@
       padding: 2.5rem;
       img {
         width: 100px;
-        border: 10px solid #00bc77;
+        border: 10px solid global.$primary-color;
         border-radius: 50%;
         padding: 1rem;
       }

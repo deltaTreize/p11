@@ -1,3 +1,4 @@
+@use './../../../global.scss' as global;
 
 .container {
     display: flex;
@@ -6,7 +7,7 @@
     align-items: center;
     width: 100%;
     height: 100vh;
-    background: #12002b;
+    background: global.$font-color;
     .loading {
         font-size: 30px;
         font-weight: bold;
@@ -19,8 +20,8 @@
         display: flex;
         width: 200px;
         height: 200px;
-        border: 20px solid #103d20;
-        border-top:20px solid #00bc77;
+        border: 20px solid global.$secondary-color;
+        border-top:20px solid global.$primary-color;
         border-radius: 100%;
         animation: rotate 2.5s linear infinite;
         @keyframes rotate {

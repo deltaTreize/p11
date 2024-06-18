@@ -1,6 +1,7 @@
+@use './../../../../global.scss' as global;
 .header {
 	position: relative;
-	color: #2c3e50 !important;
+	color: global.$font-color !important;
 	h3 {
 		padding: 0;
 		margin-top: 0;
@@ -11,7 +12,7 @@
 	right: 10.5%;
 	}
 	.infosClient {
-		color: #2c3e50;
+		color: global.$font-color;
 		display: flex;
 		justify-content: center;
 		gap: 15px;

@@ -1,3 +1,5 @@
+@use './../../../global.scss' as global;
+
 .buttonArgentBank {
 	display: flex;
 	justify-content: center;
@@ -5,8 +7,8 @@
 	padding: 8px;
 	font-size: 1.1rem;
 	font-weight: bold;
-	border-color: #00bc77;
-	background-color: #00bc77;
+	border-color: global.$primary-color;
+	background-color: global.$primary-color;
 	color: #fff;
 	margin: 0;
 	cursor: pointer;
@@ -14,6 +16,6 @@
 	text-decoration: none;
 	transition: background-color 0.5s ease;
 	&:hover {
-		background-color: #103d20;
+		background-color: global.$secondary-color;
 	}
 }

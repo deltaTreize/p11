@@ -1,10 +1,12 @@
+@use './../../../../global.scss' as global;
+
 .bg-dark-signUp {
 	background-color: #12002b;
 	position: relative;
 }
 h1 {
 	font-size: 45px;
-	color: #103d20;
+	color: global.$secondary-color;
 	font-weight: 700;
 }
 .errorMessage {
@@ -33,7 +35,7 @@ h1 {
 	border-radius: 30px;
 	overflow: hidden;
 	span {
-		background: #00bc77;
+		background: global.$primary-color;
 		display: flex;
 		position: absolute;
 		left: 50%;
@@ -87,7 +89,7 @@ h1 {
 			&:focus {
         outline: none;
 				border: none;
-				border-bottom: 2px solid #00bc77;
+				border-bottom: 2px solid global.$primary-color;
 			}
 		}
 		.show {
