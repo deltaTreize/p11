@@ -1,4 +1,4 @@
-@use './../../../../global.scss' as global;
+@use "./../../../../global.scss" as global;
 
 .asideAdd {
 	right: -100%;
@@ -98,43 +98,102 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		.wrapper-beneficiaires-header {
-			display: flex;
-			justify-content: center;
-			align-items: center;
+		&-beneficiaires {
 			width: 100%;
 			box-sizing: border-box;
-			height: 50px;
-			position: relative;
-			.addBeneficiaire {
-				height: 40px;
-				border-radius: 50%;
-				box-sizing: border-box;
-				aspect-ratio: 1;
-				font-size: 30px;
-				position: absolute;
-				right: 20px;
-				top: 50%;
-				transform: translateY(-50%);
-			}
-		}
-		.wrapper-beneficiaires-list {
 			overflow-y: scroll;
 			scrollbar-width: none;
-			width: 100%;
-			ul {
-				box-sizing: border-box;
-				padding: 0 30px;
+			height: 50%;
+			&-header {
+				display: flex;
+				justify-content: center;
+				align-items: center;
 				width: 100%;
-				li {
-					display: flex;
-					justify-content: space-between;
-					align-items: center;
+				box-sizing: border-box;
+				height: 50px;
+				position: relative;
+				.addBeneficiaire {
+					height: 40px;
+					border-radius: 50%;
+					box-sizing: border-box;
+					aspect-ratio: 1;
+					font-size: 20px;
+					position: absolute;
+					right: 20px;
+					top: 50%;
+					transform: translateY(-50%);
+				}
+			}
+			&-list {
+				overflow-y: scroll;
+				scrollbar-width: none;
+				width: 100%;
+				ul {
+					box-sizing: border-box;
+					padding: 0 30px;
 					width: 100%;
-					list-style: none;
-					margin-bottom: 10px;
-					.beneficiaire-name {
-						font-weight: 900;
+					li {
+						display: flex;
+						justify-content: space-between;
+						align-items: center;
+						width: 100%;
+						list-style: none;
+						margin-bottom: 10px;
+						.beneficiaire-name {
+							font-weight: 900;
+						}
+					}
+				}
+			}
+		}
+		&-category {
+			width: 100%;
+			height: 50%;
+			box-sizing: border-box;
+			&-header {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				width: 100%;
+				box-sizing: border-box;
+				height: 50px;
+				position: relative;
+				.addCategory {
+					height: 40px;
+					border-radius: 50%;
+					box-sizing: border-box;
+					aspect-ratio: 1;
+					font-size: 20px;
+					position: absolute;
+					right: 20px;
+					top: 50%;
+					transform: translateY(-50%);
+				}
+			}
+			&-list {
+				overflow-y: scroll;
+				scrollbar-width: none;
+				height: 90%;
+				ul {
+					display: flex;
+					flex-wrap: wrap;
+					column-gap: 10%;
+					box-sizing: border-box;
+					padding: 0 30px;
+					width: 100%;
+					li {
+						display: flex;
+						justify-content: space-between;
+						align-items: center;
+						width: 45%;
+						list-style: none;
+						margin-bottom: 10px;
+						.category-name {
+							font-weight: 900;
+							width: 100%;
+							text-align: end;
+							padding-right: 10px;
+						}
 					}
 				}
 			}
@@ -207,7 +266,8 @@
 		align-items: center;
 		width: 45%;
 	}
-	input {
+	input,
+	select {
 		width: 100%;
 		height: 45px;
 		box-sizing: border-box;

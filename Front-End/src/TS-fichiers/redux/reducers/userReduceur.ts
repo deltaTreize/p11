@@ -15,7 +15,8 @@ let initialState: UserState = {
 	account: [],
 	updatedAt: "",
 	budget: [],
-	beneficiairesExternes: []
+	beneficiairesExternes: [],
+	category: [],
 };
 
 const userReducer = (	state = initialState,	action: AuthActionTypes ): UserState => {
@@ -34,7 +35,8 @@ const userReducer = (	state = initialState,	action: AuthActionTypes ): UserState
 				picture: action.payload.picture,
 				updatedAt: action.payload.updatedAt,
 				budget: action.payload.budget,
-				beneficiairesExternes: action.payload.beneficiairesExternes
+				beneficiairesExternes: action.payload.beneficiairesExternes,
+				category: action.payload.category
 			};
 
 		case "UPDATE_ACCOUNT":
@@ -48,6 +50,12 @@ const userReducer = (	state = initialState,	action: AuthActionTypes ): UserState
 			return {
 				...state,
 				beneficiairesExternes: action.payload.beneficiairesExternes,
+			};
+
+		case "UPDATE_CATEGORY":
+			return {
+				...state,
+				category: action.payload.category,
 			};
 			
 		case "UPDATE_BUDGET":

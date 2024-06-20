@@ -43,16 +43,7 @@ export function Budget() {
 		(Account) => Account.name === "Compte courant"
 	);
 	const categories = new Set(
-		target?.operations
-			?.map((operation) => operation.category)
-			.filter(
-				(category) =>
-					category !== null &&
-					category !== "null" &&
-					category !== "salaire" &&
-					category !== undefined &&
-					category !== "undefined"
-			)
+		dataUsers?.category.map((operation) => operation.name)
 	);
 
 	const categorieArray: string[] = Array.from(categories);

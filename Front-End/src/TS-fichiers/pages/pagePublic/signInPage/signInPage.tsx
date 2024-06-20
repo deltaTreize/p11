@@ -69,6 +69,8 @@ export function SignIn() {
 				}
 			);
 			const userDataJson = await userDataFetched.json();
+			console.log(userDataJson);
+			
 
 			const userData: UserState = {
 				id: userDataJson.body.id,
@@ -82,7 +84,8 @@ export function SignIn() {
 				picture: userDataJson.body.picture,
 				budget: userDataJson.body.budget,
 				beneficiairesExternes: userDataJson.body.beneficiairesExternes,
-				updatedAt: userDataJson.body.updatedAt
+				updatedAt: userDataJson.body.updatedAt,
+				category: userDataJson.body.category,
 			};
 			dispatch(Login(userData));
 		}

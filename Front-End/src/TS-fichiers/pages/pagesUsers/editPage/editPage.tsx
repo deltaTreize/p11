@@ -24,6 +24,7 @@ export function EditPage() {
 	const account = useSelector((state: RootState) => state.user.account);
 	const updatedAt = useSelector((state: RootState) => state.user.updatedAt);
 	const budget = useSelector((state: RootState) => state.user.budget);
+	const category = useSelector((state: RootState) => state.user.category);
 	const token = useSelector((state: RootState) => state.token.token);
 	const dispatch: Dispatch<AuthActionTypes> = useDispatch();
 	const Navigate = useNavigate();
@@ -62,7 +63,8 @@ export function EditPage() {
 			account: account,
 			updatedAt: updatedAt,
 			budget: budget,
-			beneficiairesExternes: beneficiairesExternes
+			beneficiairesExternes: beneficiairesExternes,
+			category: category,
 		};
 		dispatch(Login(userData));
 		setUserNameValue("");

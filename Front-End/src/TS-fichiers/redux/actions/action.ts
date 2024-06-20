@@ -10,7 +10,9 @@ import {
 	UpdateAccountAction,
 	UpdateBeneficiairesAction,
 	UpdateBudgetAction,
+	UpdateCategoryAction,
 	UserState,
+	category,
 	searchAction,
 } from "./typeAction";
 
@@ -30,6 +32,7 @@ export function Login(data: UserState): SignInAction {
 			updatedAt: data.updatedAt,
 			budget: data.budget,
 			beneficiairesExternes: data.beneficiairesExternes,
+			category: data.category,
 		},
 	};
 }
@@ -53,6 +56,18 @@ export function UpdateBeneficiaires(
 		},
 	};
 }
+export function UpdateCategory(
+	data: category[]
+): UpdateCategoryAction {
+	return {
+		type: "UPDATE_CATEGORY",
+		payload: {
+			category: data,
+		},
+	};
+}
+
+
 export function UpdateBudget(
 	data: Budget[]
 ): UpdateBudgetAction {

@@ -16,6 +16,14 @@ export interface UpdateBeneficiairesAction {
 		beneficiairesExternes: Beneficiaires[];
 	};
 }
+
+export interface UpdateCategoryAction {
+	type: "UPDATE_CATEGORY";
+	payload: {
+		category: category[];
+	};
+}
+
 export interface UpdateBudgetAction {
 	type: "UPDATE_BUDGET";
 	payload: {
@@ -58,6 +66,7 @@ export interface UserState {
 	account: AccountData[];
 	budget: Budget[];
 	beneficiairesExternes: Beneficiaires[];
+	category: category[];
 }
 
 export interface AccountData {
@@ -91,6 +100,10 @@ export interface Beneficiaires {
 	_id: string;
 }
 
+export interface category {
+	name: string;
+}
+
 export interface RootState {
 	token: TokenState;
 	user: UserState;
@@ -114,4 +127,5 @@ export type AuthActionTypes =
 	| UpdateAccountAction
 	| UpdateBeneficiairesAction
 	| UpdateBudgetAction
+	| UpdateCategoryAction
 

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "redux";
 import { useParams } from "react-router-dom";
-import { AuthActionTypes, RootState } from "../../redux/actions/typeAction";
+import { AuthActionTypes, RootState, category } from "../../redux/actions/typeAction";
 import "./collapse.scss";
 import { UpdateAccount } from "../../redux/actions/action";
 
@@ -29,12 +29,13 @@ export function Collapse({
 	const [categoryDisplay, setCategoryDisplay] = useState<boolean>(false);
 	const [isDisabled, setIsDisabled] = useState<boolean>(true);
 	const [descriptionValue, setDescriptionValue] = useState<string>("");
-	const [categoryValue, setCategoryValue] = useState<string>("");
+	const [categoryValue, setCategoryValue] = useState<string>(category);
 	const [pencilDescriptionDisplay, setPencilDescriptionDisplay] =
 		useState<boolean>(true);
 	const [pencilCategoryDisplay, setPencilCategoryDisplay] =
 		useState<boolean>(true);
 	const token = useSelector((state: RootState) => state.token.token);
+	const categoryArray = useSelector((state: RootState) => state.user.category);
 	const { userId } = useParams();
 	const dispatch: Dispatch<AuthActionTypes> = useDispatch();
 
@@ -134,12 +135,14 @@ export function Collapse({
 					}}
 				>
 					catégories:
-					<input
-						placeholder={category}
-						value={categoryValue}
-						disabled={isDisabled}
-						onChange={(e) => setCategoryValue(e.target.value)}
-					/>
+					<select name="category" id="category" disabled={isDisabled} onChange={(e) => setCategoryValue(e.target.value)}>
+						<option value="">{categoryValue}</option>
+						{categoryArray.filter((category: category) => category.name !== categoryValue).map((category: category) => (
+							<option value={category.name} key={category.name}>
+								{category.name}
+							</option>
+						))}
+					</select>
 					<i
 						className="fa-solid fa-pencil"
 						style={{

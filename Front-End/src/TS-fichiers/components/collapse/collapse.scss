@@ -45,7 +45,11 @@
     align-items: center;
     cursor: pointer;
   }
-  input{
+  input, select{
+    width: 61%;
+    height: 80%;
+    outline: none;
+    text-align: right;
     margin-left: 5px;
   }
 }
