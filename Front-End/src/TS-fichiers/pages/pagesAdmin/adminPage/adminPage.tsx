@@ -61,7 +61,7 @@ export function AdminPage() {
 
 	useEffect(() => {
 		fetch(
-			`https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/`,
+			`${process.env.REACT_APP_IP_API}/api/v1/user/`,
 			{
 				method: "GET",
 				headers: {
@@ -102,7 +102,7 @@ export function AdminPage() {
 	useEffect(() => {
 		if (location.search) {
 			fetch(
-				`https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/admin${location.search}`,
+				`${process.env.REACT_APP_IP_API}/api/v1/user/admin${location.search}`,
 				{
 					method: "GET",
 					headers: {
@@ -160,7 +160,7 @@ export function AdminPage() {
 		}
 		if (password === confPassword) {
 			fetch(
-				"https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/signup",
+				`${process.env.REACT_APP_IP_API}/api/v1/user/signup`,
 				{
 					method: "POST",
 					headers: headersList,

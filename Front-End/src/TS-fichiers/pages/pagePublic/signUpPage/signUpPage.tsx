@@ -45,7 +45,7 @@ export function SignUp() {
 			setDisplay("flex");
 		}
 		if (password === confPassword) {
-			fetch("https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/signup", {
+			fetch(`${process.env.REACT_APP_IP_API}/api/v1/user/signup`, {
 				method: "POST",
 				headers: headersList,
 				body: bodyContent,
@@ -61,7 +61,7 @@ export function SignUp() {
 					console.log( "data",data);
 
         // Envoi de l'e-mail de confirmation avec l'ID de l'utilisateur
-        fetch(`https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/send-confirmation-email/${data.userId}`)
+        fetch(`${process.env.REACT_APP_IP_API}/send-confirmation-email/${data.userId}`)
           .then(() => {
 						setDisplay("flex");
 						setErrorMessage("en attente de confirmation...");

@@ -28,7 +28,7 @@ export function AdminUserPage() {
 
 	useEffect(() => {
 		fetch(
-			"https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user",
+			`${process.env.REACT_APP_IP_API}/api/v1/user`,
 			{
 				method: "GET",
 				headers: {
@@ -67,7 +67,7 @@ export function AdminUserPage() {
 		});
 
 		fetch(
-			"https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/account",
+			`${process.env.REACT_APP_IP_API}/api/v1/user/account`,
 			{
 				method: "PUT",
 				body: bodyContent,
@@ -94,7 +94,7 @@ export function AdminUserPage() {
 			montant: -montant,
 		});
 		fetch(
-			"https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/account/operations",
+			`${process.env.REACT_APP_IP_API}/api/v1/user/account/operations`,
 			{
 				method: "PUT",
 				body: bodyContent1,
@@ -118,7 +118,7 @@ export function AdminUserPage() {
 			montant: montant,
 		});
 		fetch(
-			"https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/account/operations",
+			`${process.env.REACT_APP_IP_API}/api/v1/user/account/operations`,
 			{
 				method: "PUT",
 				body: bodyContent2,

@@ -66,7 +66,7 @@ export function BudgetComponent({ categorie, montantCategorie }: Props) {
 		});
 
 		fetch(
-			"https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/budget",
+			`${process.env.REACT_APP_IP_API}/api/v1/user/budget`,
 			{
 				method: "PUT",
 				body: bodyContent,

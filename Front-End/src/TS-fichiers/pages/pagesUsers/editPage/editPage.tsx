@@ -44,7 +44,7 @@ export function EditPage() {
 			picture: pictureValue,
 		});
 		fetch(
-			"https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/profile",
+			`${process.env.REACT_APP_IP_API}/api/v1/user/profile`,
 			{
 				method: "PUT",
 				headers: headersList,

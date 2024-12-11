@@ -55,7 +55,7 @@ export function VirementPage() {
 			montant: -montant,
 		});
 		const response = await fetch(
-			"https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/account/operations",
+			`${process.env.REACT_APP_IP_API}/api/v1/user/account/operations`,
 			{
 				method: "PUT",
 				body: bodyContent1,
@@ -82,7 +82,7 @@ export function VirementPage() {
 			montant: montant,
 		});
 		const response2 = await fetch(
-			"https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/account/operations",
+			`${process.env.REACT_APP_IP_API}/api/v1/user/account/operations`,
 			{
 				method: "PUT",
 				body: bodyContent2,
@@ -94,7 +94,7 @@ export function VirementPage() {
 
 		if (data2.status === 200 && data.status === 200) {
 			fetch(
-				"https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/profile",
+				`${process.env.REACT_APP_IP_API}/api/v1/user/profile`,
 				{
 					method: "POST",
 					headers: {
@@ -115,7 +115,7 @@ export function VirementPage() {
 			rib: `${newBeneficiaireIban}`,
 		});
 		const data = await fetch(
-			"https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/beneficiaires",
+			`${process.env.REACT_APP_IP_API}/api/v1/user/beneficiaires`,
 			{
 				method: "PUT",
 				headers: {
@@ -139,7 +139,7 @@ export function VirementPage() {
 			name: `${newCategoryName}`,
 		});
 		const data = await fetch(
-			"https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/category",
+			`${process.env.REACT_APP_IP_API}/api/v1/user/category`,
 			{
 				method: "PUT",
 				headers: {
@@ -160,7 +160,7 @@ console.log(dataJson.body);
 
 	const handleDeleteBeneficiaire = async (rib: string) => {
 		const data = await fetch(
-			`https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/beneficiaires`,
+			`${process.env.REACT_APP_IP_API}/api/v1/user/beneficiaires`,
 			{
 				method: "DELETE",
 				headers: {
@@ -181,7 +181,7 @@ console.log(dataJson.body);
 		rib: string
 	) => {
 		const data = await fetch(
-			`https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/beneficiaires/modifier`,
+			`${process.env.REACT_APP_IP_API}/api/v1/user/beneficiaires/modifier`,
 			{
 				method: "PUT",
 				headers: {
@@ -200,7 +200,7 @@ console.log(dataJson.body);
 
 	const handleDeleteCategory = async (name: string) => {
 		const data = await fetch(
-			`https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/category`,
+			`${process.env.REACT_APP_IP_API}/api/v1/user/category`,
 			{
 				method: "DELETE",
 				headers: {
@@ -222,7 +222,7 @@ console.log(dataJson.body);
 		console.log(name, oldName);
 		
 		const data = await fetch(
-			`https://argentbank-bydelta13-api-c9d02df5fde5.herokuapp.com/api/v1/user/category/modifier`,
+			`${process.env.REACT_APP_IP_API}/api/v1/user/category/modifier`,
 			{
 				method: "PUT",
 				headers: {
